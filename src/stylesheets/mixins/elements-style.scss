@@ -1,0 +1,22 @@
+@mixin center-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+@mixin link-style-reset {
+  text-decoration: none;
+  color: black;
+  display: block;
+}
+
+@mixin button-style-reset {
+  border: 0;
+  padding: 0;
+  background: none repeat scroll 0 0 transparent;
+}
