@@ -1,0 +1,43 @@
+@use '@/styles/variables/colors';
+
+.footer {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding: 20px 0;
+  border-top: 1px solid colors.$super-light-gray;
+  background: colors.$white;
+
+  &__container {
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__logo {
+    width: 85px;
+  }
+
+  &__copyright {
+    color: colors.$blue-gray;
+
+    &_text {
+      @media screen and (max-width: 500px) {
+        display: none;
+      }
+    }
+  }
+}
+
+.authors {
+  display: flex;
+  gap: 10px;
+  font-size: 23px;
+
+  &__link {
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
