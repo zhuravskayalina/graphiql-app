@@ -9,7 +9,7 @@ import backgroundImg from '@/assets/images/blur.png';
 
 import { clsx } from 'clsx';
 
-import logoImg from '../../public/logo-big.svg';
+import logoImg from '../assets/images/logo-big.svg';
 import rssLogo from '@/assets/images/rss-logo.svg';
 
 export default function Home() {
