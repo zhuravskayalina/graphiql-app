@@ -5,6 +5,10 @@
   @include elements-style.flex-column;
   align-items: center;
   height: 100%;
+  background-image: url('../assets/images/blur.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: right;
 }
 
 .container {

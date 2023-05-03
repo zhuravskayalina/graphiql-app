@@ -5,7 +5,6 @@ import styles from '@/styles/Home.module.scss';
 import apolloImg from '@/assets/images/apollo.svg';
 import graphQlImg from '@/assets/images/graphQL.svg';
 import arrowIcon from '@/assets/images/icons/arrow.svg';
-import backgroundImg from '@/assets/images/blur.png';
 
 import { clsx } from 'clsx';
 
@@ -20,16 +19,7 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div
-        className={clsx(styles.layout)}
-        style={{
-          backgroundImage: `url(${backgroundImg.src})`,
-          backgroundPosition: 'right',
-          backgroundRepeat: 'no-repeat',
-          backgroundSize: 'cover',
-          overflow: 'visible',
-        }}
-      >
+      <div className={clsx(styles.layout)}>
         <header className={clsx(styles.header)}>
           <div className={clsx(styles.header__container)}>
             <Image src={logoImg} alt="logo" className={clsx(styles.header__logo)} />
