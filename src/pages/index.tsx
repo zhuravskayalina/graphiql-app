@@ -8,8 +8,8 @@ import arrowIcon from '@/assets/images/icons/arrow.svg';
 
 import { clsx } from 'clsx';
 
-import logoImg from '../assets/images/logo-big.svg';
 import rssLogo from '@/assets/images/rss-logo.svg';
+import Header from '@/components/Header/Header';
 
 export default function Home() {
   return (
@@ -20,11 +20,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className={clsx(styles.layout)}>
-        <header className={clsx(styles.header)}>
-          <div className={clsx(styles.header__container)}>
-            <Image src={logoImg} alt="logo" className={clsx(styles.header__logo)} />
-          </div>
-        </header>
+        <Header isLoggedIn={false} />
         <main className={clsx(styles.main)}>
           <div className={clsx(styles.container, styles.container__main)}>
             <div className={clsx(styles.main__picture)}>
@@ -36,13 +32,13 @@ export default function Home() {
               />
               <Image
                 src={graphQlImg}
-                alt="graphQl"
+                alt="graphiQl"
                 className={clsx(styles.main__picture_image)}
                 priority
               />
             </div>
             <p className={clsx(styles.main__description)}>
-              Hi there is a description that doesn’t exist yet :)
+              GraphiQL is a playground for graphQL requests.
             </p>
             <button className={clsx(styles.startButton)}>
               <span>Get started</span>
