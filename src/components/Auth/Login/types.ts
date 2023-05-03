@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction } from 'react';
 
 export type LoginProps = {
-  onClick: Dispatch<SetStateAction<boolean>>;
+  activeRegisterOption: Dispatch<SetStateAction<boolean>>;
 };

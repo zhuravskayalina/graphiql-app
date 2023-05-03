@@ -5,7 +5,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { LoginProps } from './types';
 import styles from './login.module.scss';
 
-const Login = ({ onClick }: LoginProps) => {
+const Login = ({ activeRegisterOption }: LoginProps) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [user, loading, error] = useAuthState(auth);
@@ -18,7 +18,7 @@ const Login = ({ onClick }: LoginProps) => {
   }, [loading]);
 
   const handleOnClick = () => {
-    onClick(false);
+    activeRegisterOption(true);
   };
 
   return (

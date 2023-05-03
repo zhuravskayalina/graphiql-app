@@ -5,7 +5,7 @@ import { auth, registerWithEmailAndPassword } from '@/services/authService';
 import { RegisterProps } from './types';
 import styles from './register.module.scss';
 
-function Register({ onClick }: RegisterProps) {
+function Register({ activeRegisterOption }: RegisterProps) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
@@ -21,7 +21,7 @@ function Register({ onClick }: RegisterProps) {
   }, [loading]);
 
   const handleOnClick = () => {
-    onClick(true);
+    activeRegisterOption(false);
   };
 
   return (

@@ -5,8 +5,11 @@ import Login from '@/components/Auth/Login/Login';
 import Register from '@/components/Auth/Register/Register';
 import { auth } from '@/services/authService';
 
-export default function Auth() {
-  const [isLoginActive, setIsLoginActive] = useState<boolean>(true);
+const Auth = () => {
+  const {
+    query: { register },
+  } = useRouter();
+  const [isRegisterActive, setIsRegisterActive] = useState<boolean>(Boolean(register));
   const [user] = useAuthState(auth);
   const router = useRouter();
 
@@ -16,11 +19,13 @@ export default function Auth() {
 
   return (
     <div>
-      {isLoginActive ? (
-        <Login onClick={setIsLoginActive} />
+      {isRegisterActive ? (
+        <Register activeRegisterOption={setIsRegisterActive} />
       ) : (
-        <Register onClick={setIsLoginActive} />
+        <Login activeRegisterOption={setIsRegisterActive} />
       )}
     </div>
   );
-}
+};
+
+export default Auth;
