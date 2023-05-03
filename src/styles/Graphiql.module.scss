@@ -1,10 +1,10 @@
-@use '@/stylesheets/variables/colors';
-@use '@/stylesheets/mixins/elements-style.scss';
+@use '@/styles/variables/colors';
+@use '@/styles/mixins/elements-style.scss';
 
 .main {
   display: flex;
   justify-content: space-between;
-  min-height: 100vh;
+  height: 100%;
   color: colors.$gray-blue;
   background-color: colors.$super-light-gray;
 
