@@ -1,0 +1,16 @@
+@use '@/styles/variables/colors';
+@use '@/styles/mixins/elements-style';
+
+.link {
+  @include elements-style.button-style-reset;
+  background: colors.$shadow-blue;
+  color: colors.$white;
+  border-radius: 6px;
+  padding: 7px 10px;
+  font-size: 14px;
+  transition: 0.3s;
+
+  &:hover {
+    outline: 4px solid colors.$light-shadow-blue;
+  }
+}
