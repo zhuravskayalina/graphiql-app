@@ -19,7 +19,7 @@ const Header = ({ isLoggedIn }: HeaderProps) => {
       <div className={clsx(styles.header__buttons)}>
         {isLoggedIn ? (
           <>
-            <HeaderButton link="/auth" title="Go to Main Page" />
+            <HeaderButton link="/graphiql" title="Go to Main Page" />
             <HeaderButton link="/" title="Log out" />
           </>
         ) : (
