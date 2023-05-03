@@ -3,6 +3,7 @@ import styles from './Footer.module.scss';
 import rssLogo from '@/assets/images/rss-logo.svg';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 const authorsLinks = [
   {
@@ -20,7 +21,9 @@ const authorsLinks = [
 ];
 
 const Footer = () => {
-  return (
+  const { pathname } = useRouter();
+
+  return pathname !== '/' ? (
     <footer className={clsx(styles.footer)}>
       <div className={clsx(styles.footer__container)}>
         <Link href="https://rs.school/js/">
@@ -38,7 +41,7 @@ const Footer = () => {
         </div>
       </div>
     </footer>
-  );
+  ) : null;
 };
 
 export default Footer;
