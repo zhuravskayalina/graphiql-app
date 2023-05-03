@@ -1,10 +1,10 @@
+import { FC, PropsWithChildren } from 'react';
 import Head from 'next/head';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
-import { LayoutProps } from './types';
 import styles from './Layout.module.scss';
 
-export default function Layout({ children }: LayoutProps) {
+const Layout: FC<PropsWithChildren> = ({ children }) => {
   return (
     <>
       <Head>
@@ -17,4 +17,6 @@ export default function Layout({ children }: LayoutProps) {
       <Footer />
     </>
   );
-}
+};
+
+export default Layout;

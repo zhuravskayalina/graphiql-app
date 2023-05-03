@@ -4,7 +4,7 @@ import Response from '@/components/Response/Response';
 import Variables from '@/components/Variables/Variables';
 import styles from '../styles/Graphiql.module.scss';
 
-export default function Graphiql() {
+const Graphiql = () => {
   return (
     <div className={styles.main}>
       <div className={styles.main__documentation}>
@@ -19,4 +19,6 @@ export default function Graphiql() {
       </div>
     </div>
   );
-}
+};
+
+export default Graphiql;

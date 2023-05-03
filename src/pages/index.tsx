@@ -9,7 +9,7 @@ import { clsx } from 'clsx';
 
 import rssLogo from '@/assets/images/rss-logo.svg';
 
-export default function Home() {
+const Home = () => {
   return (
     <>
       <div className={clsx(styles.layout)}>
@@ -49,4 +49,6 @@ export default function Home() {
       </div>
     </>
   );
-}
+};
+
+export default Home;

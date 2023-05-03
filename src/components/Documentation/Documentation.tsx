@@ -1,9 +1,11 @@
 import styles from './Documentation.module.scss';
 
-export default function Documentation() {
+const Documentation = () => {
   return (
     <div className={styles.wrapper}>
       <h3>Documentation</h3>
     </div>
   );
-}
+};
+
+export default Documentation;
