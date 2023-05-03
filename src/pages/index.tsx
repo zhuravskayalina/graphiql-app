@@ -38,7 +38,7 @@ export default function Home() {
               />
             </div>
             <p className={clsx(styles.main__description)}>
-              Hi there is a description that doesn’t exist yet :)
+              GraphiQL is a playground for graphQL requests.
             </p>
             <button className={clsx(styles.startButton)}>
               <span>Get started</span>
