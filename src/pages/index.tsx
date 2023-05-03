@@ -1,4 +1,3 @@
-import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
 import styles from '@/styles/Home.module.scss';
@@ -9,19 +8,12 @@ import arrowIcon from '@/assets/images/icons/arrow.svg';
 import { clsx } from 'clsx';
 
 import rssLogo from '@/assets/images/rss-logo.svg';
-import Header from '@/components/Header/Header';
 
-export default function Home() {
+const Home = () => {
   return (
     <>
-      <Head>
-        <title>GraphiQL App</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
       <div className={clsx(styles.layout)}>
-        <Header isLoggedIn={false} />
-        <main className={clsx(styles.main)}>
+        <div className={clsx(styles.main)}>
           <div className={clsx(styles.container, styles.container__main)}>
             <div className={clsx(styles.main__picture)}>
               <Image
@@ -45,7 +37,7 @@ export default function Home() {
               <Image src={arrowIcon} alt="arrow" className={clsx(styles.startButton_icon)} />
             </button>
           </div>
-        </main>
+        </div>
         <footer className={clsx(styles.footer)}>
           <div className={clsx(styles.footer__container)}>
             <Link href="https://rs.school/js/">
@@ -57,4 +49,6 @@ export default function Home() {
       </div>
     </>
   );
-}
+};
+
+export default Home;

@@ -1,0 +1,25 @@
+@use '@/styles/variables/colors';
+@use '@/styles/mixins/elements-style.scss';
+
+.main {
+  display: flex;
+  justify-content: space-between;
+  height: 100%;
+  color: colors.$gray-blue;
+  background-color: colors.$super-light-gray;
+
+  &__documentation {
+    flex: 1 1 25%;
+  }
+
+  &__request {
+    flex: 1 1 40%;
+    @include elements-style.flex-column;
+    background-color: colors.$white;
+    border-radius: 10px;
+  }
+
+  &__response {
+    flex: 1 1 35%;
+  }
+}
