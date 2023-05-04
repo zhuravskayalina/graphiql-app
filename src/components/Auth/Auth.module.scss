@@ -27,7 +27,6 @@
 
 .auth__textBox {
   @include elements-style.auth-input;
-  margin-bottom: 25px;
   border: 1px solid black;
 
   &:focus {
@@ -48,6 +47,14 @@
   @include elements-style.input-icon('./../../assets/images/icons/user.svg');
 }
 
+.auth__error {
+  height: 30px;
+  padding: 4px 0;
+  color: red;
+  font-size: 12px;
+  text-align: left
+}
+
 .auth__button {
   @include elements-style.auth-input;
   margin-bottom: 10px;
@@ -60,3 +67,4 @@
     background-color: colors.$super-dark-blue;
   }
 }
+

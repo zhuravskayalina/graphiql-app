@@ -40,6 +40,7 @@ const Login = ({ activeRegisterOption }: LoginProps) => {
         onChange={(e) => setEmail(e.target.value)}
         placeholder="E-mail Address"
       />
+      <p className={styles.auth__error}></p>
       <input
         type="password"
         className={clsx(styles.auth__textBox, styles['auth__textbox-password'])}
@@ -47,6 +48,7 @@ const Login = ({ activeRegisterOption }: LoginProps) => {
         onChange={(e) => setPassword(e.target.value)}
         placeholder="Password"
       />
+      <p className={styles.auth__error}></p>
       <button
         className={styles.auth__button}
         onClick={() => logInWithEmailAndPassword(email, password)}

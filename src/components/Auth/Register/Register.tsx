@@ -14,7 +14,7 @@ const Register = ({ activeRegisterOption }: RegisterProps) => {
     handleSubmit,
     getValues,
     formState: { errors },
-  } = useForm<FormsFields>();
+  } = useForm<FormsFields>({ reValidateMode: 'onSubmit' });
   const [user, loading, error] = useAuthState(auth);
   console.log(errors);
 
@@ -49,18 +49,21 @@ const Register = ({ activeRegisterOption }: RegisterProps) => {
           {...register('name', validationScheme.name)}
           placeholder="Full Name"
         />
+        <p className={styles.auth__error}>{errors.name?.message}</p>
         <input
           type="text"
           className={clsx(styles.auth__textBox, styles['auth__textbox-email'])}
           {...register('email', validationScheme.email)}
           placeholder="E-mail Address"
         />
+        <p className={styles.auth__error}>{errors.email?.message}</p>
         <input
           type="password"
           className={clsx(styles.auth__textBox, styles['auth__textbox-password'])}
           {...register('password', validationScheme.password)}
           placeholder="Password"
         />
+        <p className={styles.auth__error}>{errors.password?.message}</p>
         <input type="submit" className={styles.auth__button} value={'Sign up'} />
       </form>
     </>
