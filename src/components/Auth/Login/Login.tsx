@@ -3,7 +3,8 @@ import { auth, logInWithEmailAndPassword } from '@/services/authService';
 import Link from 'next/link';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { LoginProps } from './types';
-import styles from './login.module.scss';
+import styles from './../Auth.module.scss';
+import clsx from 'clsx';
 
 const Login = ({ activeRegisterOption }: LoginProps) => {
   const [email, setEmail] = useState('');
@@ -22,37 +23,37 @@ const Login = ({ activeRegisterOption }: LoginProps) => {
   };
 
   return (
-    <div className={styles.login}>
-      <div className={styles.login__btn}>
-        <input
-          type="text"
-          className={styles.login__textBox}
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder="E-mail Address"
-        />
-        <input
-          type="password"
-          className={styles.login__textBox}
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          placeholder="Password"
-        />
-        <button
-          className={styles.login__btn}
-          onClick={() => logInWithEmailAndPassword(email, password)}
-        >
-          Login
-        </button>
-        <div>
-          Don&apos;t have an account?{' '}
-          <Link href="/auth" onClick={handleOnClick}>
-            Register
-          </Link>{' '}
-          now.
-        </div>
+    <>
+      <div className={styles['auth__title-container']}>
+        <h2 className={styles.auth__title}>Sign in</h2>
+        <span className={styles['auth__link-container']}>
+          New to GraphiQL?{' '}
+          <Link href="/auth?register=true" className={styles['auth__link']} onClick={handleOnClick}>
+            Let&apos;s get started!
+          </Link>
+        </span>
       </div>
-    </div>
+      <input
+        type="text"
+        className={clsx(styles.auth__textBox, styles['auth__textbox-email'])}
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        placeholder="E-mail Address"
+      />
+      <input
+        type="password"
+        className={clsx(styles.auth__textBox, styles['auth__textbox-password'])}
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+        placeholder="Password"
+      />
+      <button
+        className={styles.auth__button}
+        onClick={() => logInWithEmailAndPassword(email, password)}
+      >
+        Sign in
+      </button>
+    </>
   );
 };
 

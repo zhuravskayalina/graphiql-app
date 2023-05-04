@@ -20,3 +20,17 @@
   padding: 0;
   background: none repeat scroll 0 0 transparent;
 }
+
+@mixin input-icon($url) {
+  background-image: url($url);
+  background-repeat: no-repeat;
+  background-position: right 15px center;
+  background-size: 30px;
+}
+
+@mixin auth-input {
+  width: 100%;
+  padding: 10px;
+  font-size: 18px;
+  border-radius: 4px;
+}

@@ -3,7 +3,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import Link from 'next/link';
 import { auth, registerWithEmailAndPassword } from '@/services/authService';
 import { RegisterProps } from './types';
-import styles from './register.module.scss';
+import styles from './../Auth.module.scss';
 
 function Register({ activeRegisterOption }: RegisterProps) {
   const [email, setEmail] = useState('');
@@ -25,41 +25,41 @@ function Register({ activeRegisterOption }: RegisterProps) {
   };
 
   return (
-    <div className={styles.register}>
-      <div className={styles.register__container}>
-        <input
-          type="text"
-          className={styles.register__textBox}
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          placeholder="Full Name"
-        />
-        <input
-          type="text"
-          className={styles.register__textBox}
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder="E-mail Address"
-        />
-        <input
-          type="password"
-          className={styles.register__textBox}
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          placeholder="Password"
-        />
-        <button className={styles.register__btn} onClick={register}>
-          Register
-        </button>
-        <div>
+    <>
+      <div className={styles['auth__title-container']}>
+        <h2 className={styles.auth__title}>Sign up</h2>
+        <span className={styles['auth__link-container']}>
           Already have an account?{' '}
-          <Link href="/auth" onClick={handleOnClick}>
-            Login
-          </Link>{' '}
-          now.
-        </div>
+          <Link href="/auth" className={styles['auth__link']} onClick={handleOnClick}>
+            Sign in.
+          </Link>
+        </span>
       </div>
-    </div>
+      <input
+        type="text"
+        className={styles.auth__textBox}
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+        placeholder="Full Name"
+      />
+      <input
+        type="text"
+        className={styles.auth__textBox}
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        placeholder="E-mail Address"
+      />
+      <input
+        type="password"
+        className={styles.auth__textBox}
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+        placeholder="Password"
+      />
+      <button className={styles.auth__button} onClick={register}>
+        Sign up
+      </button>
+    </>
   );
 }
 export default Register;

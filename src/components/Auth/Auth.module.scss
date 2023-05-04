@@ -1,0 +1,62 @@
+@use '@/styles/variables/colors';
+@use '@/styles/mixins/elements-style.scss';
+
+.auth__title-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin: 30px 0;
+}
+
+.auth__title {
+  font-size: 30px;
+  font-weight: 600;
+}
+
+.auth__link-container {
+  font-size: 14px;
+}
+
+.auth__link {
+  color: colors.$dark-blue;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.auth__textBox {
+  @include elements-style.auth-input;
+  margin-bottom: 25px;
+  border: 1px solid black;
+
+  &:focus {
+    outline-color: colors.$dark-blue;
+    outline-width: 1px;
+  }
+}
+
+.auth__textbox-email {
+  @include elements-style.input-icon('./../../assets/images/icons/email.svg');
+}
+
+.auth__textbox-password {
+  @include elements-style.input-icon('./../../assets/images/icons/password.svg');
+}
+
+.auth__textbox-name {
+  @include elements-style.input-icon('./../../assets/images/icons/user.svg');
+}
+
+.auth__button {
+  @include elements-style.auth-input;
+  margin-bottom: 10px;
+  border: none;
+  color: colors.$white;
+  background-color: colors.$dark-blue;
+
+  &:hover {
+    cursor: pointer;
+    background-color: colors.$super-dark-blue;
+  }
+}
