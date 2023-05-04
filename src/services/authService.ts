@@ -8,7 +8,7 @@ import {
 import { getFirestore, collection, addDoc } from 'firebase/firestore';
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyC0X0zNPY5Iw6bI5Lzuaz1sDfMN6uynD0Y',
+  apiKey: process.env.NEXT_PUBLIC_API_KEY,
   authDomain: 'graphiql-app-5c0d9.firebaseapp.com',
   projectId: 'graphiql-app-5c0d9',
   storageBucket: 'graphiql-app-5c0d9.appspot.com',
