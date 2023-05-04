@@ -1,18 +1,25 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
+import { useForm } from 'react-hook-form';
 import Link from 'next/link';
+import clsx from 'clsx';
 import { auth, registerWithEmailAndPassword } from '@/services/authService';
-import { RegisterProps } from './types';
+import { FormsFields, RegisterProps } from './types';
 import styles from './../Auth.module.scss';
+import { validationScheme } from './validationScheme';
 
-function Register({ activeRegisterOption }: RegisterProps) {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [name, setName] = useState('');
+const Register = ({ activeRegisterOption }: RegisterProps) => {
+  const {
+    register,
+    handleSubmit,
+    getValues,
+    formState: { errors },
+  } = useForm<FormsFields>();
   const [user, loading, error] = useAuthState(auth);
+  console.log(errors);
 
-  const register = () => {
-    if (!name) alert('Please enter name');
+  const onSubmit = () => {
+    const { name, email, password } = getValues();
     registerWithEmailAndPassword(name, email, password);
   };
 
@@ -35,31 +42,29 @@ function Register({ activeRegisterOption }: RegisterProps) {
           </Link>
         </span>
       </div>
-      <input
-        type="text"
-        className={styles.auth__textBox}
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-        placeholder="Full Name"
-      />
-      <input
-        type="text"
-        className={styles.auth__textBox}
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        placeholder="E-mail Address"
-      />
-      <input
-        type="password"
-        className={styles.auth__textBox}
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        placeholder="Password"
-      />
-      <button className={styles.auth__button} onClick={register}>
-        Sign up
-      </button>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <input
+          type="text"
+          className={clsx(styles.auth__textBox, styles['auth__textbox-name'])}
+          {...register('name', validationScheme.name)}
+          placeholder="Full Name"
+        />
+        <input
+          type="text"
+          className={clsx(styles.auth__textBox, styles['auth__textbox-email'])}
+          {...register('email', validationScheme.email)}
+          placeholder="E-mail Address"
+        />
+        <input
+          type="password"
+          className={clsx(styles.auth__textBox, styles['auth__textbox-password'])}
+          {...register('password', validationScheme.password)}
+          placeholder="Password"
+        />
+        <input type="submit" className={styles.auth__button} value={'Sign up'} />
+      </form>
     </>
   );
-}
+};
+
 export default Register;
