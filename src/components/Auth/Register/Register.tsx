@@ -51,7 +51,7 @@ const Register = ({ activeRegisterOption }: RegisterProps) => {
             [styles.auth__textBox_invalid]: errors.name?.message,
           })}
           {...register('name', validationScheme.name)}
-          placeholder="Full Name"
+          placeholder="Full Name*"
         />
         <p className={styles.auth__error}>{errors.name?.message}</p>
         <input
@@ -60,7 +60,7 @@ const Register = ({ activeRegisterOption }: RegisterProps) => {
             [styles.auth__textBox_invalid]: errors.name?.message,
           })}
           {...register('email', validationScheme.email)}
-          placeholder="E-mail Address"
+          placeholder="E-mail Address*"
         />
         <p className={styles.auth__error}>{errors.email?.message}</p>
         <div className={styles['auth__textbox-container']}>
@@ -75,7 +75,7 @@ const Register = ({ activeRegisterOption }: RegisterProps) => {
               'password'
             )}
             {...register('password', validationScheme.password)}
-            placeholder="Password"
+            placeholder="Password*"
           />
           <span
             className={styles[`password__icon-${passwordType}`]}
