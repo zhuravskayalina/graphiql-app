@@ -7,6 +7,7 @@ import { auth } from '@/services/authService';
 import styles from '@/styles/Auth.module.scss';
 import Image from 'next/image';
 import playgroundLogo from '@/assets/images/playgroundLogo.png';
+import { paths } from '@/consts/routerPaths';
 
 const Auth = () => {
   const {
@@ -21,7 +22,7 @@ const Auth = () => {
   }, [register]);
 
   useEffect(() => {
-    if (user) router.push('/');
+    if (user) router.push(paths.main);
   }, [user, router]);
 
   return (

@@ -16,7 +16,7 @@ const Register = ({ activeRegisterOption }: RegisterProps) => {
     getValues,
     formState: { errors },
   } = useForm<FormsFields>({ reValidateMode: 'onSubmit' });
-  const [user, loading, error] = useAuthState(auth);
+  const [, loading] = useAuthState(auth);
   const { passwordType, isPasswordVisible, setIsPasswordVisible } =
     usePasswordVisibilityState(false);
 

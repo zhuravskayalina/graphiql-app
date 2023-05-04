@@ -10,15 +10,12 @@ import usePasswordVisibilityState from '@/hooks/usePasswordVisibilityState';
 const Login = ({ activeRegisterOption }: LoginProps) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [user, loading, error] = useAuthState(auth);
+  const [, loading] = useAuthState(auth);
   const { passwordType, isPasswordVisible, setIsPasswordVisible } =
     usePasswordVisibilityState(false);
 
   useEffect(() => {
-    if (loading) {
-      // maybe trigger a loading screen
-      return;
-    }
+    if (loading) return;
   }, [loading]);
 
   const handleOnClick = () => {
