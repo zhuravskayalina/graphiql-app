@@ -25,8 +25,13 @@
   }
 }
 
+.auth__textbox-container {
+  position: relative;
+}
+
 .auth__textBox {
   @include elements-style.auth-input;
+  padding-left: 50px;
   border: 1px solid black;
 
   &:focus {
@@ -45,6 +50,20 @@
 
 .auth__textbox-name {
   @include elements-style.input-icon('./../../assets/images/icons/user.svg');
+}
+
+.auth__textBox_invalid {
+  border-color: red;
+}
+
+.password__icon-password {
+  @include elements-style.password-visibility('./../../assets/images/icons/eye-close.svg');
+  transition: background-image 0.3s linear;
+}
+
+.password__icon-text {
+  @include elements-style.password-visibility('./../../assets/images/icons/eye-open.svg');
+  transition: background-image 0.3s linear;
 }
 
 .auth__error {

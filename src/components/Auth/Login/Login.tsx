@@ -5,11 +5,14 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { LoginProps } from './types';
 import styles from './../Auth.module.scss';
 import clsx from 'clsx';
+import usePasswordVisibilityState from '@/hooks/usePasswordVisibilityState';
 
 const Login = ({ activeRegisterOption }: LoginProps) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [user, loading, error] = useAuthState(auth);
+  const { passwordType, isPasswordVisible, setIsPasswordVisible } =
+    usePasswordVisibilityState(false);
 
   useEffect(() => {
     if (loading) {
@@ -41,13 +44,19 @@ const Login = ({ activeRegisterOption }: LoginProps) => {
         placeholder="E-mail Address"
       />
       <p className={styles.auth__error}></p>
-      <input
-        type="password"
-        className={clsx(styles.auth__textBox, styles['auth__textbox-password'])}
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        placeholder="Password"
-      />
+      <div className={styles['auth__textbox-container']}>
+        <input
+          type={passwordType}
+          className={clsx(styles.auth__textBox, styles['auth__textbox-password'], 'password')}
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          placeholder="Password"
+        />
+        <span
+          className={styles[`password__icon-${passwordType}`]}
+          onClick={setIsPasswordVisible.bind(this, !isPasswordVisible)}
+        ></span>
+      </div>
       <p className={styles.auth__error}></p>
       <button
         className={styles.auth__button}

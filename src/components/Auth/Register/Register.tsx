@@ -7,6 +7,7 @@ import { auth, registerWithEmailAndPassword } from '@/services/authService';
 import { FormsFields, RegisterProps } from './types';
 import styles from './../Auth.module.scss';
 import { validationScheme } from './validationScheme';
+import usePasswordVisibilityState from '@/hooks/usePasswordVisibilityState';
 
 const Register = ({ activeRegisterOption }: RegisterProps) => {
   const {
@@ -16,19 +17,16 @@ const Register = ({ activeRegisterOption }: RegisterProps) => {
     formState: { errors },
   } = useForm<FormsFields>({ reValidateMode: 'onSubmit' });
   const [user, loading, error] = useAuthState(auth);
-  console.log(errors);
-
-  const onSubmit = () => {
-    const { name, email, password } = getValues();
-    registerWithEmailAndPassword(name, email, password);
-  };
+  const { passwordType, isPasswordVisible, setIsPasswordVisible } =
+    usePasswordVisibilityState(false);
 
   useEffect(() => {
     if (loading) return;
   }, [loading]);
 
-  const handleOnClick = () => {
-    activeRegisterOption(false);
+  const onSubmit = () => {
+    const { name, email, password } = getValues();
+    registerWithEmailAndPassword(name, email, password);
   };
 
   return (
@@ -37,7 +35,11 @@ const Register = ({ activeRegisterOption }: RegisterProps) => {
         <h2 className={styles.auth__title}>Sign up</h2>
         <span className={styles['auth__link-container']}>
           Already have an account?{' '}
-          <Link href="/auth" className={styles['auth__link']} onClick={handleOnClick}>
+          <Link
+            href="/auth"
+            className={styles['auth__link']}
+            onClick={activeRegisterOption.bind(this, false)}
+          >
             Sign in.
           </Link>
         </span>
@@ -45,24 +47,41 @@ const Register = ({ activeRegisterOption }: RegisterProps) => {
       <form onSubmit={handleSubmit(onSubmit)}>
         <input
           type="text"
-          className={clsx(styles.auth__textBox, styles['auth__textbox-name'])}
+          className={clsx(styles.auth__textBox, styles['auth__textbox-name'], {
+            [styles.auth__textBox_invalid]: errors.name?.message,
+          })}
           {...register('name', validationScheme.name)}
           placeholder="Full Name"
         />
         <p className={styles.auth__error}>{errors.name?.message}</p>
         <input
           type="text"
-          className={clsx(styles.auth__textBox, styles['auth__textbox-email'])}
+          className={clsx(styles.auth__textBox, styles['auth__textbox-email'], {
+            [styles.auth__textBox_invalid]: errors.name?.message,
+          })}
           {...register('email', validationScheme.email)}
           placeholder="E-mail Address"
         />
         <p className={styles.auth__error}>{errors.email?.message}</p>
-        <input
-          type="password"
-          className={clsx(styles.auth__textBox, styles['auth__textbox-password'])}
-          {...register('password', validationScheme.password)}
-          placeholder="Password"
-        />
+        <div className={styles['auth__textbox-container']}>
+          <input
+            type={passwordType}
+            className={clsx(
+              styles.auth__textBox,
+              styles['auth__textbox-password'],
+              {
+                [styles.auth__textBox_invalid]: errors.name?.message,
+              },
+              'password'
+            )}
+            {...register('password', validationScheme.password)}
+            placeholder="Password"
+          />
+          <span
+            className={styles[`password__icon-${passwordType}`]}
+            onClick={setIsPasswordVisible.bind(this, !isPasswordVisible)}
+          ></span>
+        </div>
         <p className={styles.auth__error}>{errors.password?.message}</p>
         <input type="submit" className={styles.auth__button} value={'Sign up'} />
       </form>
