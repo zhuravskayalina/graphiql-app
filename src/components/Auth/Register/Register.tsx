@@ -44,33 +44,33 @@ const Register = ({ activeRegisterOption }: RegisterProps) => {
           </Link>
         </span>
       </div>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onSubmit)} className={clsx(styles.auth__form, styles.form)}>
         <input
           type="text"
-          className={clsx(styles.auth__textBox, styles['auth__textbox-name'], {
-            [styles.auth__textBox_invalid]: errors.name?.message,
+          className={clsx(styles.form__textBox, styles['form__textbox-name'], {
+            [styles.form__textBox_invalid]: errors.name?.message,
           })}
           {...register('name', validationScheme.name)}
           placeholder="Full Name*"
         />
-        <p className={styles.auth__error}>{errors.name?.message}</p>
+        <p className={styles.form__error}>{errors.name?.message}</p>
         <input
           type="text"
-          className={clsx(styles.auth__textBox, styles['auth__textbox-email'], {
-            [styles.auth__textBox_invalid]: errors.name?.message,
+          className={clsx(styles.form__textBox, styles['form__textbox-email'], {
+            [styles.form__textBox_invalid]: errors.name?.message,
           })}
           {...register('email', validationScheme.email)}
           placeholder="E-mail Address*"
         />
-        <p className={styles.auth__error}>{errors.email?.message}</p>
-        <div className={styles['auth__textbox-container']}>
+        <p className={styles.form__error}>{errors.email?.message}</p>
+        <div className={styles['form__textbox-container']}>
           <input
             type={passwordType}
             className={clsx(
-              styles.auth__textBox,
-              styles['auth__textbox-password'],
+              styles.form__textBox,
+              styles['form__textbox-password'],
               {
-                [styles.auth__textBox_invalid]: errors.name?.message,
+                [styles.form__textBox_invalid]: errors.name?.message,
               },
               'password'
             )}
@@ -82,8 +82,8 @@ const Register = ({ activeRegisterOption }: RegisterProps) => {
             onClick={setIsPasswordVisible.bind(this, !isPasswordVisible)}
           ></span>
         </div>
-        <p className={styles.auth__error}>{errors.password?.message}</p>
-        <input type="submit" className={styles.auth__button} value={'Sign up'} />
+        <p className={styles.form__error}>{errors.password?.message}</p>
+        <input type="submit" className={styles.form__button} value={'Sign up'} />
       </form>
     </>
   );

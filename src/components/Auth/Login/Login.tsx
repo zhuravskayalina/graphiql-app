@@ -38,18 +38,18 @@ const Login = ({ activeRegisterOption }: LoginProps) => {
           </Link>
         </span>
       </div>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onSubmit)} className={clsx(styles.auth__form, styles.form)}>
         <input
           type="text"
-          className={clsx(styles.auth__textBox, styles['auth__textbox-email'])}
+          className={clsx(styles.form__textBox, styles['form__textbox-email'])}
           {...register('email')}
           placeholder="E-mail Address"
         />
-        <p className={styles.auth__error}></p>
-        <div className={styles['auth__textbox-container']}>
+        <p className={styles.form__error}></p>
+        <div className={styles['form__textbox-container']}>
           <input
             type={passwordType}
-            className={clsx(styles.auth__textBox, styles['auth__textbox-password'], 'password')}
+            className={clsx(styles.form__textBox, styles['form__textbox-password'], 'password')}
             {...register('password')}
             placeholder="Password"
           />
@@ -58,9 +58,9 @@ const Login = ({ activeRegisterOption }: LoginProps) => {
             onClick={setIsPasswordVisible.bind(this, !isPasswordVisible)}
           ></span>
         </div>
-        <p className={styles.auth__error}></p>
-        <div className={styles['auth__textbox-container']}>
-          <input type="submit" className={styles.auth__button} value="Sign in" />
+        <p className={styles.form__error}></p>
+        <div className={styles['form__textbox-container']}>
+          <input type="submit" className={styles.form__button} value="Sign in" />
         </div>
       </form>
     </>

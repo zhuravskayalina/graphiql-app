@@ -6,6 +6,7 @@
   justify-content: space-between;
   align-items: flex-end;
   margin: 30px 0;
+
 }
 
 .auth__title {
@@ -25,65 +26,66 @@
   }
 }
 
-.auth__textbox-container {
-  position: relative;
-}
+.form {
+  &__textbox-container {
+    position: relative;
+  }
 
-.auth__textBox {
-  @include elements-style.auth-input;
-  padding-left: 50px;
-  border: 1px solid colors.$black;
+  &__textBox {
+    @include elements-style.auth-input;
+    padding-left: 50px;
+    border: 1px solid colors.$black;
 
-  &:focus {
-    outline-color: colors.$dark-blue;
-    outline-width: 1px;
+    &:focus {
+      outline-color: colors.$dark-blue;
+      outline-width: 1px;
+    }
+  }
+
+  &__textbox-email {
+    @include elements-style.input-icon('./../../assets/images/icons/email.svg');
+  }
+
+  &__textbox-password {
+    @include elements-style.input-icon('./../../assets/images/icons/password.svg');
+  }
+
+  &__textbox-name {
+    @include elements-style.input-icon('./../../assets/images/icons/user.svg');
+  }
+
+  &__textBox_invalid {
+    border-color: colors.$red;
+  }
+
+  &__error {
+    height: 30px;
+    padding: 4px 0;
+    color: colors.$red;
+    font-size: 12px;
+    text-align: left
+  }
+
+  &__button {
+    @include elements-style.auth-input;
+    margin-bottom: 10px;
+    border: none;
+    color: colors.$white;
+    background-color: colors.$dark-blue;
+
+    &:hover {
+      cursor: pointer;
+      background-color: colors.$super-dark-blue;
+    }
+  }
+
+    .password__icon-password {
+    @include elements-style.password-visibility('./../../assets/images/icons/eye-close.svg');
+    transition: background-image 0.3s linear;
+  }
+
+  .password__icon-text {
+    @include elements-style.password-visibility('./../../assets/images/icons/eye-open.svg');
+    transition: background-image 0.3s linear;
   }
 }
-
-.auth__textbox-email {
-  @include elements-style.input-icon('./../../assets/images/icons/email.svg');
-}
-
-.auth__textbox-password {
-  @include elements-style.input-icon('./../../assets/images/icons/password.svg');
-}
-
-.auth__textbox-name {
-  @include elements-style.input-icon('./../../assets/images/icons/user.svg');
-}
-
-.auth__textBox_invalid {
-  border-color: colors.$red;
-}
-
-.password__icon-password {
-  @include elements-style.password-visibility('./../../assets/images/icons/eye-close.svg');
-  transition: background-image 0.3s linear;
-}
-
-.password__icon-text {
-  @include elements-style.password-visibility('./../../assets/images/icons/eye-open.svg');
-  transition: background-image 0.3s linear;
-}
-
-.auth__error {
-  height: 30px;
-  padding: 4px 0;
-  color: colors.$red;
-  font-size: 12px;
-  text-align: left
-}
-
-.auth__button {
-  @include elements-style.auth-input;
-  margin-bottom: 10px;
-  border: none;
-  color: colors.$white;
-  background-color: colors.$dark-blue;
-
-  &:hover {
-    cursor: pointer;
-    background-color: colors.$super-dark-blue;
-  }
-}
-
