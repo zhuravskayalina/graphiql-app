@@ -10,7 +10,7 @@ import usePasswordVisibilityState from '@/hooks/usePasswordVisibilityState';
 import { ThreeDots } from 'react-loader-spinner';
 
 const Login = ({ activeRegisterOption }: LoginProps) => {
-  const [isLoginRequestSend, setIsLoginRequestSend] = useState<boolean>(false);
+  const [isLoginRequestSent, setIsLoginRequestSent] = useState<boolean>(false);
   const { register, handleSubmit, getValues } = useForm<LoginFormsFields>();
   const [, loading] = useAuthState(auth);
   const { passwordType, isPasswordVisible, setIsPasswordVisible } =
@@ -22,9 +22,9 @@ const Login = ({ activeRegisterOption }: LoginProps) => {
 
   const onSubmit = async () => {
     const { email, password } = getValues();
-    setIsLoginRequestSend(true);
+    setIsLoginRequestSent(true);
     await logInWithEmailAndPassword(email, password);
-    setIsLoginRequestSend(false);
+    setIsLoginRequestSent(false);
   };
 
   return (
@@ -71,7 +71,7 @@ const Login = ({ activeRegisterOption }: LoginProps) => {
             radius="4"
             color="white"
             wrapperClass={styles.auth__loader}
-            visible={isLoginRequestSend}
+            visible={isLoginRequestSent}
           />
         </div>
       </form>
