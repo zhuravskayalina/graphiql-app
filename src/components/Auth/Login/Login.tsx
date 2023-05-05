@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { auth, logInWithEmailAndPassword } from '@/services/authService';
 import Link from 'next/link';
 import { useAuthState } from 'react-firebase-hooks/auth';
@@ -7,10 +7,8 @@ import { LoginFormsFields, LoginProps } from './types';
 import styles from './../Auth.module.scss';
 import clsx from 'clsx';
 import usePasswordVisibilityState from '@/hooks/usePasswordVisibilityState';
-import { ThreeDots } from 'react-loader-spinner';
 
 const Login = ({ activeRegisterOption }: LoginProps) => {
-  const [isLoginRequestSent, setIsLoginRequestSent] = useState<boolean>(false);
   const { register, handleSubmit, getValues } = useForm<LoginFormsFields>();
   const [, loading] = useAuthState(auth);
   const { passwordType, isPasswordVisible, setIsPasswordVisible } =
@@ -20,11 +18,9 @@ const Login = ({ activeRegisterOption }: LoginProps) => {
     if (loading) return;
   }, [loading]);
 
-  const onSubmit = async () => {
+  const onSubmit = () => {
     const { email, password } = getValues();
-    setIsLoginRequestSent(true);
-    await logInWithEmailAndPassword(email, password);
-    setIsLoginRequestSent(false);
+    logInWithEmailAndPassword(email, password);
   };
 
   return (
@@ -42,18 +38,18 @@ const Login = ({ activeRegisterOption }: LoginProps) => {
           </Link>
         </span>
       </div>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onSubmit)} className={clsx(styles.auth__form, styles.form)}>
         <input
           type="text"
-          className={clsx(styles.auth__textBox, styles['auth__textbox-email'])}
+          className={clsx(styles.form__textBox, styles['form__textbox-email'])}
           {...register('email')}
           placeholder="E-mail Address"
         />
-        <p className={styles.auth__error}></p>
-        <div className={styles['auth__textbox-container']}>
+        <p className={styles.form__error}></p>
+        <div className={styles['form__textbox-container']}>
           <input
             type={passwordType}
-            className={clsx(styles.auth__textBox, styles['auth__textbox-password'], 'password')}
+            className={clsx(styles.form__textBox, styles['form__textbox-password'], 'password')}
             {...register('password')}
             placeholder="Password"
           />
@@ -62,17 +58,9 @@ const Login = ({ activeRegisterOption }: LoginProps) => {
             onClick={setIsPasswordVisible.bind(this, !isPasswordVisible)}
           ></span>
         </div>
-        <p className={styles.auth__error}></p>
-        <div className={styles['auth__textbox-container']}>
-          <input type="submit" className={styles.auth__button} value="Sign in" />
-          <ThreeDots
-            height="30"
-            width="30"
-            radius="4"
-            color="white"
-            wrapperClass={styles.auth__loader}
-            visible={isLoginRequestSent}
-          />
+        <p className={styles.form__error}></p>
+        <div className={styles['form__textbox-container']}>
+          <input type="submit" className={styles.form__button} value="Sign in" />
         </div>
       </form>
     </>

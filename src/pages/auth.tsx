@@ -6,7 +6,7 @@ import { auth } from '@/services/authService';
 import styles from '@/styles/Auth.module.scss';
 import Image from 'next/image';
 import playgroundLogo from '@/assets/images/playgroundLogo.png';
-import { paths } from '@/consts/routerPaths';
+import { paths } from '@/enums/routerPaths';
 import { useRouter } from '@/hooks/useRouter';
 import { BallTriangle } from 'react-loader-spinner';
 

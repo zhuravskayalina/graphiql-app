@@ -5,7 +5,7 @@ import logoImg from '@/assets/images/logo-small.svg';
 import Link from 'next/link';
 import { HeaderProps } from '@/components/Header/types';
 import HeaderButton from '@/components/Header/HeaderButton/HeaderButton';
-import { paths } from '@/consts/routerPaths';
+import { paths } from '@/enums/routerPaths';
 import { logout } from '@/services/authService';
 
 const Header = ({ isLoggedIn }: HeaderProps) => {
