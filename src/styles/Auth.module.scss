@@ -23,4 +23,8 @@
   }
 }
 
-
+.auth__loader {
+  @include elements-style.center-content;
+  width: 100%;
+  height: 100%;
+}
