@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useForm } from 'react-hook-form';
 import Link from 'next/link';
@@ -8,8 +8,10 @@ import { FormsFields, RegisterProps } from './types';
 import styles from './../Auth.module.scss';
 import { validationScheme } from './validationScheme';
 import usePasswordVisibilityState from '@/hooks/usePasswordVisibilityState';
+import { ThreeDots } from 'react-loader-spinner';
 
 const Register = ({ activeRegisterOption }: RegisterProps) => {
+  const [isRegsiterRequestSend, setIsRegisterRequestSend] = useState<boolean>(false);
   const {
     register,
     handleSubmit,
@@ -26,7 +28,9 @@ const Register = ({ activeRegisterOption }: RegisterProps) => {
 
   const onSubmit = () => {
     const { name, email, password } = getValues();
+    setIsRegisterRequestSend(true);
     registerWithEmailAndPassword(name, email, password);
+    setIsRegisterRequestSend(false);
   };
 
   return (
@@ -83,7 +87,17 @@ const Register = ({ activeRegisterOption }: RegisterProps) => {
           ></span>
         </div>
         <p className={styles.auth__error}>{errors.password?.message}</p>
-        <input type="submit" className={styles.auth__button} value={'Sign up'} />
+        <div className={styles['auth__textbox-container']}>
+          <input type="submit" className={styles.auth__button} value={'Sign up'} />
+        </div>
+        <ThreeDots
+          height="30"
+          width="30"
+          radius="4"
+          color="white"
+          wrapperClass={styles.auth__loader}
+          visible={isRegsiterRequestSend}
+        />
       </form>
     </>
   );
