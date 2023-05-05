@@ -1,0 +1,26 @@
+@use '@/styles/variables/colors';
+@use '@/styles/mixins/elements-style.scss';
+
+.auth {
+  height: 100%;
+  width: 100vw;
+  @include elements-style.center-content;
+  background-color: colors.$white;
+  padding: 30px 0;
+
+  &__container {
+    max-width: 500px;
+    flex: 1 1 auto;
+    @include elements-style.flex-column;
+    text-align: center;
+  }
+
+  &__logo {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    object-position: center;
+  }
+}
+
+
