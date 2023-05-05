@@ -11,7 +11,7 @@ import usePasswordVisibilityState from '@/hooks/usePasswordVisibilityState';
 import { ThreeDots } from 'react-loader-spinner';
 
 const Register = ({ activeRegisterOption }: RegisterProps) => {
-  const [isRegsiterRequestSent, setIsRegisterRequestSent] = useState<boolean>(false);
+  const [isRegisterRequestSent, setIsRegisterRequestSent] = useState<boolean>(false);
   const {
     register,
     handleSubmit,
@@ -26,10 +26,10 @@ const Register = ({ activeRegisterOption }: RegisterProps) => {
     if (loading) return;
   }, [loading]);
 
-  const onSubmit = () => {
+  const onSubmit = async () => {
     const { name, email, password } = getValues();
     setIsRegisterRequestSent(true);
-    registerWithEmailAndPassword(name, email, password);
+    await registerWithEmailAndPassword(name, email, password);
     setIsRegisterRequestSent(false);
   };
 
@@ -96,7 +96,7 @@ const Register = ({ activeRegisterOption }: RegisterProps) => {
           radius="4"
           color="white"
           wrapperClass={styles.auth__loader}
-          visible={isRegsiterRequestSent}
+          visible={isRegisterRequestSent}
         />
       </form>
     </>

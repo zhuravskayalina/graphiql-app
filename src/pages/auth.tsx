@@ -16,11 +16,7 @@ const Auth = () => {
   const [user, loading] = useAuthState(auth);
 
   useEffect(() => {
-    if (query.register === 'true') {
-      setIsRegisterActive(true);
-    } else {
-      setIsRegisterActive(false);
-    }
+    setIsRegisterActive(query.register === 'true' ? true : false);
   }, [query]);
 
   useEffect(() => {

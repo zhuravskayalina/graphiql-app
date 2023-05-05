@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { auth, logInWithEmailAndPassword } from '@/services/authService';
 import Link from 'next/link';
 import { useAuthState } from 'react-firebase-hooks/auth';
@@ -7,8 +7,10 @@ import { LoginFormsFields, LoginProps } from './types';
 import styles from './../Auth.module.scss';
 import clsx from 'clsx';
 import usePasswordVisibilityState from '@/hooks/usePasswordVisibilityState';
+import { ThreeDots } from 'react-loader-spinner';
 
 const Login = ({ activeRegisterOption }: LoginProps) => {
+  const [isLoginRequestSent, setIsLoginRequestSent] = useState<boolean>(false);
   const { register, handleSubmit, getValues } = useForm<LoginFormsFields>();
   const [, loading] = useAuthState(auth);
   const { passwordType, isPasswordVisible, setIsPasswordVisible } =
@@ -18,9 +20,11 @@ const Login = ({ activeRegisterOption }: LoginProps) => {
     if (loading) return;
   }, [loading]);
 
-  const onSubmit = () => {
+  const onSubmit = async () => {
     const { email, password } = getValues();
-    logInWithEmailAndPassword(email, password);
+    setIsLoginRequestSent(true);
+    await logInWithEmailAndPassword(email, password);
+    setIsLoginRequestSent(false);
   };
 
   return (
@@ -61,6 +65,14 @@ const Login = ({ activeRegisterOption }: LoginProps) => {
         <p className={styles.form__error}></p>
         <div className={styles['form__textbox-container']}>
           <input type="submit" className={styles.form__button} value="Sign in" />
+          <ThreeDots
+            height="30"
+            width="30"
+            radius="4"
+            color="white"
+            wrapperClass={styles.auth__loader}
+            visible={isLoginRequestSent}
+          />
         </div>
       </form>
     </>
