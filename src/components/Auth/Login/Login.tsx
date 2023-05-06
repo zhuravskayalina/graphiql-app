@@ -11,7 +11,7 @@ import { ThreeDots } from 'react-loader-spinner';
 import { useTranslation } from 'react-i18next';
 
 const Login = ({ activeRegisterOption }: LoginProps) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation(['validationMessages', 'translation']);
   const [isLoginRequestSent, setIsLoginRequestSent] = useState<boolean>(false);
   const { register, handleSubmit, getValues } = useForm<LoginFormsFields>();
   const [, loading] = useAuthState(auth);

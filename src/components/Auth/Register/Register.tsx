@@ -12,7 +12,7 @@ import { ThreeDots } from 'react-loader-spinner';
 import { useTranslation } from 'react-i18next';
 
 const Register = ({ activeRegisterOption }: RegisterProps) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation(['validationMessages', 'translation']);
   const [isRegisterRequestSent, setIsRegisterRequestSent] = useState<boolean>(false);
   const {
     register,
@@ -38,15 +38,15 @@ const Register = ({ activeRegisterOption }: RegisterProps) => {
   return (
     <>
       <div className={styles['auth__title-container']}>
-        <h2 className={styles.auth__title}>{t('signUp')}</h2>
+        <h2 className={styles.auth__title}>{t('signUp', { ns: ['translation'] })}</h2>
         <span className={styles['auth__link-container']}>
-          {t('loginSuggestion')}{' '}
+          {t('loginSuggestion', { ns: ['translation'] })}{' '}
           <Link
             href="/auth"
             className={styles['auth__link']}
             onClick={activeRegisterOption.bind(this, false)}
           >
-            {t('signIn')}.
+            {t('signIn', { ns: ['translation'] })}.
           </Link>
         </span>
       </div>
@@ -57,7 +57,7 @@ const Register = ({ activeRegisterOption }: RegisterProps) => {
             [styles.form__textBox_invalid]: errors.name?.message,
           })}
           {...register('name', validationScheme.name)}
-          placeholder={t('namePlaceholder').toString()}
+          placeholder={t('namePlaceholder', { ns: ['translation'] }).toString()}
         />
         <p className={styles.form__error}>{errors.name?.message && t(errors.name.message)}</p>
         <input
@@ -66,7 +66,7 @@ const Register = ({ activeRegisterOption }: RegisterProps) => {
             [styles.form__textBox_invalid]: errors.name?.message,
           })}
           {...register('email', validationScheme.email)}
-          placeholder={t('emailPlaceholder').toString()}
+          placeholder={t('emailPlaceholder', { ns: ['translation'] }).toString()}
         />
         <p className={styles.form__error}>{errors.email?.message && t(errors.email.message)}</p>
         <div className={styles['form__textbox-container']}>
@@ -81,7 +81,7 @@ const Register = ({ activeRegisterOption }: RegisterProps) => {
               'password'
             )}
             {...register('password', validationScheme.password)}
-            placeholder={t('passwordPlaceholder').toString()}
+            placeholder={t('passwordPlaceholder', { ns: ['translation'] }).toString()}
           />
           <span
             className={styles[`password__icon-${passwordType}`]}
@@ -95,7 +95,7 @@ const Register = ({ activeRegisterOption }: RegisterProps) => {
           <input
             type="submit"
             className={styles.form__button}
-            value={t('signUpButton').toString()}
+            value={t('signUpButton', { ns: ['translation'] }).toString()}
           />
         </div>
         <ThreeDots
