@@ -1,3 +1,26 @@
 {
-  "signIn": "Sign in"
+  "signIn": "Sign in",
+  "signUp": "Sign up",
+  "backToMain": "Go to Main Page",
+  "logout": "Logout",
+  "nameRequired": "Name cannot be empty",
+  "nameMinLength": "Name should contain at least 2 symbols",
+  "nameMaxLength": "Name could contain up to 40 symbols",
+  "emailRequired": "Email cannot be empty",
+  "emailMismatch": "Email doesn't match the required format",
+  "passwordRequired": "Password cannot be empty",
+  "passwordMinLength": "Password should be at least 8 symbols",
+  "passwordLetterMissed": "Password should contain at least 1 letter",
+  "passwordNumberMissed": "Password should contain at least 1 number",
+  "passwordSymbolMissed": "Password should contain at least 1 special character",
+  "loginSuggestion": "Already have an account?",
+  "namePlaceholder": "Full Name*",
+  "emailPlaceholder": "E-mail Address*",
+  "passwordPlaceholder": "Password*",
+  "signUpButton": "Sign up",
+  "registerSuggestion": "New to GraphiQL?",
+  "signInTitle": "Sign in",
+  "signUpLink": "Let's get started!",
+  "appDescription": "GraphiQL is a playground for graphQL requests.",
+  "getStartedButton": "Get started"
 }

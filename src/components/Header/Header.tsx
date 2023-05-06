@@ -29,7 +29,7 @@ const Header = ({ isLoggedIn }: HeaderProps) => {
       </Link>
       <p className={clsx(styles.header__appName)}>GraphiQL App</p>
       <div className={clsx(styles.header__buttons)}>
-        <select name="lang" id="lang" onChange={handleOnChange}>
+        <select value={i18n.resolvedLanguage} name="lang" id="lang" onChange={handleOnChange}>
           {LOCALES.map((locale) => (
             <option value={locale.code} key={locale.code}>
               {locale.language}
@@ -38,13 +38,13 @@ const Header = ({ isLoggedIn }: HeaderProps) => {
         </select>
         {isLoggedIn ? (
           <>
-            <HeaderButton link={paths.main} title="Go to Main Page" />
-            <HeaderButton link={paths.welcome} title="Log out" onClick={logout} />
+            <HeaderButton link={paths.main} title={t('backToMain')} />
+            <HeaderButton link={paths.welcome} title={t('logout')} onClick={logout} />
           </>
         ) : (
           <>
             <HeaderButton link={paths.signIn} title={t('signIn')} />
-            <HeaderButton link={paths.signUp} title="Sign up" />
+            <HeaderButton link={paths.signUp} title={t('signUp')} />
           </>
         )}
       </div>

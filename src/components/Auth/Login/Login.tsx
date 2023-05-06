@@ -8,8 +8,10 @@ import styles from './../Auth.module.scss';
 import clsx from 'clsx';
 import usePasswordVisibilityState from '@/hooks/usePasswordVisibilityState';
 import { ThreeDots } from 'react-loader-spinner';
+import { useTranslation } from 'react-i18next';
 
 const Login = ({ activeRegisterOption }: LoginProps) => {
+  const { t } = useTranslation();
   const [isLoginRequestSent, setIsLoginRequestSent] = useState<boolean>(false);
   const { register, handleSubmit, getValues } = useForm<LoginFormsFields>();
   const [, loading] = useAuthState(auth);
@@ -30,15 +32,15 @@ const Login = ({ activeRegisterOption }: LoginProps) => {
   return (
     <>
       <div className={styles['auth__title-container']}>
-        <h2 className={styles.auth__title}>Sign in</h2>
+        <h2 className={styles.auth__title}>{t('signInTitle')}</h2>
         <span className={styles['auth__link-container']}>
-          New to GraphiQL?{' '}
+          {t('registerSuggestion')}{' '}
           <Link
             href="/auth?register=true"
             className={styles['auth__link']}
             onClick={activeRegisterOption.bind(this, true)}
           >
-            Let&apos;s get started!
+            {t('signUpLink')}
           </Link>
         </span>
       </div>
@@ -47,7 +49,7 @@ const Login = ({ activeRegisterOption }: LoginProps) => {
           type="text"
           className={clsx(styles.form__textBox, styles['form__textbox-email'])}
           {...register('email')}
-          placeholder="E-mail Address"
+          placeholder={t('emailPlaceholder').toString()}
         />
         <p className={styles.form__error}></p>
         <div className={styles['form__textbox-container']}>
@@ -55,7 +57,7 @@ const Login = ({ activeRegisterOption }: LoginProps) => {
             type={passwordType}
             className={clsx(styles.form__textBox, styles['form__textbox-password'], 'password')}
             {...register('password')}
-            placeholder="Password"
+            placeholder={t('passwordPlaceholder').toString()}
           />
           <span
             className={styles[`password__icon-${passwordType}`]}
@@ -64,7 +66,7 @@ const Login = ({ activeRegisterOption }: LoginProps) => {
         </div>
         <p className={styles.form__error}></p>
         <div className={styles['form__textbox-container']}>
-          <input type="submit" className={styles.form__button} value="Sign in" />
+          <input type="submit" className={styles.form__button} value={t('signIn').toString()} />
           <ThreeDots
             height="30"
             width="30"

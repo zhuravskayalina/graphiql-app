@@ -9,8 +9,10 @@ import styles from './../Auth.module.scss';
 import { validationScheme } from './validationScheme';
 import usePasswordVisibilityState from '@/hooks/usePasswordVisibilityState';
 import { ThreeDots } from 'react-loader-spinner';
+import { useTranslation } from 'react-i18next';
 
 const Register = ({ activeRegisterOption }: RegisterProps) => {
+  const { t } = useTranslation();
   const [isRegisterRequestSent, setIsRegisterRequestSent] = useState<boolean>(false);
   const {
     register,
@@ -36,15 +38,15 @@ const Register = ({ activeRegisterOption }: RegisterProps) => {
   return (
     <>
       <div className={styles['auth__title-container']}>
-        <h2 className={styles.auth__title}>Sign up</h2>
+        <h2 className={styles.auth__title}>{t('signUp')}</h2>
         <span className={styles['auth__link-container']}>
-          Already have an account?{' '}
+          {t('loginSuggestion')}{' '}
           <Link
             href="/auth"
             className={styles['auth__link']}
             onClick={activeRegisterOption.bind(this, false)}
           >
-            Sign in.
+            {t('signIn')}.
           </Link>
         </span>
       </div>
@@ -55,18 +57,18 @@ const Register = ({ activeRegisterOption }: RegisterProps) => {
             [styles.form__textBox_invalid]: errors.name?.message,
           })}
           {...register('name', validationScheme.name)}
-          placeholder="Full Name*"
+          placeholder={t('namePlaceholder').toString()}
         />
-        <p className={styles.form__error}>{errors.name?.message}</p>
+        <p className={styles.form__error}>{errors.name?.message && t(errors.name.message)}</p>
         <input
           type="text"
           className={clsx(styles.form__textBox, styles['form__textbox-email'], {
             [styles.form__textBox_invalid]: errors.name?.message,
           })}
           {...register('email', validationScheme.email)}
-          placeholder="E-mail Address*"
+          placeholder={t('emailPlaceholder').toString()}
         />
-        <p className={styles.form__error}>{errors.email?.message}</p>
+        <p className={styles.form__error}>{errors.email?.message && t(errors.email.message)}</p>
         <div className={styles['form__textbox-container']}>
           <input
             type={passwordType}
@@ -79,16 +81,22 @@ const Register = ({ activeRegisterOption }: RegisterProps) => {
               'password'
             )}
             {...register('password', validationScheme.password)}
-            placeholder="Password*"
+            placeholder={t('passwordPlaceholder').toString()}
           />
           <span
             className={styles[`password__icon-${passwordType}`]}
             onClick={setIsPasswordVisible.bind(this, !isPasswordVisible)}
           ></span>
         </div>
-        <p className={styles.form__error}>{errors.password?.message}</p>
+        <p className={styles.form__error}>
+          {errors.password?.message && t(errors.password.message)}
+        </p>
         <div className={styles['auth__textbox-container']}>
-          <input type="submit" className={styles.form__button} value={'Sign up'} />
+          <input
+            type="submit"
+            className={styles.form__button}
+            value={t('signUpButton').toString()}
+          />
         </div>
         <ThreeDots
           height="30"

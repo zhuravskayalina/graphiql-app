@@ -1,15 +1,16 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import { useTranslation } from 'react-i18next';
+import { clsx } from 'clsx';
 import styles from '@/styles/Home.module.scss';
 import apolloImg from '@/assets/images/apollo.svg';
 import graphQlImg from '@/assets/images/graphQL.svg';
 import arrowIcon from '@/assets/images/icons/arrow.svg';
-
-import { clsx } from 'clsx';
-
 import rssLogo from '@/assets/images/rss-logo.svg';
 
 const Home = () => {
+  const { t } = useTranslation();
+
   return (
     <>
       <div className={clsx(styles.layout)}>
@@ -29,11 +30,9 @@ const Home = () => {
                 priority
               />
             </div>
-            <p className={clsx(styles.main__description)}>
-              GraphiQL is a playground for graphQL requests.
-            </p>
+            <p className={clsx(styles.main__description)}>{t('appDescription')}</p>
             <button className={clsx(styles.startButton)}>
-              <span>Get started</span>
+              <span>{t('getStartedButton')}</span>
               <Image src={arrowIcon} alt="arrow" className={clsx(styles.startButton_icon)} />
             </button>
           </div>

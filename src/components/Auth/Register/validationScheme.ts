@@ -8,33 +8,30 @@ type validationSchemeTypes = {
 
 export const validationScheme: validationSchemeTypes = {
   name: {
-    required: 'Name cannot be empty',
+    required: 'nameRequired',
     minLength: {
       value: 2,
-      message: 'Name should contain at least 2 symbols',
+      message: 'nameMinLength',
     },
     maxLength: {
       value: 40,
-      message: 'Name could contain up to 40 symbols',
+      message: 'nameMaxLength',
     },
   },
   email: {
-    required: 'Email cannot be empty',
+    required: 'emailRequired',
     pattern: {
       value: /^[\w.%+-]+@[\w.-]+\.[\w]{2,6}$/,
-      message: `Email doesn't match the required format`,
+      message: 'emailMismatch',
     },
   },
   password: {
     validate: (value: string) => {
-      if (!value) return 'Password cannot be empty';
-      if (!new RegExp('^.{8,}$').test(value)) return 'Password should be at least 8 symbols';
-      if (!new RegExp('^(?=.*[A-Za-z])').test(value))
-        return 'Password should contain at least 1 letter';
-      if (!new RegExp('^(?=.*?[0-9])').test(value))
-        return 'Password should contain at least 1 number';
-      if (!new RegExp('^(?=.*[#$@!%&*?])').test(value))
-        return 'Password should contain at least 1 special character';
+      if (!value) return 'passwordRequired';
+      if (!new RegExp('^.{8,}$').test(value)) return 'passwordMinLength';
+      if (!new RegExp('^(?=.*[A-Za-z])').test(value)) return 'passwordLetterMissed';
+      if (!new RegExp('^(?=.*?[0-9])').test(value)) return 'passwordNumberMissed';
+      if (!new RegExp('^(?=.*[#$@!%&*?])').test(value)) return 'passwordSymbolMissed';
     },
   },
 };
