@@ -9,13 +9,9 @@ import { paths } from '@/enums/routerPaths';
 import { logout } from '@/services/authService';
 import { ChangeEvent } from 'react';
 import { useTranslation } from 'react-i18next';
+import { LOCALES } from '@/i18n/locales';
 
 const Header = ({ isLoggedIn }: HeaderProps) => {
-  const LOCALES = [
-    { code: 'en', language: 'English' },
-    { code: 'ru', language: 'Russian' },
-  ];
-
   const { t, i18n } = useTranslation();
 
   const handleOnChange = (e: ChangeEvent<HTMLSelectElement>) => {

@@ -1,7 +1,7 @@
 import '@/styles/globals.scss';
 import type { AppProps } from 'next/app';
 import Layout from '@/components/Layout/Layout';
-import '@/translations/i18n';
+import '@/i18n/i18n';
 
 const App = ({ Component, pageProps }: AppProps) => {
   return (
