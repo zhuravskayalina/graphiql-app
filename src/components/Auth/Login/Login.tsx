@@ -32,15 +32,15 @@ const Login = ({ activeRegisterOption }: LoginProps) => {
   return (
     <>
       <div className={styles['auth__title-container']}>
-        <h2 className={styles.auth__title}>{t('signInTitle')}</h2>
+        <h2 className={styles.auth__title}>{t('signInTitle', { ns: ['translation'] })}</h2>
         <span className={styles['auth__link-container']}>
-          {t('registerSuggestion')}{' '}
+          {t('registerSuggestion', { ns: ['translation'] })}{' '}
           <Link
             href="/auth?register=true"
             className={styles['auth__link']}
             onClick={activeRegisterOption.bind(this, true)}
           >
-            {t('signUpLink')}
+            {t('signUpLink', { ns: ['translation'] })}
           </Link>
         </span>
       </div>
@@ -49,7 +49,7 @@ const Login = ({ activeRegisterOption }: LoginProps) => {
           type="text"
           className={clsx(styles.form__textBox, styles['form__textbox-email'])}
           {...register('email')}
-          placeholder={t('emailPlaceholder').toString()}
+          placeholder={t('emailPlaceholder', { ns: ['translation'] }).toString()}
         />
         <p className={styles.form__error}></p>
         <div className={styles['form__textbox-container']}>
@@ -57,7 +57,7 @@ const Login = ({ activeRegisterOption }: LoginProps) => {
             type={passwordType}
             className={clsx(styles.form__textBox, styles['form__textbox-password'], 'password')}
             {...register('password')}
-            placeholder={t('passwordPlaceholder').toString()}
+            placeholder={t('passwordPlaceholder', { ns: ['translation'] }).toString()}
           />
           <span
             className={styles[`password__icon-${passwordType}`]}
@@ -66,7 +66,11 @@ const Login = ({ activeRegisterOption }: LoginProps) => {
         </div>
         <p className={styles.form__error}></p>
         <div className={styles['form__textbox-container']}>
-          <input type="submit" className={styles.form__button} value={t('signIn').toString()} />
+          <input
+            type="submit"
+            className={styles.form__button}
+            value={t('signIn', { ns: ['translation'] }).toString()}
+          />
           <ThreeDots
             height="30"
             width="30"
