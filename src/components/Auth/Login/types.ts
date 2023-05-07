@@ -8,3 +8,5 @@ export type LoginFormsFields = {
   email: string;
   password: string;
 };
+
+export type NotifyFunction = (message: string, type: 'success' | 'error') => void;

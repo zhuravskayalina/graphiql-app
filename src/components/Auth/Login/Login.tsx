@@ -1,15 +1,15 @@
-import { useEffect, useState } from 'react';
-import { auth, logInWithEmailAndPassword } from '@/services/authService';
+import { useState } from 'react';
+import { logInWithEmailAndPassword } from '@/services/authService';
 import Link from 'next/link';
-import { useAuthState } from 'react-firebase-hooks/auth';
 import { useForm } from 'react-hook-form';
-import { LoginFormsFields, LoginProps } from './types';
+import { LoginFormsFields, LoginProps, NotifyFunction } from './types';
 import styles from './../Auth.module.scss';
 import clsx from 'clsx';
 import usePasswordVisibilityState from '@/hooks/usePasswordVisibilityState';
 import { ThreeDots } from 'react-loader-spinner';
 import { useTranslation } from 'react-i18next';
 import sendNotification from '@/services/firebaseNotificationService';
+import { toast } from 'react-toastify';
 
 const Login = ({ activeRegisterOption }: LoginProps) => {
   const { t } = useTranslation(['translation', 'firebaseMessages']);
@@ -21,19 +21,18 @@ const Login = ({ activeRegisterOption }: LoginProps) => {
     setError,
     formState: { errors },
   } = useForm<LoginFormsFields>();
-  const [, loading] = useAuthState(auth);
   const { passwordType, isPasswordVisible, setIsPasswordVisible } =
     usePasswordVisibilityState(false);
 
-  useEffect(() => {
-    if (loading) return;
-  }, [loading]);
+  const notify: NotifyFunction = (message, type) => {
+    toast(t(message, { ns: 'firebaseMessages' }), { type });
+  };
 
   const onSubmit = async () => {
     const { email, password } = getValues();
     setIsLoginRequestSent(true);
     const response = await logInWithEmailAndPassword(email, password);
-    sendNotification(response.message, setError);
+    await sendNotification(response.message, setError, notify);
     setIsLoginRequestSent(false);
   };
 
