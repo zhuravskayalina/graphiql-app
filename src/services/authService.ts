@@ -1,4 +1,4 @@
-import { initializeApp } from 'firebase/app';
+import { FirebaseError, initializeApp } from 'firebase/app';
 import {
   getAuth,
   signInWithEmailAndPassword,
@@ -31,23 +31,40 @@ const registerWithEmailAndPassword = async (name: string, email: string, passwor
       authProvider: 'local',
       email,
     });
+    return {
+      message: 'auth/register-success',
+    };
   } catch (err) {
-    console.error(err);
-    alert((err as Error).message);
+    return {
+      message: (err as FirebaseError).code,
+    };
   }
 };
 
 const logInWithEmailAndPassword = async (email: string, password: string) => {
   try {
     await signInWithEmailAndPassword(auth, email, password);
+    return {
+      message: 'auth/login-success',
+    };
   } catch (err) {
-    console.error(err);
-    alert((err as Error).message);
+    return {
+      message: (err as FirebaseError).code,
+    };
   }
 };
 
 const logout = () => {
-  signOut(auth);
+  try {
+    signOut(auth);
+    return {
+      message: 'auth/logout-success',
+    };
+  } catch (err) {
+    return {
+      message: (err as FirebaseError).code,
+    };
+  }
 };
 
 export { auth, db, logInWithEmailAndPassword, registerWithEmailAndPassword, logout };

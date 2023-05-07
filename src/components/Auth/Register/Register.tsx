@@ -10,14 +10,16 @@ import { validationScheme } from './validationScheme';
 import usePasswordVisibilityState from '@/hooks/usePasswordVisibilityState';
 import { ThreeDots } from 'react-loader-spinner';
 import { useTranslation } from 'react-i18next';
+import sendNotification from '@/services/firebaseNotificationService';
 
 const Register = ({ activeRegisterOption }: RegisterProps) => {
-  const { t } = useTranslation(['validationMessages', 'translation']);
+  const { t } = useTranslation(['validationMessages', 'translation', 'firebaseMessages']);
   const [isRegisterRequestSent, setIsRegisterRequestSent] = useState<boolean>(false);
   const {
     register,
     handleSubmit,
     getValues,
+    setError,
     formState: { errors },
   } = useForm<FormsFields>({ reValidateMode: 'onSubmit' });
   const [, loading] = useAuthState(auth);
@@ -31,7 +33,9 @@ const Register = ({ activeRegisterOption }: RegisterProps) => {
   const onSubmit = async () => {
     const { name, email, password } = getValues();
     setIsRegisterRequestSent(true);
-    await registerWithEmailAndPassword(name, email, password);
+    const response = await registerWithEmailAndPassword(name, email, password);
+    sendNotification(response.message, setError);
+
     setIsRegisterRequestSent(false);
   };
 
@@ -63,12 +67,15 @@ const Register = ({ activeRegisterOption }: RegisterProps) => {
         <input
           type="text"
           className={clsx(styles.form__textBox, styles['form__textbox-email'], {
-            [styles.form__textBox_invalid]: errors.name?.message,
+            [styles.form__textBox_invalid]: errors.email?.message,
           })}
           {...register('email', validationScheme.email)}
           placeholder={t('emailPlaceholder', { ns: ['translation'] }).toString()}
         />
-        <p className={styles.form__error}>{errors.email?.message && t(errors.email.message)}</p>
+        <p className={styles.form__error}>
+          {errors.email?.message &&
+            t(errors.email.message, { ns: ['firebaseMessages', 'validationMessages'] })}
+        </p>
         <div className={styles['form__textbox-container']}>
           <input
             type={passwordType}
@@ -76,7 +83,7 @@ const Register = ({ activeRegisterOption }: RegisterProps) => {
               styles.form__textBox,
               styles['form__textbox-password'],
               {
-                [styles.form__textBox_invalid]: errors.name?.message,
+                [styles.form__textBox_invalid]: errors.password?.message,
               },
               'password'
             )}
@@ -89,7 +96,8 @@ const Register = ({ activeRegisterOption }: RegisterProps) => {
           ></span>
         </div>
         <p className={styles.form__error}>
-          {errors.password?.message && t(errors.password.message)}
+          {errors.password?.message &&
+            t(errors.password.message, { ns: ['firebaseMessages', 'validationMessages'] })}
         </p>
         <div className={styles['auth__textbox-container']}>
           <input
