@@ -1,31 +1,28 @@
-import { IntrospectionQuery___schema_types_fields_type } from '@/generatedTypes/IntrospectionQuery';
+import { Type, TypeArg } from '../../types';
+import styles from './Type.module.scss';
 
-interface Type {
-  type: IntrospectionQuery___schema_types_fields_type;
-  changeType: (event: React.MouseEvent<HTMLElement>) => void;
-}
+const selectTypeName = (type: TypeArg): string | null => {
+  if (!type.ofType) {
+    return type.name;
+  }
+  if (type.kind === 'LIST') {
+    return `[${selectTypeName(type.ofType)}]`;
+  }
+  if (type.kind === 'NON_NULL') {
+    return `${selectTypeName(type.ofType)}!`;
+  }
+  return type.name;
+};
 
 const Type = ({ type, changeType }: Type) => {
-  const selectTypeName = () => {
-    if (type.kind === 'SCALAR') {
-      return type.name;
-    }
-    if (type.kind === 'OBJECT') {
-      return type.name;
-    }
-    if (type.kind === 'LIST') {
-      return `[${type.ofType?.name}]`;
-    }
-    if (type.kind === 'NON_NULL') {
-      return type.ofType?.kind === 'LIST'
-        ? `[${type.ofType.ofType?.name}]!`
-        : `${type.ofType?.name}!`;
-    }
-  };
-
+  const typeName = selectTypeName(type);
   return (
-    <span data-type={selectTypeName()?.replace(/\[|\]|\!/g, '')} onClick={changeType}>
-      {selectTypeName()}
+    <span
+      className={styles.type}
+      data-type={typeName?.replace(/\[|\]|\!/g, '')}
+      onClick={changeType}
+    >
+      {typeName}
     </span>
   );
 };

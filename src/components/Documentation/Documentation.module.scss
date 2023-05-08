@@ -1,3 +1,32 @@
+@use '@/styles/mixins/elements-style';
+@use '@/styles/variables/colors';
+
 .wrapper {
+  padding: 10px;
+  height: 100%;
+}
+
+.objectDescription {
+  padding: 10px 0;
+}
+
+.fields {
+  padding-top: 10px;
+}
+
+.field {
   display: flex;
+  margin-bottom: 5px;
+  height: 20px;
+}
+
+.description {
+  margin-bottom: 10px;
+  color: colors.$black;
+}
+
+.doc__loader {
+  @include elements-style.center-content;
+  width: 100%;
+  height: 100%;
 }

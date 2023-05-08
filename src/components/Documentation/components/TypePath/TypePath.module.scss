@@ -1,0 +1,17 @@
+@use '@/styles/mixins/elements-style';
+@use '@/styles/variables/colors';
+
+.wrapper {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  padding-bottom: 10px;
+  border-bottom: 1px solid colors.$black;
+}
+
+.type {
+  margin-right: 5px;
+  color: colors.$black;
+  text-transform: uppercase;
+  cursor: pointer;
+}

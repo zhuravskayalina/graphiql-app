@@ -1,35 +1,45 @@
-import { IntrospectionQuery___schema } from '@/generatedTypes/IntrospectionQuery';
-
-interface Schema {
-  schema: IntrospectionQuery___schema;
-  changeType: (event: React.MouseEvent<HTMLElement>) => void;
-}
+import { Schema } from '../../types';
+import styles from './Schema.module.scss';
 
 const Schema = ({ schema, changeType }: Schema) => {
   return (
-    <div>
-      <h3>Documentation</h3>
-      <p>A GraphQL schema provides a root type for each kind of operation.</p>
+    <>
+      <h3 className={styles.title}>Documentation</h3>
+      <p className={styles.description}>
+        A GraphQL schema provides a root type for each kind of operation.
+      </p>
       <h4>Root Types</h4>
-      {schema.queryType ? (
-        <div>
-          query:
-          <span data-type={schema.queryType.name} onClick={changeType}>
-            {schema.queryType.name}
-          </span>
-        </div>
-      ) : null}
-      {schema.mutationType ? (
-        <div>
-          mutation:<p>`${schema.mutationType.name}`</p>
-        </div>
-      ) : null}
-      {schema.subscriptionType ? (
-        <div>
-          subscription:<p>`${schema.subscriptionType.name}`</p>
-        </div>
-      ) : null}
-    </div>
+      <div className={styles.schema}>
+        {schema.queryType ? (
+          <div>
+            <span className={styles.name}>query:</span>
+            <span className={styles.type} data-type={schema.queryType.name} onClick={changeType}>
+              {schema.queryType.name}
+            </span>
+          </div>
+        ) : null}
+        {schema.mutationType ? (
+          <div>
+            <span className={styles.name}>mutation:</span>
+            <span className={styles.type} data-type={schema.mutationType.name} onClick={changeType}>
+              {schema.mutationType.name}
+            </span>
+          </div>
+        ) : null}
+        {schema.subscriptionType ? (
+          <div>
+            <span className={styles.name}>subscription:</span>
+            <span
+              className={styles.type}
+              data-type={schema.subscriptionType.name}
+              onClick={changeType}
+            >
+              {schema.subscriptionType.name}
+            </span>
+          </div>
+        ) : null}
+      </div>
+    </>
   );
 };
 
