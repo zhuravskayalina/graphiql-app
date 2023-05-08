@@ -7,5 +7,6 @@
   "registerSuccess": "Registered successfully",
   "loginSuccess": "Logged in successfully",
   "logoutSuccess": "Logged out successfully",
-  "authError": "Something went wrong. Try again later"
+  "authError": "Something went wrong. Try again later",
+  "pending": "Please wait..."
 }

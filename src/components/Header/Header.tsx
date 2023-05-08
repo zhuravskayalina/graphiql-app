@@ -10,12 +10,30 @@ import { logout } from '@/services/authService';
 import { ChangeEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import { LOCALES } from '@/i18n/locales';
+import { NotifyFunction } from '../Auth/Login/types';
+import { toast } from 'react-toastify';
+import sendNotification from '@/services/firebaseNotificationService';
 
 const Header = ({ isLoggedIn }: HeaderProps) => {
   const { t, i18n } = useTranslation();
 
   const handleOnChange = (e: ChangeEvent<HTMLSelectElement>) => {
     i18n.changeLanguage(e.target.value);
+  };
+
+  const notify: NotifyFunction = (id, message, type) => {
+    toast.update(id, {
+      render: t(message, { ns: 'firebaseMessages' }),
+      type,
+      isLoading: false,
+      autoClose: 1000,
+    });
+  };
+
+  const handleOnClick = async () => {
+    const id = toast.loading(t('pending', { ns: 'firebaseMessages' }));
+    const response = await logout();
+    sendNotification(response.message, notify.bind(this, id));
   };
 
   return (
@@ -35,7 +53,7 @@ const Header = ({ isLoggedIn }: HeaderProps) => {
         {isLoggedIn ? (
           <>
             <HeaderButton link={paths.main} title={t('backToMain')} />
-            <HeaderButton link={paths.welcome} title={t('logout')} onClick={logout} />
+            <HeaderButton link={paths.welcome} title={t('logout')} onClick={handleOnClick} />
           </>
         ) : (
           <>

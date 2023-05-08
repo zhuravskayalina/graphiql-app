@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { logInWithEmailAndPassword } from '@/services/authService';
 import Link from 'next/link';
 import { useForm } from 'react-hook-form';
@@ -6,14 +5,12 @@ import { LoginFormsFields, LoginProps, NotifyFunction } from './types';
 import styles from './../Auth.module.scss';
 import clsx from 'clsx';
 import usePasswordVisibilityState from '@/hooks/usePasswordVisibilityState';
-import { ThreeDots } from 'react-loader-spinner';
 import { useTranslation } from 'react-i18next';
 import sendNotification from '@/services/firebaseNotificationService';
 import { toast } from 'react-toastify';
 
 const Login = ({ activeRegisterOption }: LoginProps) => {
   const { t } = useTranslation(['translation', 'firebaseMessages']);
-  const [isLoginRequestSent, setIsLoginRequestSent] = useState<boolean>(false);
   const {
     register,
     handleSubmit,
@@ -24,16 +21,15 @@ const Login = ({ activeRegisterOption }: LoginProps) => {
   const { passwordType, isPasswordVisible, setIsPasswordVisible } =
     usePasswordVisibilityState(false);
 
-  const notify: NotifyFunction = (message, type) => {
-    toast(t(message, { ns: 'firebaseMessages' }), { type });
+  const notify: NotifyFunction = (id, message, type) => {
+    toast.update(id, { render: t(message, { ns: 'firebaseMessages' }), type, isLoading: false });
   };
 
   const onSubmit = async () => {
     const { email, password } = getValues();
-    setIsLoginRequestSent(true);
+    const id = toast('Please wait...', { isLoading: true });
     const response = await logInWithEmailAndPassword(email, password);
-    await sendNotification(response.message, setError, notify);
-    setIsLoginRequestSent(false);
+    sendNotification(response.message, notify.bind(this, id), setError);
   };
 
   return (
@@ -82,14 +78,6 @@ const Login = ({ activeRegisterOption }: LoginProps) => {
         </p>
         <div className={styles['form__textbox-container']}>
           <input type="submit" className={styles.form__button} value={t('signIn').toString()} />
-          <ThreeDots
-            height="30"
-            width="30"
-            radius="4"
-            color="white"
-            wrapperClass={styles.auth__loader}
-            visible={isLoginRequestSent}
-          />
         </div>
       </form>
     </>

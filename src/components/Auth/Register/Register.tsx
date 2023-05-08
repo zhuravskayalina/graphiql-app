@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import Link from 'next/link';
 import clsx from 'clsx';
@@ -7,7 +6,6 @@ import { FormsFields, RegisterProps } from './types';
 import styles from './../Auth.module.scss';
 import { validationScheme } from './validationScheme';
 import usePasswordVisibilityState from '@/hooks/usePasswordVisibilityState';
-import { ThreeDots } from 'react-loader-spinner';
 import { useTranslation } from 'react-i18next';
 import sendNotification from '@/services/firebaseNotificationService';
 import { toast } from 'react-toastify';
@@ -15,7 +13,6 @@ import { NotifyFunction } from '../Login/types';
 
 const Register = ({ activeRegisterOption }: RegisterProps) => {
   const { t } = useTranslation(['validationMessages', 'translation', 'firebaseMessages']);
-  const [isRegisterRequestSent, setIsRegisterRequestSent] = useState<boolean>(false);
   const {
     register,
     handleSubmit,
@@ -26,17 +23,15 @@ const Register = ({ activeRegisterOption }: RegisterProps) => {
   const { passwordType, isPasswordVisible, setIsPasswordVisible } =
     usePasswordVisibilityState(false);
 
-  const notify: NotifyFunction = (message, type) => {
-    toast(t(message, { ns: 'firebaseMessages' }), { type });
+  const notify: NotifyFunction = (id, message, type) => {
+    toast.update(id, { render: t(message, { ns: 'firebaseMessages' }), type, isLoading: false });
   };
 
   const onSubmit = async () => {
     const { name, email, password } = getValues();
-    setIsRegisterRequestSent(true);
+    const id = toast.loading(t('pending', { ns: 'firebaseMessages' }));
     const response = await registerWithEmailAndPassword(name, email, password);
-    sendNotification(response.message, setError, notify);
-
-    setIsRegisterRequestSent(false);
+    sendNotification(response.message, notify.bind(this, id), setError);
   };
 
   return (
@@ -106,14 +101,6 @@ const Register = ({ activeRegisterOption }: RegisterProps) => {
             value={t('signUpButton', { ns: ['translation'] }).toString()}
           />
         </div>
-        <ThreeDots
-          height="30"
-          width="30"
-          radius="4"
-          color="white"
-          wrapperClass={styles.auth__loader}
-          visible={isRegisterRequestSent}
-        />
       </form>
     </>
   );

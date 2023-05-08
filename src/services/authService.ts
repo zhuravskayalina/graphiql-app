@@ -54,9 +54,9 @@ const logInWithEmailAndPassword = async (email: string, password: string) => {
   }
 };
 
-const logout = () => {
+const logout = async () => {
   try {
-    signOut(auth);
+    await signOut(auth);
     return {
       message: 'auth/logout-success',
     };
