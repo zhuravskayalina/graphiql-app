@@ -12,7 +12,7 @@ import styles from './Documentation.module.scss';
 const Documentation = () => {
   const [typePath, setTypePath] = useState<string[]>(['Schema']);
   const [currentType, setCurrentType] = useState<string>(typePath[0]);
-  const { loading, error, data } = useQuery<IntrospectionQuery>(INTROSPECTION);
+  const { loading, data } = useQuery<IntrospectionQuery>(INTROSPECTION);
 
   const changeType = (event: React.MouseEvent<HTMLElement>) => {
     if (event.currentTarget.dataset.type) {
