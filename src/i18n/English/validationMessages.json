@@ -1,0 +1,12 @@
+{
+  "nameRequired": "Name cannot be empty",
+  "nameMinLength": "Name should contain at least 2 symbols",
+  "nameMaxLength": "Name could contain up to 40 symbols",
+  "emailRequired": "Email cannot be empty",
+  "emailMismatch": "Email doesn't match the required format",
+  "passwordRequired": "Password cannot be empty",
+  "passwordMinLength": "Password should be at least 8 symbols",
+  "passwordLetterMissed": "Password should contain at least 1 letter",
+  "passwordNumberMissed": "Password should contain at least 1 number",
+  "passwordSymbolMissed": "Password should contain at least 1 special character"
+}

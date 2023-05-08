@@ -1,0 +1,16 @@
+{
+  "signIn": "Sign in",
+  "signUp": "Sign up",
+  "backToMain": "Go to Main Page",
+  "logout": "Logout",
+  "loginSuggestion": "Already have an account?",
+  "namePlaceholder": "Full Name*",
+  "emailPlaceholder": "E-mail Address*",
+  "passwordPlaceholder": "Password*",
+  "signUpButton": "Sign up",
+  "registerSuggestion": "New to GraphiQL?",
+  "signInTitle": "Sign in",
+  "signUpLink": "Let's get started!",
+  "appDescription": "GraphiQL is a playground for graphQL requests.",
+  "getStartedButton": "Get started"
+}

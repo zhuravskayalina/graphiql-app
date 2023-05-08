@@ -1,0 +1,16 @@
+{
+  "signIn": "Войти",
+  "signUp": "Регистрация",
+  "backToMain": "Вернуться на главную",
+  "logout": "Войти",
+  "loginSuggestion": "Уже зарегистрированы?",
+  "namePlaceholder": "Имя*",
+  "emailPlaceholder": "Электронная почта*",
+  "passwordPlaceholder": "Пароль*",
+  "signUpButton": "Зарегистрироваться",
+  "registerSuggestion": "Нет аккаунта?",
+  "signInTitle": "Вход",
+  "signUpLink": "Зарегистрироваться",
+  "appDescription": "GraphiQL - песочница graphQL-запросов.",
+  "getStartedButton": "Начать"
+}
