@@ -7,9 +7,8 @@ import styles from './../Auth.module.scss';
 import { validationScheme } from './validationScheme';
 import usePasswordVisibilityState from '@/hooks/usePasswordVisibilityState';
 import { useTranslation } from 'react-i18next';
-import sendNotification from '@/services/firebaseNotificationService';
-import { toast } from 'react-toastify';
-import { NotifyFunction } from '../Login/types';
+import getNotificationType, { sendNotification } from '@/services/firebaseNotificationService';
+import { showToast } from '@/utils/toastUtil';
 
 const Register = ({ activeRegisterOption }: RegisterProps) => {
   const { t } = useTranslation(['validationMessages', 'translation', 'firebaseMessages']);
@@ -23,20 +22,12 @@ const Register = ({ activeRegisterOption }: RegisterProps) => {
   const { passwordType, isPasswordVisible, setIsPasswordVisible } =
     usePasswordVisibilityState(false);
 
-  const notify: NotifyFunction = (id, message, type) => {
-    toast.update(id, {
-      render: t(message, { ns: 'firebaseMessages' }),
-      type,
-      isLoading: false,
-      autoClose: 1000,
-    });
-  };
-
   const onSubmit = async () => {
     const { name, email, password } = getValues();
-    const id = toast(t('pending', { ns: 'firebaseMessages' }), { isLoading: true });
+    const id = showToast('info', t('pending', { ns: 'firebaseMessages' }), true);
     const response = await registerWithEmailAndPassword(name, email, password);
-    sendNotification(response.message, notify.bind(this, id), setError);
+    const { type, message } = await getNotificationType(response.message);
+    sendNotification(id, type, t(message, { ns: 'firebaseMessages' }).toString(), setError);
   };
 
   return (

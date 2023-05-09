@@ -1,40 +1,76 @@
 import { FormsFields } from '@/components/Auth/Register/types';
+import { removeToast, updateToast } from '@/utils/toastUtil';
 import { UseFormSetError } from 'react-hook-form';
+import { Id } from 'react-toastify';
 
-const sendNotification = async (
-  message: string,
-  setNotification: (message: string, type: 'success' | 'error') => void,
-  setError?: UseFormSetError<FormsFields>
-) => {
+const getNotificationType = async (message: string) => {
   switch (message) {
     case 'auth/register-success':
-      setNotification('registerSuccess', 'success');
-      break;
+      return {
+        type: 'toast-success',
+        message: 'registerSuccess',
+      };
     case 'auth/login-success':
-      setNotification('loginSuccess', 'success');
-      break;
+      return {
+        type: 'toast-success',
+        message: 'loginSuccess',
+      };
     case 'auth/logout-success':
-      setNotification('logoutSuccess', 'success');
-      break;
+      return {
+        type: 'toast-success',
+        message: 'logoutSuccess',
+      };
     case 'auth/invalid-email':
-      if (setError) setError('email', { type: 'custom', message: 'invalidEmail' });
-      break;
+      return {
+        type: 'error',
+        message: 'invalidEmail',
+      };
     case 'auth/missing-password':
-      if (setError) setError('password', { type: 'custom', message: 'missingPassword' });
-      break;
+      return {
+        type: 'error',
+        message: 'missingPassword',
+      };
     case 'auth/user-not-found':
-      if (setError) setError('email', { type: 'custom', message: 'userNotFound' });
-      break;
+      return {
+        type: 'error',
+        message: 'userNotFound',
+      };
     case 'auth/wrong-password':
-      if (setError) setError('password', { type: 'custom', message: 'wrongPassword' });
-      break;
+      return {
+        type: 'error',
+        message: 'wrongPassword',
+      };
     case 'auth/email-already-in-use':
-      if (setError) setError('email', { type: 'custom', message: 'usedEmail' });
+      return {
+        type: 'error',
+        message: 'usedEmail',
+      };
+    default:
+      return {
+        type: 'toast-error',
+        message: 'authError',
+      };
+  }
+};
+
+export const sendNotification = (
+  id: Id,
+  type: string,
+  message: string,
+  setError?: UseFormSetError<FormsFields>
+) => {
+  switch (type) {
+    case 'error':
+      if (setError) setError('email', { type: 'custom', message });
+      removeToast(id);
+      break;
+    case 'toast-success':
+      updateToast(id, 'success', message, false);
       break;
     default:
-      setNotification('authError', 'error');
+      updateToast(id, 'error', message, false);
       break;
   }
 };
 
-export default sendNotification;
+export default getNotificationType;

@@ -9,5 +9,3 @@ export type LoginFormsFields = {
   email: string;
   password: string;
 };
-
-export type NotifyFunction = (id: Id, message: string, type: 'success' | 'error') => void;
