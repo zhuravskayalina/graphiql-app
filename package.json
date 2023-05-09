@@ -10,14 +10,11 @@
     "lint:fix": "next lint --fix"
   },
   "dependencies": {
+    "@apollo/client": "^3.7.14",
     "@monaco-editor/react": "^4.5.1",
-    "@types/node": "18.16.3",
-    "@types/react": "18.2.0",
-    "@types/react-dom": "18.2.1",
     "clsx": "^1.2.1",
-    "eslint": "8.39.0",
-    "eslint-config-next": "13.3.2",
     "firebase": "^9.21.0",
+    "graphql": "^16.6.0",
     "i18next": "^22.4.15",
     "monaco-editor": "^0.38.0",
     "next": "13.3.2",
@@ -26,14 +23,19 @@
     "react-firebase-hooks": "^5.1.1",
     "react-hook-form": "^7.43.9",
     "react-i18next": "^12.2.2",
-    "react-loader-spinner": "^5.3.4",
-    "typescript": "5.0.4"
+    "react-loader-spinner": "^5.3.4"
   },
   "devDependencies": {
+    "@types/node": "18.16.3",
+    "@types/react": "18.2.0",
+    "@types/react-dom": "18.2.1",
     "@typescript-eslint/eslint-plugin": "^5.59.1",
     "@typescript-eslint/parser": "^5.59.1",
+    "typescript": "5.0.4",
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-prettier": "^4.2.1",
+    "eslint": "8.39.0",
+    "eslint-config-next": "13.3.2",
     "prettier": "^2.8.8",
     "sass": "^1.62.1"
   }

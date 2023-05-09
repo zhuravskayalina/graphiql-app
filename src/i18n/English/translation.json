@@ -12,5 +12,6 @@
   "signInTitle": "Sign in",
   "signUpLink": "Let's get started!",
   "appDescription": "GraphiQL is a playground for graphQL requests.",
-  "getStartedButton": "Get started"
+  "getStartedButton": "Get started",
+  "documentationTitle": "Documentation"
 }
