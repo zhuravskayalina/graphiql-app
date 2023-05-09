@@ -4,7 +4,6 @@ import styles from './Schema.module.scss';
 const Schema = ({ schema, changeType }: Schema) => {
   return (
     <>
-      <h3 className={styles.title}>Documentation</h3>
       <p className={styles.description}>
         A GraphQL schema provides a root type for each kind of operation.
       </p>

@@ -1,6 +1,7 @@
 import { useState } from 'react';
-import { useQuery } from '@apollo/client';
+import { useTranslation } from 'react-i18next';
 import { BallTriangle } from 'react-loader-spinner';
+import { useQuery } from '@apollo/client';
 import { INTROSPECTION } from '@/pages/api/introspection';
 import { IntrospectionQuery } from '@/generatedTypes/IntrospectionQuery';
 import TypePath from './components/TypePath/TypePath';
@@ -10,6 +11,7 @@ import Arguments from './components/Arguments/Arguments';
 import styles from './Documentation.module.scss';
 
 const Documentation = () => {
+  const { t } = useTranslation();
   const [typePath, setTypePath] = useState<string[]>(['Schema']);
   const [currentType, setCurrentType] = useState<string>(typePath[0]);
   const { loading, data } = useQuery<IntrospectionQuery>(INTROSPECTION);
@@ -40,6 +42,7 @@ const Documentation = () => {
           visible={true}
         />
       )}
+      <h3 className={styles.title}>{t('documentationTitle')}</h3>
       {data && currentType === typePath[0] ? (
         <Schema schema={data.__schema} changeType={changeType} />
       ) : (
