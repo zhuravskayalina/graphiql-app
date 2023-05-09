@@ -7,7 +7,13 @@
 
 .schema {
   padding: 10px 0;
-  border-top: 1px solid colors.$black;
+  font-family: 'IBM Plex Mono', monospace;
+}
+
+.heading {
+  font-size: 16px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid colors.$half-light-gray;
 }
 
 .name {
@@ -16,9 +22,11 @@
 
 .type {
   cursor: pointer;
-  color: colors.$purple;
+  color: colors.$dark-blue;
+  font-weight: 500;
+  border-bottom: 1.5px solid transparent;
 
   &:hover {
-    border-bottom: 1.5px solid colors.$purple;
+    border-bottom: 1.5px solid colors.$dark-blue;
   }
 }

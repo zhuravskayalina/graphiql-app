@@ -5,11 +5,13 @@
 }
 
 .type {
-  color: colors.$dark-aquamarine;
-  cursor: pointer;
+  color: colors.$orange;
+  border-bottom: 1.5px solid transparent;
+  transition: 0.3s;
 
   &:hover {
-    border-bottom: 1.5px solid colors.$dark-aquamarine;
+    cursor: pointer;
+    border-bottom: 1.5px solid colors.$orange;
   }
 }
 

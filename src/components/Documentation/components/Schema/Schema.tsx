@@ -7,7 +7,7 @@ const Schema = ({ schema, changeType }: Schema) => {
       <p className={styles.description}>
         A GraphQL schema provides a root type for each kind of operation.
       </p>
-      <h4>Root Types</h4>
+      <h4 className={styles.heading}>Root Types</h4>
       <div className={styles.schema}>
         {schema.queryType ? (
           <div>
