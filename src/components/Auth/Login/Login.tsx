@@ -7,9 +7,11 @@ import clsx from 'clsx';
 import usePasswordVisibilityState from '@/hooks/usePasswordVisibilityState';
 import { useTranslation } from 'react-i18next';
 import getNotificationType, { sendNotification } from '@/services/firebaseNotificationService';
-import { showToast } from '@/utils/toastUtil';
+import { ThreeDots } from 'react-loader-spinner';
+import { useState } from 'react';
 
 const Login = ({ activeRegisterOption }: LoginProps) => {
+  const [isLoginRequestSent, setIsLoginRequestSent] = useState<boolean>(false);
   const { t } = useTranslation(['translation', 'firebaseMessages']);
   const {
     register,
@@ -23,10 +25,11 @@ const Login = ({ activeRegisterOption }: LoginProps) => {
 
   const onSubmit = async () => {
     const { email, password } = getValues();
-    const id = showToast('info', t('pending', { ns: 'firebaseMessages' }), true);
+    setIsLoginRequestSent(true);
     const response = await logInWithEmailAndPassword(email, password);
+    setIsLoginRequestSent(false);
     const { type, message } = await getNotificationType(response.message);
-    sendNotification(id, type, t(message, { ns: 'firebaseMessages' }).toString(), setError);
+    sendNotification(type, t(message, { ns: 'firebaseMessages' }).toString(), setError);
   };
 
   return (
@@ -50,7 +53,7 @@ const Login = ({ activeRegisterOption }: LoginProps) => {
           className={clsx(styles.form__textBox, styles['form__textbox-email'], {
             [styles.form__textBox_invalid]: errors.email?.message,
           })}
-          {...register('email')}
+          {...(true && { ...register('email') })}
           placeholder={t('emailPlaceholder').toString()}
         />
         <p className={styles.form__error}>
@@ -75,6 +78,14 @@ const Login = ({ activeRegisterOption }: LoginProps) => {
         </p>
         <div className={styles['form__textbox-container']}>
           <input type="submit" className={styles.form__button} value={t('signIn').toString()} />
+          <ThreeDots
+            height="30"
+            width="30"
+            radius="4"
+            color="white"
+            wrapperClass={styles.auth__loader}
+            visible={isLoginRequestSent}
+          />
         </div>
       </form>
     </>

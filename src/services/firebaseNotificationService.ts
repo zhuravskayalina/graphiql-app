@@ -1,7 +1,6 @@
 import { FormsFields } from '@/components/Auth/Register/types';
-import { removeToast, updateToast } from '@/utils/toastUtil';
+import { showToast } from '@/utils/toastUtil';
 import { UseFormSetError } from 'react-hook-form';
-import { Id } from 'react-toastify';
 
 const getNotificationType = async (message: string) => {
   switch (message) {
@@ -54,7 +53,6 @@ const getNotificationType = async (message: string) => {
 };
 
 export const sendNotification = (
-  id: Id,
   type: string,
   message: string,
   setError?: UseFormSetError<FormsFields>
@@ -62,13 +60,12 @@ export const sendNotification = (
   switch (type) {
     case 'error':
       if (setError) setError('email', { type: 'custom', message });
-      removeToast(id);
       break;
     case 'toast-success':
-      updateToast(id, 'success', message, false);
+      showToast('success', message);
       break;
     default:
-      updateToast(id, 'error', message, false);
+      showToast('error', message);
       break;
   }
 };

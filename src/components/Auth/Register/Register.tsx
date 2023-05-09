@@ -8,9 +8,11 @@ import { validationScheme } from './validationScheme';
 import usePasswordVisibilityState from '@/hooks/usePasswordVisibilityState';
 import { useTranslation } from 'react-i18next';
 import getNotificationType, { sendNotification } from '@/services/firebaseNotificationService';
-import { showToast } from '@/utils/toastUtil';
+import { ThreeDots } from 'react-loader-spinner';
+import { useState } from 'react';
 
 const Register = ({ activeRegisterOption }: RegisterProps) => {
+  const [isLoginRequestSent, setIsRegisterRequestSent] = useState<boolean>(false);
   const { t } = useTranslation(['validationMessages', 'translation', 'firebaseMessages']);
   const {
     register,
@@ -24,10 +26,11 @@ const Register = ({ activeRegisterOption }: RegisterProps) => {
 
   const onSubmit = async () => {
     const { name, email, password } = getValues();
-    const id = showToast('info', t('pending', { ns: 'firebaseMessages' }), true);
+    setIsRegisterRequestSent(true);
     const response = await registerWithEmailAndPassword(name, email, password);
+    setIsRegisterRequestSent(false);
     const { type, message } = await getNotificationType(response.message);
-    sendNotification(id, type, t(message, { ns: 'firebaseMessages' }).toString(), setError);
+    sendNotification(type, t(message, { ns: 'firebaseMessages' }).toString(), setError);
   };
 
   return (
@@ -95,6 +98,14 @@ const Register = ({ activeRegisterOption }: RegisterProps) => {
             type="submit"
             className={styles.form__button}
             value={t('signUpButton', { ns: ['translation'] }).toString()}
+          />
+          <ThreeDots
+            height="30"
+            width="30"
+            radius="4"
+            color="white"
+            wrapperClass={styles.auth__loader}
+            visible={isLoginRequestSent}
           />
         </div>
       </form>

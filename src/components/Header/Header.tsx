@@ -10,7 +10,6 @@ import { logout } from '@/services/authService';
 import { ChangeEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import { LOCALES } from '@/i18n/locales';
-import { toast } from 'react-toastify';
 import getNotificationType, { sendNotification } from '@/services/firebaseNotificationService';
 
 const Header = ({ isLoggedIn }: HeaderProps) => {
@@ -21,10 +20,9 @@ const Header = ({ isLoggedIn }: HeaderProps) => {
   };
 
   const handleOnClick = async () => {
-    const id = toast(t('pending', { ns: 'firebaseMessages' }), { isLoading: true });
     const response = await logout();
     const { type, message } = await getNotificationType(response.message);
-    sendNotification(id, type, t(message, { ns: 'firebaseMessages' }).toString());
+    sendNotification(type, t(message, { ns: 'firebaseMessages' }).toString());
   };
 
   return (
