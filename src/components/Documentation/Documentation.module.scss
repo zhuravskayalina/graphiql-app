@@ -33,20 +33,35 @@
 }
 
 .title {
-  margin-bottom: 20px;
+  margin-bottom: 8px;
 }
 
-.objectDescription {
+.typeDescription {
+  color: colors.$black;
   padding: 10px 0;
 }
 
-.fields {
+.box {
   padding-top: 10px;
-}
+  @include elements-style.flex-column;
+  width: 100%;
+  color: colors.$black;
+  font-family: 'IBM Plex Mono', monospace;
 
-.field {
-  display: flex;
-  flex-wrap: wrap;
+  &__title {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  &__description {
+    color: colors.$light-gray;
+    font-size: 14px;
+    font-family: 'Helvetica Neue', sans-serif;
+  }
+
+  &__filter {
+    flex-direction: row;
+  }
 }
 
 .heading {
@@ -75,4 +90,10 @@
   background-color: rgba(0, 0, 0, 0.17);
   backdrop-filter: blur(5px);
   z-index: z-index.$doc-background;
+}
+
+.doc__loader {
+  @include elements-style.center-content;
+  width: 100%;
+  height: 100%;
 }

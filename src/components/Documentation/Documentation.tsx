@@ -76,25 +76,25 @@ const Documentation = ({ isTablet, isOpen, setOpenDoc }: DocumentationProps) => 
             <>
               <TypePath path={typePath} changeType={changeType} />
               {typeObject?.description ? (
-                <p className={styles.objectDescription}>{typeObject?.description}</p>
+                <p className={styles.typeDescription}>{typeObject?.description}</p>
               ) : null}
               {typeObject?.fields
                 ? typeObject?.fields?.map((field) => (
-                    <div className={styles.fields} key={field.name}>
-                      <div className={styles.field}>
-                        <span className={styles.name}>{field.name}</span>
+                    <div className={styles.box} key={field.name}>
+                      <div className={styles.box__title}>
+                        <span>{field.name}</span>
                         <Arguments args={field.args} changeType={changeType} />
-                        {':'}
+                        {':'}&nbsp;
                         <Type type={field.type} changeType={changeType} />
                       </div>
-                      <p className={styles.description}>{field.description}</p>
+                      <p className={styles.box__description}>{field.description}</p>
                     </div>
                   ))
                 : typeObject?.inputFields?.map((input) => (
-                    <div className={styles.fields} key={input.name}>
+                    <div className={clsx(styles.box, styles.box__filter)} key={input.name}>
                       <p>{input.description}</p>
                       <span>{input.name}</span>
-                      {':'}
+                      {':'}&nbsp;
                       <Type type={input.type} changeType={changeType} />
                     </div>
                   ))}
