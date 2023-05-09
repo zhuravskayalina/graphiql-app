@@ -26,7 +26,7 @@ const Login = ({ activeRegisterOption }: LoginProps) => {
       render: t(message, { ns: 'firebaseMessages' }),
       type,
       isLoading: false,
-      // autoClose: 1000,
+      autoClose: 1000,
     });
   };
 
