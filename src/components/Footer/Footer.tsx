@@ -27,7 +27,7 @@ const Footer = () => {
     <footer className={clsx(styles.footer)}>
       <div className={clsx(styles.footer__container)}>
         <Link href="https://rs.school/js/">
-          <Image src={rssLogo} alt="rss-logo" className={clsx(styles.footer__logo)} />
+          <Image src={rssLogo} alt="rss-logo" className={clsx(styles.footer__logo)} priority />
         </Link>
         <p className={clsx(styles.footer__copyright)}>
           <span className={clsx(styles.footer__copyright_text)}>Copyright</span> &copy; 2023

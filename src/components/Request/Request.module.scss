@@ -1,3 +1,44 @@
-.wrapper {
-  flex: 1 1 auto;
+@use '@/styles/variables/colors';
+@use '@/styles/mixins/elements-style';
+
+.request {
+  @include elements-style.flex-column;
+  padding: 10px 20px;
+  flex-grow: 1;
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+
+  &__heading {
+    font-weight: 600;
+    font-size: 16px;
+  }
+}
+
+.runBtn {
+  padding: 4px 12px;
+  background-color: colors.$blue;
+  color: colors.$white;
+  font-weight: 500;
+  font-size: 14px;
+  border-radius: 4px;
+  display: flex;
+  gap: 8px;
+  border: 2px solid colors.$dark-blue;
+  transition: 0.2s;
+
+  &:hover {
+    cursor: pointer;
+    transform: scale(1.05);
+    background-color: colors.$dark-blue;
+  }
+}
+
+.editor {
+  flex-grow: 1;
+  overflow: hidden;
 }

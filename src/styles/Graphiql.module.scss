@@ -1,25 +1,68 @@
 @use '@/styles/variables/colors';
 @use '@/styles/mixins/elements-style.scss';
+@use '@/styles/variables/z-index';
 
 .main {
-  display: flex;
+  display: grid;
+  gap: 20px;
+  grid-template-areas: 'doc request response';
+  grid-template-columns: repeat(3, 1fr);
   justify-content: space-between;
   height: 100%;
   color: colors.$gray-blue;
   background-color: colors.$super-light-gray;
+  position: relative;
+  padding: 0 10px;
+
+  @media screen and (max-width: 800px) {
+    padding-right: 15px;
+  }
 
   &__documentation {
-    flex: 1 1 25%;
+    grid-area: doc;
+    position: relative;
+    margin-bottom: 40px;
   }
 
   &__request {
-    flex: 1 1 40%;
     @include elements-style.flex-column;
     background-color: colors.$white;
     border-radius: 10px;
+    margin-top: 30px;
+    margin-bottom: 40px;
+    grid-area: request;
   }
 
   &__response {
-    flex: 1 1 35%;
+    grid-area: response;
+  }
+
+  &__openButton {
+    @include elements-style.button-style-reset;
+    transition: 0.3s;
+
+    &:hover {
+      cursor: pointer;
+      transform: scale(1.1);
+    }
+  }
+}
+
+.section:not(.main__request) {
+  margin-top: 30px;
+}
+
+@media screen and (max-width: 1100px) {
+  .main {
+    grid-template-columns: auto 1fr 1fr;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .main {
+    grid-template-areas:
+      'doc request'
+      'response response';
+    grid-template-columns: auto 1fr;
   }
 }
