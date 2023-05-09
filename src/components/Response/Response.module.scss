@@ -1,3 +1,18 @@
-.wrapper {
+@use '@/styles/mixins/elements-style';
+
+.response {
   display: flex;
+  @include elements-style.flex-column;
+
+  &__heading {
+    font-size: 16px;
+  }
+
+  &__text {
+    margin-top: 20px;
+  }
+
+  @media screen and (max-width: 700px) {
+    margin-bottom: 30px;
+  }
 }
