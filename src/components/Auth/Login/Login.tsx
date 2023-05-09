@@ -22,12 +22,17 @@ const Login = ({ activeRegisterOption }: LoginProps) => {
     usePasswordVisibilityState(false);
 
   const notify: NotifyFunction = (id, message, type) => {
-    toast.update(id, { render: t(message, { ns: 'firebaseMessages' }), type, isLoading: false });
+    toast.update(id, {
+      render: t(message, { ns: 'firebaseMessages' }),
+      type,
+      isLoading: false,
+      // autoClose: 1000,
+    });
   };
 
   const onSubmit = async () => {
     const { email, password } = getValues();
-    const id = toast('Please wait...', { isLoading: true });
+    const id = toast(t('pending', { ns: 'firebaseMessages' }), { isLoading: true });
     const response = await logInWithEmailAndPassword(email, password);
     sendNotification(response.message, notify.bind(this, id), setError);
   };

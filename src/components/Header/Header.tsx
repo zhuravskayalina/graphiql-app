@@ -26,12 +26,12 @@ const Header = ({ isLoggedIn }: HeaderProps) => {
       render: t(message, { ns: 'firebaseMessages' }),
       type,
       isLoading: false,
-      autoClose: 1000,
+      // autoClose: 1000,
     });
   };
 
   const handleOnClick = async () => {
-    const id = toast.loading(t('pending', { ns: 'firebaseMessages' }));
+    const id = toast(t('pending', { ns: 'firebaseMessages' }), { isLoading: true });
     const response = await logout();
     sendNotification(response.message, notify.bind(this, id));
   };
