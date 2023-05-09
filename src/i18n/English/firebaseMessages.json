@@ -1,0 +1,12 @@
+{
+  "invalidEmail": "Provide a valid email",
+  "missingPassword": "Provide a valid password",
+  "userNotFound": "User is not found",
+  "wrongPassword": "Password is incorrect",
+  "usedEmail": "User with such email already exists",
+  "registerSuccess": "Registered successfully",
+  "loginSuccess": "Logged in successfully",
+  "logoutSuccess": "Logged out successfully",
+  "authError": "Something went wrong. Try again later",
+  "pending": "Please wait..."
+}
