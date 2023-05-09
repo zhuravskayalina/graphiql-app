@@ -12,5 +12,6 @@
   "signInTitle": "Вход",
   "signUpLink": "Зарегистрироваться",
   "appDescription": "GraphiQL - песочница graphQL-запросов.",
-  "getStartedButton": "Начать"
+  "getStartedButton": "Начать",
+  "documentationTitle": "Документация"
 }

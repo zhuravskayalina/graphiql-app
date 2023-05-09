@@ -1,0 +1,11 @@
+@use '@/styles/variables/colors';
+
+.type {
+  margin-left: 5px;
+  color: colors.$purple;
+  cursor: pointer;
+
+  &:hover {
+    border-bottom: 1.5px solid colors.$purple;
+  }
+}

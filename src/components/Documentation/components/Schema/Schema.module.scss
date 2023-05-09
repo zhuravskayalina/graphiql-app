@@ -1,0 +1,24 @@
+@use '@/styles/variables/colors';
+
+.description {
+  margin-bottom: 10px;
+  color: colors.$black;
+}
+
+.schema {
+  padding: 10px 0;
+  border-top: 1px solid colors.$black;
+}
+
+.name {
+  margin-right: 5px;
+}
+
+.type {
+  cursor: pointer;
+  color: colors.$purple;
+
+  &:hover {
+    border-bottom: 1.5px solid colors.$purple;
+  }
+}

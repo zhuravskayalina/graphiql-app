@@ -1,0 +1,22 @@
+@use '@/styles/variables/colors';
+
+.wrapper {
+  display: flex;
+}
+
+.type {
+  color: colors.$dark-aquamarine;
+  cursor: pointer;
+
+  &:hover {
+    border-bottom: 1.5px solid colors.$dark-aquamarine;
+  }
+}
+
+.name {
+  margin-right: 3px;
+}
+
+.argument {
+  margin-right: 5px;
+}
