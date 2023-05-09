@@ -13,5 +13,8 @@
   "signUpLink": "Let's get started!",
   "appDescription": "GraphiQL is a playground for graphQL requests.",
   "getStartedButton": "Get started",
-  "documentationTitle": "Documentation"
+  "documentationTitle": "Documentation",
+  "operation": "Operation",
+  "response": "Response",
+  "variables": "Variables"
 }

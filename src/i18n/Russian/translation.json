@@ -13,5 +13,8 @@
   "signUpLink": "Зарегистрироваться",
   "appDescription": "GraphiQL - песочница graphQL-запросов.",
   "getStartedButton": "Начать",
-  "documentationTitle": "Документация"
+  "documentationTitle": "Документация",
+  "operation": "Запрос",
+  "response": "Ответ",
+  "variables": "Переменные"
 }
