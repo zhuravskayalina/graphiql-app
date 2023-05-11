@@ -25,7 +25,7 @@ const Request = () => {
       <section className={styles.editor}>
         <Editor
           className={styles.editor}
-          language="javascript"
+          language="graphql"
           options={{
             cursorBlinking: 'phase',
             formatOnPaste: true,
