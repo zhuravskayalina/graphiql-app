@@ -6,16 +6,8 @@
   flex-grow: 1;
 
   &__heading {
-    margin: 15px 0;
-    font-size: 16px;
-  }
-
-  &__editor {
-    flex-grow: 1;
     padding: 15px 0;
-    background-color: colors.$white;
-    border-radius: 10px;
-    overflow: hidden;
+    font-size: 16px;
   }
 
   @media screen and (max-width: 700px) {

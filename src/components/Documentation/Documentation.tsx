@@ -1,7 +1,6 @@
 import { useState, MouseEvent, useEffect } from 'react';
 import { Dispatch, SetStateAction } from 'react';
 import { useTranslation } from 'react-i18next';
-import { BallTriangle } from 'react-loader-spinner';
 import { clsx } from 'clsx';
 import { IntrospectionQuery } from '@/generatedTypes/IntrospectionQuery';
 import { introspectionQuery } from '@/pages/api/introspection';
@@ -9,6 +8,7 @@ import TypePath from './components/TypePath/TypePath';
 import Schema from './components/Schema/Schema';
 import Type from './components/Type/Type';
 import Arguments from './components/Arguments/Arguments';
+import Loader from '../Loader/Loader';
 import { showToast } from '@/utils/toastUtil';
 import styles from './Documentation.module.scss';
 import closeIcon from '@/assets/images/icons/close.svg';
@@ -75,16 +75,7 @@ const Documentation = ({ isTablet, isOpen, setOpenDoc }: DocumentationProps) => 
           </button>
         )}
         <h3 className={styles.title}>{t('documentationTitle')}</h3>
-        {isLoading && (
-          <BallTriangle
-            height={80}
-            width={80}
-            radius={4}
-            color="darkblue"
-            wrapperClass={styles.doc__loader}
-            visible={true}
-          />
-        )}
+        {isLoading && <Loader />}
         {error && <p>{t('failed')}</p>}
         {data && currentType === typePath[0] ? (
           <Schema schema={data.__schema} changeType={changeType} />

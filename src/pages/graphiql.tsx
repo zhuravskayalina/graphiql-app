@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
-import { BallTriangle } from 'react-loader-spinner';
 import { clsx } from 'clsx';
 import Documentation from '@/components/Documentation/Documentation';
 import Request from '@/components/Request/Request';
 import Response from '@/components/Response/Response';
 import Variables from '@/components/Variables/Variables';
+import Loader from '@/components/Loader/Loader';
 import { showToast } from '@/utils/toastUtil';
 import Image from 'next/image';
 import docIcon from '@/assets/images/icons/book.svg';
@@ -57,18 +57,7 @@ const Graphiql = () => {
         <Variables />
       </div>
       <div className={clsx(styles.main__response, styles.section)}>
-        {isLoading ? (
-          <BallTriangle
-            height={80}
-            width={80}
-            radius={4}
-            color="darkblue"
-            wrapperClass={styles.res__loader}
-            visible={true}
-          />
-        ) : (
-          <Response data={data} errors={errors} />
-        )}
+        {isLoading ? <Loader /> : <Response data={data} errors={errors} />}
       </div>
     </div>
   );
