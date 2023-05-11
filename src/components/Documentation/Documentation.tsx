@@ -45,8 +45,8 @@ const Documentation = ({ isTablet, isOpen, setOpenDoc }: DocumentationProps) => 
 
   useEffect(() => {
     introspectionQuery()
-      .then((data) => {
-        setData(data);
+      .then((res) => {
+        setData(res);
         setIsLoading(false);
       })
       .catch((error) => {
