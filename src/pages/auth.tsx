@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { PropsWithChildren, useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import Login from '@/components/Auth/Login/Login';
 import Register from '@/components/Auth/Register/Register';
@@ -9,21 +9,28 @@ import playgroundLogo from '@/assets/images/playgroundLogo.png';
 import { paths } from '@/enums/routerPaths';
 import { useRouter } from '@/hooks/useRouter';
 import { BallTriangle } from 'react-loader-spinner';
+import RequireAuth from '@/components/Auth/WithPrivateRoute';
+
+// export const getServerSideProps = withAuth(async () => {
+//   return {
+//     props: {},
+//   };
+// });
 
 const Auth = () => {
   const { query, router } = useRouter();
   const [isRegisterActive, setIsRegisterActive] = useState<boolean | null>(null);
-  const [user, loading] = useAuthState(auth);
+  // const [user, loading] = useAuthState(auth);
 
   useEffect(() => {
     setIsRegisterActive(query.register === 'true' ? true : false);
   }, [query]);
 
-  useEffect(() => {
-    if (user) router.push(paths.main);
-  }, [user, router]);
+  // useEffect(() => {
+  //   if (user) router.push(paths.main);
+  // }, [user, router]);
 
-  return !loading ? (
+  return (
     <div className={styles.auth}>
       <div className={styles.auth__container}>
         <Image src={playgroundLogo} className={styles.auth__logo} alt="playground-logo" />
@@ -34,16 +41,17 @@ const Auth = () => {
         )}
       </div>
     </div>
-  ) : (
-    <BallTriangle
-      height={80}
-      width={80}
-      radius={4}
-      color="darkblue"
-      wrapperClass={styles.auth__loader}
-      visible={true}
-    />
   );
+  // : (
+  //   <BallTriangle
+  //     height={80}
+  //     width={80}
+  //     radius={4}
+  //     color="darkblue"
+  //     wrapperClass={styles.auth__loader}
+  //     visible={true}
+  //   />
+  // );
 };
 
-export default Auth;
+export default RequireAuth(Auth);
