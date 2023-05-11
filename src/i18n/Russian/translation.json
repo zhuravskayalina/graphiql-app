@@ -16,5 +16,6 @@
   "documentationTitle": "Документация",
   "operation": "Запрос",
   "response": "Ответ",
-  "variables": "Переменные"
+  "variables": "Переменные",
+  "failed": "Ошибка загрузки"
 }

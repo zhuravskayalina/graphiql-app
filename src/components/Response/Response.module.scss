@@ -1,15 +1,21 @@
 @use '@/styles/mixins/elements-style';
+@use '@/styles/variables/colors';
 
 .response {
-  display: flex;
   @include elements-style.flex-column;
+  flex-grow: 1;
 
   &__heading {
+    margin: 15px 0;
     font-size: 16px;
   }
 
-  &__text {
-    margin-top: 20px;
+  &__editor {
+    flex-grow: 1;
+    padding: 15px 0;
+    background-color: colors.$white;
+    border-radius: 10px;
+    overflow: hidden;
   }
 
   @media screen and (max-width: 700px) {

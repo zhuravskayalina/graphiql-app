@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
+import { BallTriangle } from 'react-loader-spinner';
 import { clsx } from 'clsx';
 import Documentation from '@/components/Documentation/Documentation';
 import Request from '@/components/Request/Request';
 import Response from '@/components/Response/Response';
 import Variables from '@/components/Variables/Variables';
+import { showToast } from '@/utils/toastUtil';
 import Image from 'next/image';
 import docIcon from '@/assets/images/icons/book.svg';
 import { getQuery, Error } from './api/query';
@@ -18,8 +20,7 @@ const Graphiql = () => {
   const [value, setValue] = useState<string | undefined>();
   const [data, setData] = useState<IntrospectionQuery | null>(null);
   const [errors, setErrors] = useState<Error[] | null>(null);
-  const [error, setError] = useState<string | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     setTabletScreen(isTablet);
@@ -27,14 +28,15 @@ const Graphiql = () => {
 
   const onSubmit = () => {
     if (value) {
+      setIsLoading(true);
       getQuery(value)
         .then((res) => {
           setData(res.data);
           setErrors(res.errors);
           setIsLoading(false);
         })
-        .catch((error) => {
-          setError(error);
+        .catch((error: Error) => {
+          showToast('error', error.message);
           setIsLoading(false);
         });
     }
@@ -55,7 +57,18 @@ const Graphiql = () => {
         <Variables />
       </div>
       <div className={clsx(styles.main__response, styles.section)}>
-        <Response data={data} errors={errors} />
+        {isLoading ? (
+          <BallTriangle
+            height={80}
+            width={80}
+            radius={4}
+            color="darkblue"
+            wrapperClass={styles.res__loader}
+            visible={true}
+          />
+        ) : (
+          <Response data={data} errors={errors} />
+        )}
       </div>
     </div>
   );

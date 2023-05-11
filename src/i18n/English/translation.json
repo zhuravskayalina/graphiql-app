@@ -16,5 +16,6 @@
   "documentationTitle": "Documentation",
   "operation": "Operation",
   "response": "Response",
-  "variables": "Variables"
+  "variables": "Variables",
+  "failed": "Failed to fetch"
 }

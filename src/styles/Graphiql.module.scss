@@ -34,6 +34,9 @@
   }
 
   &__response {
+    @include elements-style.flex-column;
+    margin-top: 30px;
+    margin-bottom: 40px;
     grid-area: response;
   }
 
@@ -65,4 +68,10 @@
       'response response';
     grid-template-columns: auto 1fr;
   }
+}
+
+.res__loader {
+  @include elements-style.center-content;
+  width: 100%;
+  height: 100%;
 }

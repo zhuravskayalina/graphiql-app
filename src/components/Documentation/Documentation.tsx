@@ -1,17 +1,18 @@
 import { useState, MouseEvent, useEffect } from 'react';
+import { Dispatch, SetStateAction } from 'react';
 import { useTranslation } from 'react-i18next';
 import { BallTriangle } from 'react-loader-spinner';
+import { clsx } from 'clsx';
 import { IntrospectionQuery } from '@/generatedTypes/IntrospectionQuery';
+import { introspectionQuery } from '@/pages/api/introspection';
 import TypePath from './components/TypePath/TypePath';
 import Schema from './components/Schema/Schema';
 import Type from './components/Type/Type';
 import Arguments from './components/Arguments/Arguments';
+import { showToast } from '@/utils/toastUtil';
 import styles from './Documentation.module.scss';
-import { clsx } from 'clsx';
-import { Dispatch, SetStateAction } from 'react';
 import closeIcon from '@/assets/images/icons/close.svg';
 import Image from 'next/image';
-import { introspectionQuery } from '@/pages/api/introspection';
 
 interface DocumentationProps {
   isTablet: boolean;
@@ -24,7 +25,7 @@ const Documentation = ({ isTablet, isOpen, setOpenDoc }: DocumentationProps) => 
   const [typePath, setTypePath] = useState<string[]>(['Schema']);
   const [currentType, setCurrentType] = useState<string>(typePath[0]);
   const [data, setData] = useState<IntrospectionQuery | null>(null);
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
   const changeType = (event: MouseEvent<HTMLElement>) => {
@@ -48,10 +49,12 @@ const Documentation = ({ isTablet, isOpen, setOpenDoc }: DocumentationProps) => 
       .then((res) => {
         setData(res);
         setIsLoading(false);
+        setError(false);
       })
-      .catch((error) => {
-        setError(error);
+      .catch((error: Error) => {
         setIsLoading(false);
+        setError(true);
+        showToast('error', error.message);
       });
   }, []);
 
@@ -82,6 +85,7 @@ const Documentation = ({ isTablet, isOpen, setOpenDoc }: DocumentationProps) => 
             visible={true}
           />
         )}
+        {error && <p>{t('failed')}</p>}
         {data && currentType === typePath[0] ? (
           <Schema schema={data.__schema} changeType={changeType} />
         ) : (
