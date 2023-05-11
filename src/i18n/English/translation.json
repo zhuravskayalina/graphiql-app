@@ -16,6 +16,10 @@
   "documentationTitle": "Documentation",
   "operation": "Operation",
   "response": "Response",
-  "variables": "Variables"
+  "variables": "Variables",
+  "goHomeButton": "Go Home",
+  "404error": "Error 404",
+  "hey": "Hey",
+  "404text": "We can’t seem to find the page you are looking for."
 }
 
