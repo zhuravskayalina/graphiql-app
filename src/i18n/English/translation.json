@@ -11,10 +11,11 @@
   "registerSuggestion": "New to GraphiQL?",
   "signInTitle": "Sign in",
   "signUpLink": "Let's get started!",
-  "appDescription": "GraphiQL is a playground for graphQL requests.",
+  "appDescription": "GraphiQL is a cutting-edge application designed to empower developers, API enthusiasts, and anyone interested in exploring and testing GraphQL queries, mutations, and subscriptions. With its intuitive interface and robust features, GraphiQL provides a seamless environment to experiment with GraphQL and unleash the full potential of this powerful query language.",
   "getStartedButton": "Get started",
   "documentationTitle": "Documentation",
   "operation": "Operation",
   "response": "Response",
   "variables": "Variables"
 }
+
