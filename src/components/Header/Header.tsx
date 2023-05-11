@@ -9,15 +9,15 @@ import { paths } from '@/enums/routerPaths';
 import { logout } from '@/services/authService';
 import { ChangeEvent } from 'react';
 import { useTranslation } from 'react-i18next';
-import { LOCALES } from '@/i18n/locales';
 import getNotificationType, { sendNotification } from '@/services/firebaseNotificationService';
 import LanguageToggle from './LanguageToggle/LanguageToggle';
 
 const Header = ({ isLoggedIn }: HeaderProps) => {
   const { t, i18n } = useTranslation();
 
-  const handleOnChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    i18n.changeLanguage(e.target.value);
+  const handleLanguageChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const language = e.target.checked ? e.currentTarget?.value : 'default';
+    i18n.changeLanguage(language);
   };
 
   const handleOnClick = async () => {
@@ -33,14 +33,7 @@ const Header = ({ isLoggedIn }: HeaderProps) => {
       </Link>
       <p className={clsx(styles.header__appName)}>GraphiQL App</p>
       <div className={clsx(styles.header__buttons)}>
-        <LanguageToggle />
-        {/* <select value={i18n.resolvedLanguage} name="lang" id="lang" onChange={handleOnChange}>
-          {LOCALES.map((locale) => (
-            <option value={locale.code} key={locale.code}>
-              {locale.language}
-            </option>
-          ))}
-        </select> */}
+        <LanguageToggle changeLanguage={handleLanguageChange} />
         {isLoggedIn ? (
           <>
             <HeaderButton link={paths.main} title={t('backToMain')} />
