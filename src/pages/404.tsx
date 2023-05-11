@@ -7,7 +7,7 @@ const Custom404 = () => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.main} data-test="not-found">
+      <div className={styles.main}>
         <div className={styles.text}>
           <h4 className={styles.main__heading}>{t('404error')}</h4>
           <h2>{t('hey')}</h2>
