@@ -5,7 +5,7 @@ import Register from '@/components/Auth/Register/Register';
 import { auth } from '@/services/authService';
 import styles from '@/styles/Auth.module.scss';
 import Image from 'next/image';
-import playgroundLogo from '@/assets/images/playgroundLogo.png';
+import graphiQlImg from '@/assets/images/graphiQl.svg';
 import { paths } from '@/enums/routerPaths';
 import { useRouter } from '@/hooks/useRouter';
 import { BallTriangle } from 'react-loader-spinner';
@@ -16,7 +16,7 @@ const Auth = () => {
   const [user, loading] = useAuthState(auth);
 
   useEffect(() => {
-    setIsRegisterActive(query.register === 'true' ? true : false);
+    setIsRegisterActive(query.register === 'true');
   }, [query]);
 
   useEffect(() => {
@@ -26,7 +26,7 @@ const Auth = () => {
   return !loading ? (
     <div className={styles.auth}>
       <div className={styles.auth__container}>
-        <Image src={playgroundLogo} className={styles.auth__logo} alt="playground-logo" />
+        <Image src={graphiQlImg} className={styles.auth__logo} alt="playground-logo" />
         {isRegisterActive ? (
           <Register activeRegisterOption={setIsRegisterActive} />
         ) : (
