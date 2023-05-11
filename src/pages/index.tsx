@@ -3,8 +3,7 @@ import Link from 'next/link';
 import { useTranslation } from 'react-i18next';
 import { clsx } from 'clsx';
 import styles from '@/styles/Home.module.scss';
-import apolloImg from '@/assets/images/apollo.svg';
-import graphQlImg from '@/assets/images/graphQL.svg';
+import graphiQlImg from '@/assets/images/graphiQl.svg';
 import arrowIcon from '@/assets/images/icons/arrow.svg';
 import rssLogo from '@/assets/images/rss-logo.svg';
 
@@ -13,36 +12,32 @@ const Home = () => {
 
   return (
     <>
-      <div className={clsx(styles.layout)}>
-        <div className={clsx(styles.main)}>
+      <div className={styles.layout}>
+        <div className={styles.main}>
           <div className={clsx(styles.container, styles.container__main)}>
-            <div className={clsx(styles.main__picture)}>
+            <div className={styles.main__picture}>
               <Image
-                src={apolloImg}
+                src={graphiQlImg}
                 alt="apollo"
-                className={clsx(styles.main__picture_image)}
-                priority
-              />
-              <Image
-                src={graphQlImg}
-                alt="graphiQl"
-                className={clsx(styles.main__picture_image)}
+                className={styles.main__picture_image}
                 priority
               />
             </div>
-            <p className={clsx(styles.main__description)}>{t('appDescription')}</p>
+            <p className={styles.main__description}>
+              <span className={styles.main__description_text}>{t('appDescription')}</span>
+            </p>
             <button className={clsx(styles.startButton)}>
               <span>{t('getStartedButton')}</span>
-              <Image src={arrowIcon} alt="arrow" className={clsx(styles.startButton_icon)} />
+              <Image src={arrowIcon} alt="arrow" className={styles.startButton_icon} />
             </button>
           </div>
         </div>
-        <footer className={clsx(styles.footer)}>
-          <div className={clsx(styles.footer__container)}>
+        <footer className={styles.footer}>
+          <div className={styles.footer__container}>
             <Link href="https://rs.school/js/">
-              <Image src={rssLogo} alt="rss-logo" className={clsx(styles.footer__logo)} />
+              <Image src={rssLogo} alt="rss-logo" className={styles.footer__logo} />
             </Link>
-            <p className={clsx(styles.footer__copyright)}>Copyright &copy; 2023</p>
+            <p className={styles.footer__copyright}>Copyright &copy; 2023</p>
           </div>
         </footer>
       </div>
