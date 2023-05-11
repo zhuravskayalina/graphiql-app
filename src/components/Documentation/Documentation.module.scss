@@ -95,9 +95,3 @@
   backdrop-filter: blur(5px);
   z-index: z-index.$doc-background;
 }
-
-.doc__loader {
-  @include elements-style.center-content;
-  width: 100%;
-  height: 100%;
-}
