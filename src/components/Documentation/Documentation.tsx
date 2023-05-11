@@ -1,8 +1,6 @@
-import { useState, MouseEvent } from 'react';
+import { useState, MouseEvent, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { BallTriangle } from 'react-loader-spinner';
-import { useQuery } from '@apollo/client';
-import { INTROSPECTION } from '@/pages/api/introspection';
 import { IntrospectionQuery } from '@/generatedTypes/IntrospectionQuery';
 import TypePath from './components/TypePath/TypePath';
 import Schema from './components/Schema/Schema';
@@ -13,6 +11,7 @@ import { clsx } from 'clsx';
 import { Dispatch, SetStateAction } from 'react';
 import closeIcon from '@/assets/images/icons/close.svg';
 import Image from 'next/image';
+import { introspectionQuery } from '@/pages/api/introspection';
 
 interface DocumentationProps {
   isTablet: boolean;
@@ -24,7 +23,9 @@ const Documentation = ({ isTablet, isOpen, setOpenDoc }: DocumentationProps) => 
   const { t } = useTranslation();
   const [typePath, setTypePath] = useState<string[]>(['Schema']);
   const [currentType, setCurrentType] = useState<string>(typePath[0]);
-  const { loading, data } = useQuery<IntrospectionQuery>(INTROSPECTION);
+  const [data, setData] = useState<IntrospectionQuery | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   const changeType = (event: MouseEvent<HTMLElement>) => {
     if (event.currentTarget.dataset.type) {
@@ -38,11 +39,23 @@ const Documentation = ({ isTablet, isOpen, setOpenDoc }: DocumentationProps) => 
     }
   };
 
-  const typeObject = data?.__schema.types.find((type) => type.name === currentType);
-
   const handleOpenDoc = () => {
     if (isOpen) setOpenDoc(false);
   };
+
+  useEffect(() => {
+    introspectionQuery()
+      .then((data) => {
+        setData(data);
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        setError(error);
+        setIsLoading(false);
+      });
+  }, []);
+
+  const typeObject = data?.__schema.types.find((type) => type.name === currentType);
 
   return (
     <>
@@ -59,7 +72,7 @@ const Documentation = ({ isTablet, isOpen, setOpenDoc }: DocumentationProps) => 
           </button>
         )}
         <h3 className={styles.title}>{t('documentationTitle')}</h3>
-        {loading && (
+        {isLoading && (
           <BallTriangle
             height={80}
             width={80}

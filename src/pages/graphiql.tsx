@@ -13,10 +13,16 @@ const Graphiql = () => {
   const isTablet = useMediaQuery({ maxWidth: 1100 });
   const [tabletScreen, setTabletScreen] = useState(false);
   const [openDoc, setOpenDoc] = useState<boolean>(false);
+  const [value, setValue] = useState<string | undefined>();
+  const [requestValue, setRequestValue] = useState<string | undefined>();
 
   useEffect(() => {
     setTabletScreen(isTablet);
   }, [isTablet]);
+
+  const onSubmit = () => {
+    setRequestValue(value);
+  };
 
   return (
     <div className={styles.main}>
@@ -29,7 +35,7 @@ const Graphiql = () => {
         <Documentation isOpen={openDoc} isTablet={tabletScreen} setOpenDoc={setOpenDoc} />
       </div>
       <div className={clsx(styles.main__request, styles.section)}>
-        <Request />
+        <Request value={value} setValue={setValue} onSubmit={onSubmit} />
         <Variables />
       </div>
       <div className={clsx(styles.main__response, styles.section)}>
