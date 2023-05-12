@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { useMediaQuery } from 'react-responsive';
 import { useTranslation } from 'react-i18next';
+import { useAuthState } from 'react-firebase-hooks/auth';
 import dynamic from 'next/dynamic';
 import { GetServerSidePropsContext } from 'next';
 import nookies from 'nookies';
@@ -14,11 +14,11 @@ import { showToast } from '@/utils/toastUtil';
 import docIcon from '@/assets/images/icons/book.svg';
 import { getQuery, Error } from './api/query';
 import { IntrospectionQuery } from '@/generatedTypes/IntrospectionQuery';
-import styles from '../styles/Graphiql.module.scss';
 import { useRouter } from '@/hooks/useRouter';
-import { useAuthState } from 'react-firebase-hooks/auth';
+import { useTablet } from '@/hooks/useTablet';
 import { auth } from '@/services/authService';
 import { paths } from '@/enums/routerPaths';
+import styles from '../styles/Graphiql.module.scss';
 
 const DocumentationLazy = dynamic(() => import('@/components/Documentation/Documentation'), {
   loading: () => <Loader />,
@@ -42,8 +42,6 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
 const Graphiql = () => {
   const { t } = useTranslation();
   const { router } = useRouter();
-  const isTablet = useMediaQuery({ maxWidth: 1100 });
-  const [tabletScreen, setTabletScreen] = useState(false);
   const [openDoc, setOpenDoc] = useState<boolean>(false);
   const [requestValue, setRequestValue] = useState<string | undefined>();
   const [variablesValue, setVariablesValue] = useState<string | undefined>();
@@ -51,10 +49,7 @@ const Graphiql = () => {
   const [errors, setErrors] = useState<Error[] | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [user, loading] = useAuthState(auth);
-
-  useEffect(() => {
-    setTabletScreen(isTablet);
-  }, [isTablet]);
+  const [tabletScreen] = useTablet();
 
   useEffect(() => {
     if (!user && !loading) router.push(paths.welcome);
