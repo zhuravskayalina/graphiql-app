@@ -1,4 +1,4 @@
-import { PropsWithChildren, useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import Login from '@/components/Auth/Login/Login';
 import Register from '@/components/Auth/Register/Register';
@@ -8,27 +8,44 @@ import Image from 'next/image';
 import playgroundLogo from '@/assets/images/playgroundLogo.png';
 import { paths } from '@/enums/routerPaths';
 import { useRouter } from '@/hooks/useRouter';
-import { BallTriangle } from 'react-loader-spinner';
-import RequireAuth from '@/components/Auth/WithPrivateRoute';
+import { GetServerSidePropsContext } from 'next';
+import nookies from 'nookies';
+import { AuthContext } from '@/contexts/authContext';
 
-// export const getServerSideProps = withAuth(async () => {
-//   return {
-//     props: {},
-//   };
-// });
+export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
+  try {
+    const cookies = nookies.get(ctx);
+    const { token } = cookies;
+    if (token) {
+      return {
+        redirect: {
+          permanent: false,
+          destination: paths.main,
+        },
+      };
+    }
+    return {
+      props: {},
+    };
+  } catch {
+    return {
+      props: {},
+    };
+  }
+};
 
 const Auth = () => {
   const { query, router } = useRouter();
   const [isRegisterActive, setIsRegisterActive] = useState<boolean | null>(null);
-  // const [user, loading] = useAuthState(auth);
+  const [user] = useAuthState(auth);
 
   useEffect(() => {
-    setIsRegisterActive(query.register === 'true' ? true : false);
+    setIsRegisterActive(query.register === 'true');
   }, [query]);
 
-  // useEffect(() => {
-  //   if (user) router.push(paths.main);
-  // }, [user, router]);
+  useEffect(() => {
+    if (user) router.push(paths.main);
+  }, [user, router]);
 
   return (
     <div className={styles.auth}>
@@ -42,16 +59,6 @@ const Auth = () => {
       </div>
     </div>
   );
-  // : (
-  //   <BallTriangle
-  //     height={80}
-  //     width={80}
-  //     radius={4}
-  //     color="darkblue"
-  //     wrapperClass={styles.auth__loader}
-  //     visible={true}
-  //   />
-  // );
 };
 
-export default RequireAuth(Auth);
+export default Auth;

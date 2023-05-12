@@ -7,9 +7,40 @@ import styles from '../styles/Graphiql.module.scss';
 import { useMediaQuery } from 'react-responsive';
 import Image from 'next/image';
 import docIcon from '@/assets/images/icons/book.svg';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
+import { paths } from '@/enums/routerPaths';
+import { useRouter } from '@/hooks/useRouter';
+import { GetServerSidePropsContext } from 'next';
+import nookies from 'nookies';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { auth } from '@/services/authService';
+import { AuthContext } from '@/contexts/authContext';
+
+export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
+  try {
+    const cookies = nookies.get(ctx);
+    const { token } = cookies;
+    if (!token) {
+      return {
+        redirect: {
+          permanent: false,
+          destination: paths.signIn,
+        },
+      };
+    }
+    return {
+      props: {},
+    };
+  } catch {
+    return {
+      props: {},
+    };
+  }
+};
 
 const Graphiql = () => {
+  const { router } = useRouter();
+  const [user] = useAuthState(auth);
   const isTablet = useMediaQuery({ maxWidth: 1100 });
   const [tabletScreen, setTabletScreen] = useState(false);
   const [openDoc, setOpenDoc] = useState<boolean>(false);
@@ -17,6 +48,11 @@ const Graphiql = () => {
   useEffect(() => {
     setTabletScreen(isTablet);
   }, [isTablet]);
+
+  useEffect(() => {
+    console.log(user);
+    if (!user) router.push(paths.signIn);
+  }, [user, router]);
 
   return (
     <div className={styles.main}>

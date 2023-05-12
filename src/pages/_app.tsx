@@ -5,6 +5,7 @@ import Layout from '@/components/Layout/Layout';
 import '@/i18n/i18n';
 import 'react-toastify/dist/ReactToastify.min.css';
 import '@/styles/globals.scss';
+import { AuthProvider } from '@/contexts/authContext';
 
 const client = new ApolloClient({
   uri: 'https://rickandmortyapi.com/graphql',
@@ -13,12 +14,14 @@ const client = new ApolloClient({
 
 const App = ({ Component, pageProps }: AppProps) => {
   return (
-    <ApolloProvider client={client}>
-      <Layout>
-        <ToastContainer autoClose={1000} className="toast-container" />
-        <Component {...pageProps} />
-      </Layout>
-    </ApolloProvider>
+    <AuthProvider>
+      <ApolloProvider client={client}>
+        <Layout>
+          <ToastContainer autoClose={1000} className="toast-container" />
+          <Component {...pageProps} />
+        </Layout>
+      </ApolloProvider>
+    </AuthProvider>
   );
 };
 
