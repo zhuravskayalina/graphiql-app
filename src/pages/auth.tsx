@@ -1,8 +1,6 @@
 import { useContext, useEffect, useState } from 'react';
-import { useAuthState } from 'react-firebase-hooks/auth';
 import Login from '@/components/Auth/Login/Login';
 import Register from '@/components/Auth/Register/Register';
-import { auth } from '@/services/authService';
 import styles from '@/styles/Auth.module.scss';
 import Image from 'next/image';
 import graphiQlImg from '@/assets/images/graphiQl.svg';
@@ -13,31 +11,23 @@ import nookies from 'nookies';
 import { AuthContext } from '@/contexts/authContext';
 
 export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
-  try {
-    const cookies = nookies.get(ctx);
-    const { token } = cookies;
-    if (token) {
-      return {
-        redirect: {
-          permanent: false,
-          destination: paths.main,
-        },
-      };
-    }
+  const cookies = nookies.get(ctx);
+  const { token } = cookies;
+  if (token) {
     return {
-      props: {},
-    };
-  } catch {
-    return {
-      props: {},
+      redirect: {
+        permanent: false,
+        destination: paths.main,
+      },
     };
   }
+  return { props: {} };
 };
 
 const Auth = () => {
   const { query, router } = useRouter();
   const [isRegisterActive, setIsRegisterActive] = useState<boolean | null>(null);
-  const [user] = useAuthState(auth);
+  const { user } = useContext(AuthContext);
 
   useEffect(() => {
     setIsRegisterActive(query.register === 'true');
