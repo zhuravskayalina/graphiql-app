@@ -18,6 +18,7 @@
   "response": "Response",
   "variables": "Variables",
   "failed": "Failed to fetch",
+  "invalidJson": "Variables are invalid JSON",
   "goHomeButton": "Go Home",
   "404error": "Error 404",
   "hey": "Hey",

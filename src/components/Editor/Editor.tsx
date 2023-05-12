@@ -1,9 +1,10 @@
+import { Dispatch, SetStateAction } from 'react';
 import MonacoEditor from '@monaco-editor/react';
 import styles from './Editor.module.scss';
 
 interface Editor {
-  value: string | undefined;
-  setValue?: () => void;
+  value?: string;
+  setValue?: Dispatch<SetStateAction<string | undefined>>;
   language: string;
   readOnly?: boolean;
 }

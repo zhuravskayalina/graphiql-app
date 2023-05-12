@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
+import { useTranslation } from 'react-i18next';
 import dynamic from 'next/dynamic';
 import { clsx } from 'clsx';
 import Request from '@/components/Request/Request';
@@ -19,10 +20,12 @@ const DocumentationLazy = dynamic(() => import('@/components/Documentation/Docum
 });
 
 const Graphiql = () => {
+  const { t } = useTranslation();
   const isTablet = useMediaQuery({ maxWidth: 1100 });
   const [tabletScreen, setTabletScreen] = useState(false);
   const [openDoc, setOpenDoc] = useState<boolean>(false);
-  const [value, setValue] = useState<string | undefined>();
+  const [requestValue, setRequestValue] = useState<string | undefined>();
+  const [variablesValue, setVariablesValue] = useState<string | undefined>();
   const [data, setData] = useState<IntrospectionQuery | null>(null);
   const [errors, setErrors] = useState<Error[] | null>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -32,19 +35,26 @@ const Graphiql = () => {
   }, [isTablet]);
 
   const onSubmit = () => {
-    if (value) {
-      setIsLoading(true);
-      getQuery(value)
-        .then((res) => {
-          setData(res.data);
-          setErrors(res.errors);
-          setIsLoading(false);
-        })
-        .catch((error: Error) => {
-          showToast('error', error.message);
-          setIsLoading(false);
-        });
+    const query = requestValue ? requestValue : '';
+    let variables;
+    try {
+      variables = variablesValue ? JSON.parse(variablesValue) : {};
+    } catch {
+      showToast('error', t('invalidJson'));
     }
+    setIsLoading(true);
+    getQuery(query, variables)
+      .then((res) => {
+        setData(res.data);
+        setErrors(res.errors);
+        setIsLoading(false);
+      })
+      .catch((error: Error) => {
+        showToast('error', error.message);
+        setIsLoading(false);
+        setData(null);
+        setErrors(null);
+      });
   };
 
   return (
@@ -58,8 +68,8 @@ const Graphiql = () => {
         <DocumentationLazy isOpen={openDoc} isTablet={tabletScreen} setOpenDoc={setOpenDoc} />
       </div>
       <div className={clsx(styles.main__request, styles.section)}>
-        <Request value={value} setValue={setValue} onSubmit={onSubmit} />
-        <Variables />
+        <Request value={requestValue} setValue={setRequestValue} onSubmit={onSubmit} />
+        <Variables value={variablesValue} setValue={setVariablesValue} />
       </div>
       <div className={clsx(styles.main__response, styles.section)}>
         {isLoading ? <Loader /> : <Response data={data} errors={errors} />}

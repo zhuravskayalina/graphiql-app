@@ -15,7 +15,9 @@ const Response = ({ data, errors }: Response) => {
   return (
     <div className={styles.response}>
       <h3 className={styles.response__heading}>{t('response')}</h3>
-      {data && <Editor value={JSON.stringify(data, null, 2)} language={'json'} readOnly={true} />}
+      {data && !errors && (
+        <Editor value={JSON.stringify(data, null, 2)} language={'json'} readOnly={true} />
+      )}
       {errors && (
         <Editor value={JSON.stringify(errors, null, 2)} language={'json'} readOnly={true} />
       )}

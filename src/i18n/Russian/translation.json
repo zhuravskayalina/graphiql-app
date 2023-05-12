@@ -18,6 +18,7 @@
   "response": "Ответ",
   "variables": "Переменные",
   "failed": "Ошибка загрузки",
+  "invalidJson": "Переменные не в формате JSON",
   "goHomeButton": "На главную",
   "404error": "Ошибка 404",
   "hey": "Привет!",

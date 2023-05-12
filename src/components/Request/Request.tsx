@@ -1,3 +1,4 @@
+import { Dispatch, SetStateAction } from 'react';
 import { useTranslation } from 'react-i18next';
 import Editor from '../Editor/Editor';
 import styles from './Request.module.scss';
@@ -6,7 +7,7 @@ import Image from 'next/image';
 
 interface Request {
   value?: string;
-  setValue: (value?: string) => void;
+  setValue: Dispatch<SetStateAction<string | undefined>>;
   onSubmit: () => void;
 }
 
