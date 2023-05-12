@@ -8,7 +8,6 @@ import TypePath from './components/TypePath/TypePath';
 import Schema from './components/Schema/Schema';
 import Type from './components/Type/Type';
 import Arguments from './components/Arguments/Arguments';
-import Loader from '../Loader/Loader';
 import { showToast } from '@/utils/toastUtil';
 import styles from './Documentation.module.scss';
 import closeIcon from '@/assets/images/icons/close.svg';
@@ -26,7 +25,6 @@ const Documentation = ({ isTablet, isOpen, setOpenDoc }: DocumentationProps) => 
   const [currentType, setCurrentType] = useState<string>(typePath[0]);
   const [data, setData] = useState<IntrospectionQuery | null>(null);
   const [error, setError] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
 
   const changeType = (event: MouseEvent<HTMLElement>) => {
     if (event.currentTarget.dataset.type) {
@@ -48,11 +46,9 @@ const Documentation = ({ isTablet, isOpen, setOpenDoc }: DocumentationProps) => 
     introspectionQuery()
       .then((res) => {
         setData(res);
-        setIsLoading(false);
         setError(false);
       })
       .catch((error: Error) => {
-        setIsLoading(false);
         setError(true);
         showToast('error', error.message);
       });
@@ -75,7 +71,6 @@ const Documentation = ({ isTablet, isOpen, setOpenDoc }: DocumentationProps) => 
           </button>
         )}
         <h3 className={styles.title}>{t('documentationTitle')}</h3>
-        {isLoading && <Loader />}
         {error && <p>{t('failed')}</p>}
         {data && currentType === typePath[0] ? (
           <Schema schema={data.__schema} changeType={changeType} />

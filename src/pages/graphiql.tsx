@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
+import dynamic from 'next/dynamic';
 import { clsx } from 'clsx';
-import Documentation from '@/components/Documentation/Documentation';
 import Request from '@/components/Request/Request';
 import Response from '@/components/Response/Response';
 import Variables from '@/components/Variables/Variables';
@@ -12,6 +12,11 @@ import docIcon from '@/assets/images/icons/book.svg';
 import { getQuery, Error } from './api/query';
 import { IntrospectionQuery } from '@/generatedTypes/IntrospectionQuery';
 import styles from '../styles/Graphiql.module.scss';
+
+const DocumentationLazy = dynamic(() => import('@/components/Documentation/Documentation'), {
+  loading: () => <Loader />,
+  ssr: false,
+});
 
 const Graphiql = () => {
   const isTablet = useMediaQuery({ maxWidth: 1100 });
@@ -50,7 +55,7 @@ const Graphiql = () => {
             <Image src={docIcon} alt="open documentation" />
           </button>
         )}
-        <Documentation isOpen={openDoc} isTablet={tabletScreen} setOpenDoc={setOpenDoc} />
+        <DocumentationLazy isOpen={openDoc} isTablet={tabletScreen} setOpenDoc={setOpenDoc} />
       </div>
       <div className={clsx(styles.main__request, styles.section)}>
         <Request value={value} setValue={setValue} onSubmit={onSubmit} />
