@@ -3,17 +3,18 @@ import styles from './Header.module.scss';
 import Image from 'next/image';
 import logoImg from '@/assets/images/logo-small.svg';
 import Link from 'next/link';
-import { HeaderProps } from '@/components/Header/types';
 import HeaderButton from '@/components/Header/HeaderButton/HeaderButton';
 import { paths } from '@/enums/routerPaths';
-import { logout } from '@/services/authService';
+import { auth, logout } from '@/services/authService';
 import { ChangeEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import getNotificationType, { sendNotification } from '@/services/firebaseNotificationService';
 import LanguageToggle from './LanguageToggle/LanguageToggle';
+import { useAuthState } from 'react-firebase-hooks/auth';
 
-const Header = ({ isLoggedIn }: HeaderProps) => {
+const Header = () => {
   const { t, i18n } = useTranslation();
+  const [user, loading] = useAuthState(auth);
 
   const handleLanguageChange = (e: ChangeEvent<HTMLInputElement>) => {
     const language = e.target.checked ? e.currentTarget?.value : 'default';
@@ -32,20 +33,22 @@ const Header = ({ isLoggedIn }: HeaderProps) => {
         <Image src={logoImg} alt="logo" />
       </Link>
       <p className={clsx(styles.header__appName)}>GraphiQL App</p>
-      <div className={clsx(styles.header__buttons)}>
-        <LanguageToggle changeLanguage={handleLanguageChange} />
-        {isLoggedIn ? (
-          <>
-            <HeaderButton link={paths.main} title={t('backToMain')} />
-            <HeaderButton link={paths.welcome} title={t('logout')} onClick={handleOnClick} />
-          </>
-        ) : (
-          <>
-            <HeaderButton link={paths.signIn} title={t('signIn')} />
-            <HeaderButton link={paths.signUp} title={t('signUp')} />
-          </>
-        )}
-      </div>
+      {!loading && (
+        <div className={clsx(styles.header__buttons)}>
+          <LanguageToggle changeLanguage={handleLanguageChange} />
+          {user ? (
+            <>
+              <HeaderButton link={paths.main} title={t('backToMain')} />
+              <HeaderButton link={paths.welcome} title={t('logout')} onClick={handleOnClick} />
+            </>
+          ) : (
+            <>
+              <HeaderButton link={paths.signIn} title={t('signIn')} />
+              <HeaderButton link={paths.signUp} title={t('signUp')} />
+            </>
+          )}
+        </div>
+      )}
     </header>
   );
 };
