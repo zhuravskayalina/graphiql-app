@@ -3,10 +3,10 @@
 
 .request {
   @include elements-style.flex-column;
-  padding: 10px 20px;
   flex-grow: 1;
 
   &__header {
+    padding: 15px 20px 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -36,9 +36,4 @@
     transform: scale(1.05);
     background-color: colors.$dark-blue;
   }
-}
-
-.editor {
-  flex-grow: 1;
-  overflow: hidden;
 }

@@ -2,13 +2,13 @@ import { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import Login from '@/components/Auth/Login/Login';
 import Register from '@/components/Auth/Register/Register';
+import Loader from '@/components/Loader/Loader';
 import { auth } from '@/services/authService';
 import styles from '@/styles/Auth.module.scss';
 import Image from 'next/image';
 import graphiQlImg from '@/assets/images/graphiQl.svg';
 import { paths } from '@/enums/routerPaths';
 import { useRouter } from '@/hooks/useRouter';
-import { BallTriangle } from 'react-loader-spinner';
 
 const Auth = () => {
   const { query, router } = useRouter();
@@ -35,14 +35,7 @@ const Auth = () => {
       </div>
     </div>
   ) : (
-    <BallTriangle
-      height={80}
-      width={80}
-      radius={4}
-      color="darkblue"
-      wrapperClass={styles.auth__loader}
-      visible={true}
-    />
+    <Loader />
   );
 };
 
