@@ -1,6 +1,8 @@
-import { gql } from '@apollo/client';
+import { IntrospectionQuery } from '@/generatedTypes/IntrospectionQuery';
 
-export const INTROSPECTION = gql`
+const url = 'https://rickandmortyapi.com/graphql';
+
+const introspectionRequest = `
   query IntrospectionQuery {
     __schema {
       queryType {
@@ -101,3 +103,17 @@ export const INTROSPECTION = gql`
     }
   }
 `;
+
+interface Data {
+  data: IntrospectionQuery;
+}
+
+export const introspectionQuery = async () => {
+  const response = await fetch(url, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ query: introspectionRequest }),
+  });
+  const { data }: Data = await response.json();
+  return data;
+};

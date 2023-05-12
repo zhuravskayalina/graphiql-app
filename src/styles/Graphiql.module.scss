@@ -34,6 +34,9 @@
   }
 
   &__response {
+    @include elements-style.flex-column;
+    margin-top: 30px;
+    margin-bottom: 40px;
     grid-area: response;
   }
 
