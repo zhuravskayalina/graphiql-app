@@ -1,19 +1,33 @@
-import { useEffect, useState } from 'react';
-import { useAuthState } from 'react-firebase-hooks/auth';
+import { useContext, useEffect, useState } from 'react';
 import Login from '@/components/Auth/Login/Login';
 import Register from '@/components/Auth/Register/Register';
-import Loader from '@/components/Loader/Loader';
-import { auth } from '@/services/authService';
 import styles from '@/styles/Auth.module.scss';
 import Image from 'next/image';
 import graphiQlImg from '@/assets/images/graphiQl.svg';
 import { paths } from '@/enums/routerPaths';
 import { useRouter } from '@/hooks/useRouter';
+import { GetServerSidePropsContext } from 'next';
+import nookies from 'nookies';
+import { AuthContext } from '@/contexts/authContext';
+
+export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
+  const cookies = nookies.get(ctx);
+  const { token } = cookies;
+  if (token) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: paths.main,
+      },
+    };
+  }
+  return { props: {} };
+};
 
 const Auth = () => {
   const { query, router } = useRouter();
   const [isRegisterActive, setIsRegisterActive] = useState<boolean | null>(null);
-  const [user, loading] = useAuthState(auth);
+  const { user } = useContext(AuthContext);
 
   useEffect(() => {
     setIsRegisterActive(query.register === 'true');
@@ -23,7 +37,7 @@ const Auth = () => {
     if (user) router.push(paths.main);
   }, [user, router]);
 
-  return !loading ? (
+  return (
     <div className={styles.auth}>
       <div className={styles.auth__container}>
         <Image src={graphiQlImg} className={styles.auth__logo} alt="playground-logo" />
@@ -34,8 +48,6 @@ const Auth = () => {
         )}
       </div>
     </div>
-  ) : (
-    <Loader />
   );
 };
 

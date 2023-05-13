@@ -3,12 +3,8 @@ import Head from 'next/head';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import styles from './Layout.module.scss';
-import { useAuthState } from 'react-firebase-hooks/auth';
-import { auth } from '@/services/authService';
 
 const Layout: FC<PropsWithChildren> = ({ children }) => {
-  const [user] = useAuthState(auth);
-
   return (
     <>
       <Head>
@@ -16,7 +12,7 @@ const Layout: FC<PropsWithChildren> = ({ children }) => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Header isLoggedIn={Boolean(user)} />
+      <Header />
       <main className={styles.main}>{children}</main>
       <Footer />
     </>
