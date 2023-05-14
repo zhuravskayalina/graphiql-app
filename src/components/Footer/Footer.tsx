@@ -4,21 +4,7 @@ import rssLogo from '@/assets/images/rss-logo.svg';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-
-const authorsLinks = [
-  {
-    name: 'A',
-    url: 'https://github.com/zhuravskayalina',
-  },
-  {
-    name: 'K',
-    url: 'https://github.com/shutikate',
-  },
-  {
-    name: 'D',
-    url: 'https://github.com/dziana-babrova',
-  },
-];
+import { authorsLinks } from '@/utils/authors';
 
 const Footer = () => {
   const { pathname } = useRouter();
@@ -35,7 +21,7 @@ const Footer = () => {
         <div className={clsx(styles.authors)}>
           {authorsLinks.map((link) => (
             <Link href={link.url} key={link.url} className={clsx(styles.authors__link)}>
-              {link.name}
+              {link.shortName}
             </Link>
           ))}
         </div>

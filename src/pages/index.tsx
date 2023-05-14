@@ -6,6 +6,7 @@ import styles from '@/styles/Home.module.scss';
 import graphiQlImg from '@/assets/images/graphiQl.svg';
 import arrowIcon from '@/assets/images/icons/arrow.svg';
 import rssLogo from '@/assets/images/rss-logo.svg';
+import { authorsLinks } from '@/utils/authors';
 
 const Home = () => {
   const { t } = useTranslation();
@@ -38,6 +39,13 @@ const Home = () => {
               <Image src={rssLogo} alt="rss-logo" className={styles.footer__logo} />
             </Link>
             <p className={styles.footer__copyright}>Copyright &copy; 2023</p>
+            <div className={styles.authors}>
+              {authorsLinks.map((link) => (
+                <Link href={link.url} key={link.url} className={styles.authors__item}>
+                  {link.fullName}
+                </Link>
+              ))}
+            </div>
           </div>
         </footer>
       </div>
