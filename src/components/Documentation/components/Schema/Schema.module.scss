@@ -3,6 +3,9 @@
 .description {
   margin-bottom: 10px;
   color: colors.$black;
+  border-bottom: 1px solid colors.$half-light-gray;
+  font-size: 14px;
+  padding-bottom: 15px;
 }
 
 .schema {
@@ -13,8 +16,8 @@
 .heading {
   font-size: 16px;
   padding-bottom: 10px;
-  border-bottom: 1px solid colors.$half-light-gray;
   margin-top: 20px;
+  color: colors.$black;
 }
 
 .name {

@@ -71,6 +71,7 @@ const Documentation = ({ isTablet, isOpen, setOpenDoc }: DocumentationProps) => 
           </button>
         )}
         <h3 className={styles.title}>{t('documentationTitle')}</h3>
+        <p className={styles.subtitle}>{t('apiDescription')}</p>
         {error && <p>{t('failed')}</p>}
         {data && currentType === typePath[0] ? (
           <Schema schema={data.__schema} changeType={changeType} />
