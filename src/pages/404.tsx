@@ -1,6 +1,16 @@
 import styles from '@/styles/NotFound.module.scss';
 import { useTranslation } from 'react-i18next';
 import Link from 'next/link';
+import { GetServerSidePropsContext } from 'next';
+import nookies from 'nookies';
+import { changeLanguage } from 'i18next';
+
+export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
+  const cookies = nookies.get(ctx);
+  const { lang } = cookies;
+  changeLanguage(lang || 'en');
+  return { props: {} };
+};
 
 const Custom404 = () => {
   const { t } = useTranslation();

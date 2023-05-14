@@ -19,6 +19,7 @@ import { useTablet } from '@/hooks/useTablet';
 import { auth } from '@/services/authService';
 import { paths } from '@/enums/routerPaths';
 import styles from '../styles/Graphiql.module.scss';
+import { changeLanguage } from 'i18next';
 
 const DocumentationLazy = dynamic(() => import('@/components/Documentation/Documentation'), {
   loading: () => <Loader />,
@@ -27,7 +28,8 @@ const DocumentationLazy = dynamic(() => import('@/components/Documentation/Docum
 
 export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
   const cookies = nookies.get(ctx);
-  const { token } = cookies;
+  const { token, lang } = cookies;
+  changeLanguage(lang || 'en');
   if (!token) {
     return {
       redirect: {

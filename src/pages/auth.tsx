@@ -9,10 +9,12 @@ import { useRouter } from '@/hooks/useRouter';
 import { GetServerSidePropsContext } from 'next';
 import nookies from 'nookies';
 import { AuthContext } from '@/contexts/authContext';
+import { changeLanguage } from 'i18next';
 
 export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
   const cookies = nookies.get(ctx);
-  const { token } = cookies;
+  const { token, lang } = cookies;
+  changeLanguage(lang || 'en');
   if (token) {
     return {
       redirect: {

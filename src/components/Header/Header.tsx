@@ -3,6 +3,7 @@ import styles from './Header.module.scss';
 import Image from 'next/image';
 import logoImg from '@/assets/images/logo-small.svg';
 import Link from 'next/link';
+import nookies from 'nookies';
 import HeaderButton from '@/components/Header/HeaderButton/HeaderButton';
 import { paths } from '@/enums/routerPaths';
 import { auth, logout } from '@/services/authService';
@@ -11,6 +12,7 @@ import { useTranslation } from 'react-i18next';
 import getNotificationType, { sendNotification } from '@/services/firebaseNotificationService';
 import LanguageToggle from './LanguageToggle/LanguageToggle';
 import { useAuthState } from 'react-firebase-hooks/auth';
+import i18next from 'i18next';
 
 const Header = () => {
   const { t, i18n } = useTranslation();
@@ -19,6 +21,7 @@ const Header = () => {
   const handleLanguageChange = (e: ChangeEvent<HTMLInputElement>) => {
     const language = e.target.checked ? e.currentTarget?.value : 'default';
     i18n.changeLanguage(language);
+    nookies.set(undefined, 'lang', i18next.resolvedLanguage, { path: '/' });
   };
 
   const handleOnClick = async () => {
@@ -35,7 +38,7 @@ const Header = () => {
       <p className={clsx(styles.header__appName)}>GraphiQL App</p>
       {!loading && (
         <div className={clsx(styles.header__buttons)}>
-          <LanguageToggle changeLanguage={handleLanguageChange} />
+          <LanguageToggle changeLanguage={handleLanguageChange} language={i18n.language} />
           {user ? (
             <>
               <HeaderButton link={paths.main} title={t('backToMain')} />
