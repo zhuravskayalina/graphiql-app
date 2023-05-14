@@ -131,7 +131,8 @@
     height: auto;
   }
 
-  &__copyright {
+  &__copyright,
+  .authors {
     color: colors.$blue-gray;
 
     @media screen and (max-width: 500px) {
@@ -140,3 +141,14 @@
   }
 }
 
+.authors {
+  margin-left: auto;
+  display: flex;
+  gap: 10px;
+
+  &__item {
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}

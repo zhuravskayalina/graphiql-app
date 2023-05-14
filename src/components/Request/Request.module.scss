@@ -4,9 +4,9 @@
 .request {
   @include elements-style.flex-column;
   flex-grow: 1;
+  padding: 15px 20px;
 
   &__header {
-    padding: 15px 20px 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
