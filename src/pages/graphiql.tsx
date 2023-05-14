@@ -56,6 +56,7 @@ const Graphiql = () => {
   });
 
   const onSubmit = () => {
+    setData(null);
     const query = requestValue ? requestValue : '';
     let variables;
     try {
@@ -93,7 +94,7 @@ const Graphiql = () => {
         <Variables value={variablesValue} setValue={setVariablesValue} />
       </div>
       <div className={clsx(styles.main__response, styles.section)}>
-        {isLoading ? <Loader /> : <Response data={data} errors={errors} />}
+        <Response data={data} errors={errors} isLoading={isLoading} />
       </div>
     </div>
   );
