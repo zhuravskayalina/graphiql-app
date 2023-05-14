@@ -1,13 +1,14 @@
 import { Schema } from '../../types';
 import styles from './Schema.module.scss';
+import { useTranslation } from 'react-i18next';
 
 const Schema = ({ schema, changeType }: Schema) => {
+  const { t } = useTranslation();
+
   return (
     <>
-      <p className={styles.description}>
-        A GraphQL schema provides a root type for each kind of operation.
-      </p>
       <h4 className={styles.heading}>Root Types</h4>
+      <p className={styles.description}>{t('schemaDescription')}</p>
       <div className={styles.schema}>
         {schema.queryType ? (
           <div>
