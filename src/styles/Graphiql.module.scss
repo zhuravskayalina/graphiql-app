@@ -11,7 +11,7 @@
   color: colors.$gray-blue;
   background-color: colors.$super-light-gray;
   position: relative;
-  min-height: 100vh;
+  height: 100%;
   padding: 50px 10px 0;
 
   @media screen and (max-width: 800px) {
