@@ -27,10 +27,13 @@
   &__request {
     @include elements-style.flex-column;
     background-color: colors.$white;
-    border-radius: 10px;
     margin-top: 30px;
     margin-bottom: 40px;
     grid-area: request;
+
+    @media screen and (max-width: 800px) {
+      margin-bottom: 0;
+    }
   }
 
   &__response {
@@ -38,6 +41,12 @@
     margin-top: 30px;
     margin-bottom: 40px;
     grid-area: response;
+    background-color: colors.$white;
+    min-height: 300px;
+
+    @media screen and (max-width: 800px) {
+      margin-top: 0;
+    }
   }
 
   &__openButton {
@@ -55,6 +64,16 @@
   margin-top: 30px;
 }
 
+.section {
+  border-radius: 10px;
+
+  &.main__response {
+    @media screen and (max-width: 800px) {
+      margin-top: 0;
+    }
+  }
+}
+
 @media screen and (max-width: 1100px) {
   .main {
     grid-template-columns: auto 1fr 1fr;
@@ -63,9 +82,9 @@
 
 @media screen and (max-width: 800px) {
   .main {
+    grid-template-columns: auto 1fr;
     grid-template-areas:
       'doc request'
-      'response response';
-    grid-template-columns: auto 1fr;
+      'doc response';
   }
 }
