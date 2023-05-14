@@ -8,11 +8,11 @@
   grid-template-areas: 'doc request response';
   grid-template-columns: repeat(3, 1fr);
   justify-content: space-between;
-  height: 100%;
   color: colors.$gray-blue;
   background-color: colors.$super-light-gray;
   position: relative;
-  padding: 0 10px;
+  min-height: 100vh;
+  padding: 50px 10px 0;
 
   @media screen and (max-width: 800px) {
     padding-right: 15px;
