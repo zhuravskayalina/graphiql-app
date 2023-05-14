@@ -27,7 +27,7 @@ const Home = () => {
             <p className={styles.main__description}>
               <span className={styles.main__description_text}>{t('appDescription')}</span>
             </p>
-            <button className={clsx(styles.startButton)}>
+            <button className={styles.startButton}>
               <span>{t('getStartedButton')}</span>
               <Image src={arrowIcon} alt="arrow" className={styles.startButton_icon} />
             </button>

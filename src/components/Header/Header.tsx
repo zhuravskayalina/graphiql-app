@@ -1,4 +1,3 @@
-import { clsx } from 'clsx';
 import styles from './Header.module.scss';
 import Image from 'next/image';
 import logoImg from '@/assets/images/logo-small.svg';
@@ -28,13 +27,13 @@ const Header = () => {
   };
 
   return (
-    <header className={clsx(styles.header)}>
-      <Link href={paths.welcome} className={clsx(styles.header__logo)}>
+    <header className={styles.header}>
+      <Link href={paths.welcome} className={styles.header__logo}>
         <Image src={logoImg} alt="logo" />
       </Link>
-      <p className={clsx(styles.header__appName)}>GraphiQL App</p>
+      <p className={styles.header__appName}>GraphiQL App</p>
       {!loading && (
-        <div className={clsx(styles.header__buttons)}>
+        <div className={styles.header__buttons}>
           <LanguageToggle changeLanguage={handleLanguageChange} />
           {user ? (
             <>
