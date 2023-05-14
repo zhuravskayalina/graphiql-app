@@ -23,7 +23,6 @@
   "404error": "Error 404",
   "hey": "Hey",
   "404text": "We can’t seem to find the page you are looking for.",
-  "schemaDescription": "A GraphQL schema provides a root type for each kind of operation.",
   "apiDescription": "Portal Adventures: Exploring the Multiverse with the Rick and Morty API."
 }
 

@@ -8,7 +8,6 @@ const Schema = ({ schema, changeType }: Schema) => {
   return (
     <>
       <h4 className={styles.heading}>Root Types</h4>
-      <p className={styles.description}>{t('schemaDescription')}</p>
       <div className={styles.schema}>
         {schema.queryType ? (
           <div>
