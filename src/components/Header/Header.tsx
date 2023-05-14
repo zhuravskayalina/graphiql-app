@@ -17,13 +17,15 @@ const Header = () => {
   const [user, loading] = useAuthState(auth);
   const [isSticky, setSticky] = useState(false);
 
+  const HEIGHT_50 = 50;
+
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   });
 
   const handleScroll = () => {
-    if (window.scrollY > 50) {
+    if (window.scrollY > HEIGHT_50) {
       setSticky(true);
     } else {
       setSticky(false);
