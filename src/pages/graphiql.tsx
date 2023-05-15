@@ -12,7 +12,7 @@ import { showToast } from '@/utils/toastUtil';
 import docIcon from '@/assets/images/icons/book.svg';
 import { getQuery, Error } from './api/query';
 import { IntrospectionQuery } from '@/generatedTypes/IntrospectionQuery';
-import { useRouter } from '@/hooks/useRouter';
+import { useRouter } from 'next/router';
 import { useTablet } from '@/hooks/useTablet';
 import { auth } from '@/services/authService';
 import { paths } from '@/enums/routerPaths';
@@ -27,7 +27,7 @@ const DocumentationLazy = dynamic(() => import('@/components/Documentation/Docum
 });
 
 const Graphiql = () => {
-  const { router, locale, locales } = useRouter();
+  const router = useRouter();
   const { t } = useTranslation('common');
   const [openDoc, setOpenDoc] = useState<boolean>(false);
   const [requestValue, setRequestValue] = useState<string | undefined>();
@@ -37,7 +37,6 @@ const Graphiql = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [user, loading] = useAuthState(auth);
   const [tabletScreen] = useTablet();
-  console.log(locale, locales);
 
   useEffect(() => {
     if (!user && !loading) router.push(paths.welcome);

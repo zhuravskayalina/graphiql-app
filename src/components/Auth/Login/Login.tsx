@@ -1,7 +1,7 @@
 import { logInWithEmailAndPassword } from '@/services/authService';
 import Link from 'next/link';
 import { useForm } from 'react-hook-form';
-import { LoginFormsFields, LoginProps } from './types';
+import { LoginFormsFields } from './types';
 import styles from './../Auth.module.scss';
 import clsx from 'clsx';
 import usePasswordVisibilityState from '@/hooks/usePasswordVisibilityState';
@@ -11,7 +11,7 @@ import { ThreeDots } from 'react-loader-spinner';
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 
-const Login = ({ activeRegisterOption }: LoginProps) => {
+const Login = () => {
   const { locale } = useRouter();
   const [isLoginRequestSent, setIsLoginRequestSent] = useState<boolean>(false);
   const { t } = useTranslation();
@@ -40,12 +40,7 @@ const Login = ({ activeRegisterOption }: LoginProps) => {
         <h2 className={styles.auth__title}>{t('signInTitle')}</h2>
         <span className={styles['auth__link-container']}>
           {t('registerSuggestion')}{' '}
-          <Link
-            href="/auth?register=true"
-            locale={locale}
-            className={styles['auth__link']}
-            onClick={activeRegisterOption.bind(this, true)}
-          >
+          <Link href="/auth?register=true" locale={locale} className={styles['auth__link']}>
             {t('signUpLink')}
           </Link>
         </span>

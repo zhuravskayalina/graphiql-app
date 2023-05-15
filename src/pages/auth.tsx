@@ -1,24 +1,23 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect } from 'react';
 import Login from '@/components/Auth/Login/Login';
 import Register from '@/components/Auth/Register/Register';
 import styles from '@/styles/Auth.module.scss';
 import Image from 'next/image';
 import graphiQlImg from '@/assets/images/graphiQl.svg';
 import { paths } from '@/enums/routerPaths';
-import { useRouter } from '@/hooks/useRouter';
 import { AuthContext } from '@/contexts/authContext';
 import { getAuthPageServerSideProps as getServerSideProps } from '@/utils/serverSidePropsUtil';
+import { useRouter } from 'next/router';
 
 export { getServerSideProps };
 
-const Auth = () => {
-  const { query, router } = useRouter();
-  const [isRegisterActive, setIsRegisterActive] = useState<boolean | null>(null);
-  const { user } = useContext(AuthContext);
+type AuthPageProps = {
+  registerProp: string;
+};
 
-  useEffect(() => {
-    setIsRegisterActive(query.register === 'true');
-  }, [query]);
+const Auth = ({ registerProp }: AuthPageProps) => {
+  const router = useRouter();
+  const { user } = useContext(AuthContext);
 
   useEffect(() => {
     if (user) router.push(paths.main);
@@ -28,11 +27,7 @@ const Auth = () => {
     <div className={styles.auth}>
       <div className={styles.auth__container}>
         <Image src={graphiQlImg} className={styles.auth__logo} alt="playground-logo" />
-        {isRegisterActive ? (
-          <Register activeRegisterOption={setIsRegisterActive} />
-        ) : (
-          <Login activeRegisterOption={setIsRegisterActive} />
-        )}
+        {registerProp ? <Register /> : <Login />}
       </div>
     </div>
   );

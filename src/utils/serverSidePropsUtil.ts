@@ -42,11 +42,24 @@ export const getAuthPageServerSideProps = async (ctx: GetServerSidePropsContext)
       },
     };
   }
+  const { register } = ctx.query;
+  const registerProp = register === 'true' ? 'register' : '';
+  if (lang !== ctx.locale) return setLocaleRedirect(ctx, lang);
+  return { props: { ...(await serverSideTranslations(ctx.locale)), registerProp } };
+};
+
+export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
+  const cookies = nookies.get(ctx);
+  const { lang } = cookies;
   if (lang !== ctx.locale) return setLocaleRedirect(ctx, lang);
   return { props: { ...(await serverSideTranslations(ctx.locale)) } };
 };
 
-const setLocaleRedirect = async (ctx: GetServerSidePropsContext, lang: string) => {
+const setLocaleRedirect = async (
+  ctx: GetServerSidePropsContext,
+  lang: string,
+  registerProp?: string
+) => {
   const path = lang ? `/${lang}${ctx.resolvedUrl}` : `${ctx.resolvedUrl}`;
   return {
     redirect: {
@@ -55,13 +68,7 @@ const setLocaleRedirect = async (ctx: GetServerSidePropsContext, lang: string) =
     },
     props: {
       ...(await serverSideTranslations(lang)),
+      registerProp,
     },
   };
-};
-
-export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
-  const cookies = nookies.get(ctx);
-  const { lang } = cookies;
-  if (lang !== ctx.locale) return setLocaleRedirect(ctx, lang);
-  return { props: { ...(await serverSideTranslations(ctx.locale)) } };
 };
