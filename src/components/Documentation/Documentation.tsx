@@ -1,6 +1,6 @@
 import { useState, MouseEvent, useEffect } from 'react';
 import { Dispatch, SetStateAction } from 'react';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'next-i18next';
 import { clsx } from 'clsx';
 import { IntrospectionQuery } from '@/generatedTypes/IntrospectionQuery';
 import { introspectionQuery } from '@/pages/api/introspection';
@@ -20,7 +20,7 @@ interface DocumentationProps {
 }
 
 const Documentation = ({ isTablet, isOpen, setOpenDoc }: DocumentationProps) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation('common');
   const [typePath, setTypePath] = useState<string[]>(['Schema']);
   const [currentType, setCurrentType] = useState<string>(typePath[0]);
   const [data, setData] = useState<IntrospectionQuery | null>(null);

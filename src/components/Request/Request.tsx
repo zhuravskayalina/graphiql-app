@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction } from 'react';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'next-i18next';
 import Editor from '../Editor/Editor';
 import styles from './Request.module.scss';
 import runIcon from '../../assets/images/icons/run.svg';

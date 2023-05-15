@@ -39,5 +39,6 @@
     },
     "ecmaVersion": "latest",
     "sourceType": "module"
-  }
+  },
+  "ignorePatterns": ["*.config.js"]
 }

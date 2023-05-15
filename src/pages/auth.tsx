@@ -6,25 +6,10 @@ import Image from 'next/image';
 import graphiQlImg from '@/assets/images/graphiQl.svg';
 import { paths } from '@/enums/routerPaths';
 import { useRouter } from '@/hooks/useRouter';
-import { GetServerSidePropsContext } from 'next';
-import nookies from 'nookies';
 import { AuthContext } from '@/contexts/authContext';
-import { changeLanguage } from 'i18next';
+import { getAuthPageServerSideProps as getServerSideProps } from '@/utils/serverSidePropsUtil';
 
-export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
-  const cookies = nookies.get(ctx);
-  const { token, lang } = cookies;
-  changeLanguage(lang || 'en');
-  if (token) {
-    return {
-      redirect: {
-        permanent: false,
-        destination: paths.main,
-      },
-    };
-  }
-  return { props: {} };
-};
+export { getServerSideProps };
 
 const Auth = () => {
   const { query, router } = useRouter();

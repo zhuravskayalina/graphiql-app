@@ -1,10 +1,9 @@
 import { LanguageToggleProps } from './types';
-import { LOCALES } from '@/i18n/locales';
 import styles from './LanguageToggle.module.scss';
 
 const LanguageToggle = ({ changeLanguage, language }: LanguageToggleProps) => {
-  const value = LOCALES[1].code;
-  const checked = LOCALES[1].code === language;
+  const value = 'ru';
+  const checked = value === language;
 
   return (
     <label className={styles.switcher}>

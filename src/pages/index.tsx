@@ -1,21 +1,14 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'next-i18next';
 import { clsx } from 'clsx';
-import nookies from 'nookies';
 import styles from '@/styles/Home.module.scss';
 import graphiQlImg from '@/assets/images/graphiQl.svg';
 import arrowIcon from '@/assets/images/icons/arrow.svg';
 import rssLogo from '@/assets/images/rss-logo.svg';
-import { GetServerSidePropsContext } from 'next';
-import { changeLanguage } from 'i18next';
+import { getServerSideProps } from '@/utils/serverSidePropsUtil';
 
-export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
-  const cookies = nookies.get(ctx);
-  const { lang } = cookies;
-  changeLanguage(lang || 'en');
-  return { props: {} };
-};
+export { getServerSideProps };
 
 const Home = () => {
   const { t } = useTranslation();

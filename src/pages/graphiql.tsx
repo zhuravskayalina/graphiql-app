@@ -1,9 +1,7 @@
 import { useEffect, useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'next-i18next';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import dynamic from 'next/dynamic';
-import { GetServerSidePropsContext } from 'next';
-import nookies from 'nookies';
 import { clsx } from 'clsx';
 import Image from 'next/image';
 import Request from '@/components/Request/Request';
@@ -18,32 +16,19 @@ import { useRouter } from '@/hooks/useRouter';
 import { useTablet } from '@/hooks/useTablet';
 import { auth } from '@/services/authService';
 import { paths } from '@/enums/routerPaths';
+import { getMainPageServerSideProps as getServerSideProps } from '@/utils/serverSidePropsUtil';
 import styles from '../styles/Graphiql.module.scss';
-import { changeLanguage } from 'i18next';
+
+export { getServerSideProps };
 
 const DocumentationLazy = dynamic(() => import('@/components/Documentation/Documentation'), {
   loading: () => <Loader />,
   ssr: false,
 });
 
-export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
-  const cookies = nookies.get(ctx);
-  const { token, lang } = cookies;
-  changeLanguage(lang || 'en');
-  if (!token) {
-    return {
-      redirect: {
-        permanent: false,
-        destination: paths.welcome,
-      },
-    };
-  }
-  return { props: {} };
-};
-
 const Graphiql = () => {
-  const { t } = useTranslation();
-  const { router } = useRouter();
+  const { router, locale, locales } = useRouter();
+  const { t } = useTranslation('common');
   const [openDoc, setOpenDoc] = useState<boolean>(false);
   const [requestValue, setRequestValue] = useState<string | undefined>();
   const [variablesValue, setVariablesValue] = useState<string | undefined>();
@@ -52,6 +37,7 @@ const Graphiql = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [user, loading] = useAuthState(auth);
   const [tabletScreen] = useTablet();
+  console.log(locale, locales);
 
   useEffect(() => {
     if (!user && !loading) router.push(paths.welcome);
