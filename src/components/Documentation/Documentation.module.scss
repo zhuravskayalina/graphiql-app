@@ -26,7 +26,7 @@
     }
 
     @media screen and (max-width: 700px) {
-      width: 100vw;
+      width: 96vw;
       left: -105vw;
     }
   }
@@ -38,6 +38,11 @@
 
 .title {
   margin-bottom: 8px;
+}
+
+.subtitle {
+  color: colors.$black;
+  margin-bottom: 20px;
 }
 
 .typeDescription {

@@ -1,7 +1,7 @@
 {
   "signIn": "Sign in",
   "signUp": "Sign up",
-  "backToMain": "Go to Main Page",
+  "backToMain": "Playground",
   "logout": "Log out",
   "loginSuggestion": "Already have an account?",
   "namePlaceholder": "Full Name*",
@@ -22,5 +22,6 @@
   "goHomeButton": "Go Home",
   "404error": "Error 404",
   "hey": "Hey",
-  "404text": "We can’t seem to find the page you are looking for."
+  "404text": "We can’t seem to find the page you are looking for.",
+  "apiDescription": "Portal Adventures: Exploring the Multiverse with the Rick and Morty API."
 }
