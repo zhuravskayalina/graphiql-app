@@ -14,14 +14,14 @@ export const getMainPageServerSideProps = async (ctx: GetServerSidePropsContext)
         destination: path,
       },
       props: {
-        ...(await serverSideTranslations(lang)),
+        ...(await serverSideTranslations(lang || ctx.locale || 'en')),
       },
     };
   }
-  if (lang !== ctx.locale) return setLocaleRedirect(ctx, lang);
+  if (lang && ctx.locale && lang !== ctx.locale) return setLocaleRedirect(ctx, lang);
   return {
     props: {
-      ...(await serverSideTranslations(ctx.locale)),
+      ...(await serverSideTranslations(ctx.locale || 'en')),
     },
   };
 };
@@ -37,22 +37,22 @@ export const getAuthPageServerSideProps = async (ctx: GetServerSidePropsContext)
         destination: path,
       },
       props: {
-        ...(await serverSideTranslations(lang),
+        ...(await serverSideTranslations(lang || ctx.locale || 'en'),
         ['common', 'validationMessagesRussian', 'firebaseMessagesRussian']),
       },
     };
   }
   const { register } = ctx.query;
   const registerProp = register === 'true' ? 'register' : '';
-  if (lang !== ctx.locale) return setLocaleRedirect(ctx, lang);
-  return { props: { ...(await serverSideTranslations(ctx.locale)), registerProp } };
+  if (lang && ctx.locale && lang !== ctx.locale) return setLocaleRedirect(ctx, lang);
+  return { props: { ...(await serverSideTranslations(ctx.locale || 'en')), registerProp } };
 };
 
 export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
   const cookies = nookies.get(ctx);
   const { lang } = cookies;
-  if (lang !== ctx.locale) return setLocaleRedirect(ctx, lang);
-  return { props: { ...(await serverSideTranslations(ctx.locale)) } };
+  if (lang && ctx.locale && lang !== ctx.locale) return setLocaleRedirect(ctx, lang);
+  return { props: { ...(await serverSideTranslations(ctx.locale || 'en')) } };
 };
 
 const setLocaleRedirect = async (
@@ -67,7 +67,7 @@ const setLocaleRedirect = async (
       destination: path,
     },
     props: {
-      ...(await serverSideTranslations(lang)),
+      ...(await serverSideTranslations(lang || ctx.locale || 'en')),
       registerProp,
     },
   };
