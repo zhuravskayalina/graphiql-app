@@ -38,7 +38,7 @@ const Documentation = ({ isTablet, isOpen, setOpenDoc }: DocumentationProps) => 
     }
   };
 
-  const handleOpenDoc = () => {
+  const handleCloseDoc = () => {
     if (isOpen) setOpenDoc(false);
   };
 
@@ -66,7 +66,7 @@ const Documentation = ({ isTablet, isOpen, setOpenDoc }: DocumentationProps) => 
         )}
       >
         {isTablet && (
-          <button className={styles.close} onClick={handleOpenDoc}>
+          <button className={styles.close} onClick={handleCloseDoc}>
             <Image src={closeIcon} alt="close docs" />
           </button>
         )}
@@ -106,7 +106,7 @@ const Documentation = ({ isTablet, isOpen, setOpenDoc }: DocumentationProps) => 
           )
         )}
       </div>
-      {isOpen && <div className={clsx(styles.background)}></div>}
+      {isOpen && <div className={clsx(styles.background)} onClick={handleCloseDoc}></div>}
     </>
   );
 };
