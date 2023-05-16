@@ -11,8 +11,15 @@ const Footer = () => {
   return pathname !== '/' ? (
     <footer className={styles.footer}>
       <div className={styles.footer__container}>
-        <Link href="https://rs.school/js/">
-          <Image src={rssLogo} alt="rss-logo" className={styles.footer__logo} width={85} priority />
+        <Link href="https://rs.school/js/" as={'image'}>
+          <Image
+            src={rssLogo}
+            alt="rss-logo"
+            className={styles.footer__logo}
+            width={65}
+            height={24}
+            priority={true}
+          />
         </Link>
         <p className={styles.footer__copyright}>
           <span className={styles.footer__copyright_text}>Copyright</span> &copy; 2023

@@ -31,7 +31,8 @@ const Home = () => {
                 alt="apollo"
                 className={styles.main__picture_image}
                 width={700}
-                priority
+                height={210}
+                priority={true}
               />
             </div>
             <p className={styles.main__description}>

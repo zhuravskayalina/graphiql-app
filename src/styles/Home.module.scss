@@ -45,7 +45,8 @@
 
     &_image {
       width: 70%;
-      height: fit-content;
+      max-width: 100%;
+      height: auto;
 
       @media screen and (max-width: 1400px) {
         width: 90%;
