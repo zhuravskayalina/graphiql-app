@@ -12,7 +12,7 @@ const Footer = () => {
     <footer className={styles.footer}>
       <div className={styles.footer__container}>
         <Link href="https://rs.school/js/">
-          <Image src={rssLogo} alt="rss-logo" className={styles.footer__logo} priority />
+          <Image src={rssLogo} alt="rss-logo" className={styles.footer__logo} width={85} priority />
         </Link>
         <p className={styles.footer__copyright}>
           <span className={styles.footer__copyright_text}>Copyright</span> &copy; 2023
