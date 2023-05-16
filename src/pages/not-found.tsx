@@ -1,9 +1,14 @@
 import styles from '@/styles/NotFound.module.scss';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'next-i18next';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { getServerSideProps } from '@/utils/serverSidePropsUtil';
+
+export { getServerSideProps };
 
 const Custom404 = () => {
   const { t } = useTranslation();
+  const { locale } = useRouter();
 
   return (
     <div className={styles.container}>
@@ -12,7 +17,7 @@ const Custom404 = () => {
           <h4 className={styles.main__heading}>{t('404error')}</h4>
           <h2>{t('hey')}</h2>
           <p className={styles.text__details}>{t('404text')}</p>
-          <Link className={styles.button} href="/">
+          <Link className={styles.button} href="/" locale={locale}>
             {t('goHomeButton')}
           </Link>
         </div>

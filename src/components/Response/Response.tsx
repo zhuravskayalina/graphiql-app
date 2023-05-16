@@ -1,4 +1,4 @@
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'next-i18next';
 import Editor from '../Editor/Editor';
 import styles from './Response.module.scss';
 import Loader from '@/components/Loader/Loader';

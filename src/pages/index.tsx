@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'next-i18next';
 import { clsx } from 'clsx';
 import styles from '@/styles/Home.module.scss';
 import graphiQlImg from '@/assets/images/graphiQl.svg';
@@ -10,8 +10,13 @@ import { authorsLinks } from '@/utils/authors';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from '@/services/authService';
 import { paths } from '@/enums/routerPaths';
+import { getServerSideProps } from '@/utils/serverSidePropsUtil';
+import { useRouter } from 'next/router';
+
+export { getServerSideProps };
 
 const Home = () => {
+  const { locale } = useRouter();
   const { t } = useTranslation();
   const [user] = useAuthState(auth);
 
@@ -31,7 +36,11 @@ const Home = () => {
             <p className={styles.main__description}>
               <span className={styles.main__description_text}>{t('appDescription')}</span>
             </p>
-            <Link href={user ? paths.main : paths.signIn} className={styles.startButton}>
+            <Link
+              href={user ? paths.main : paths.signIn}
+              locale={locale}
+              className={styles.startButton}
+            >
               <span>{t('getStartedButton')}</span>
               <Image src={arrowIcon} alt="arrow" className={styles.startButton_icon} />
             </Link>

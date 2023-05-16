@@ -2,18 +2,20 @@ import { useForm } from 'react-hook-form';
 import Link from 'next/link';
 import clsx from 'clsx';
 import { registerWithEmailAndPassword } from '@/services/authService';
-import { FormsFields, RegisterProps } from './types';
+import { FormsFields } from './types';
 import styles from './../Auth.module.scss';
 import { validationScheme } from './validationScheme';
 import usePasswordVisibilityState from '@/hooks/usePasswordVisibilityState';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'next-i18next';
 import getNotificationType, { sendNotification } from '@/services/firebaseNotificationService';
 import { ThreeDots } from 'react-loader-spinner';
 import { useState } from 'react';
+import { useRouter } from 'next/router';
 
-const Register = ({ activeRegisterOption }: RegisterProps) => {
+const Register = () => {
+  const { locale } = useRouter();
   const [isLoginRequestSent, setIsRegisterRequestSent] = useState<boolean>(false);
-  const { t } = useTranslation(['validationMessages', 'translation', 'firebaseMessages']);
+  const { t } = useTranslation();
   const {
     register,
     handleSubmit,
@@ -36,15 +38,11 @@ const Register = ({ activeRegisterOption }: RegisterProps) => {
   return (
     <>
       <div className={styles['auth__title-container']}>
-        <h2 className={styles.auth__title}>{t('signUp', { ns: ['translation'] })}</h2>
+        <h2 className={styles.auth__title}>{t('signUp')}</h2>
         <span className={styles['auth__link-container']}>
-          {t('loginSuggestion', { ns: ['translation'] })}{' '}
-          <Link
-            href="/auth"
-            className={styles['auth__link']}
-            onClick={activeRegisterOption.bind(this, false)}
-          >
-            {t('signIn', { ns: ['translation'] })}.
+          {t('loginSuggestion')}{' '}
+          <Link href="/auth" locale={locale} className={styles['auth__link']}>
+            {t('signIn')}.
           </Link>
         </span>
       </div>
@@ -55,7 +53,7 @@ const Register = ({ activeRegisterOption }: RegisterProps) => {
             [styles.form__textBox_invalid]: errors.name?.message,
           })}
           {...register('name', validationScheme.name)}
-          placeholder={t('namePlaceholder', { ns: ['translation'] }).toString()}
+          placeholder={t('namePlaceholder').toString()}
         />
         <p className={styles.form__error}>{errors.name?.message && t(errors.name.message)}</p>
         <input
@@ -64,12 +62,9 @@ const Register = ({ activeRegisterOption }: RegisterProps) => {
             [styles.form__textBox_invalid]: errors.email?.message,
           })}
           {...register('email', validationScheme.email)}
-          placeholder={t('emailPlaceholder', { ns: ['translation'] }).toString()}
+          placeholder={t('emailPlaceholder').toString()}
         />
-        <p className={styles.form__error}>
-          {errors.email?.message &&
-            t(errors.email.message, { ns: ['firebaseMessages', 'validationMessages'] })}
-        </p>
+        <p className={styles.form__error}>{errors.email?.message && t(errors.email.message)}</p>
         <div className={styles['form__textbox-container']}>
           <input
             type={passwordType}
@@ -82,7 +77,7 @@ const Register = ({ activeRegisterOption }: RegisterProps) => {
               'password'
             )}
             {...register('password', validationScheme.password)}
-            placeholder={t('passwordPlaceholder', { ns: ['translation'] }).toString()}
+            placeholder={t('passwordPlaceholder').toString()}
           />
           <span
             className={styles[`password__icon-${passwordType}`]}
@@ -90,14 +85,13 @@ const Register = ({ activeRegisterOption }: RegisterProps) => {
           ></span>
         </div>
         <p className={styles.form__error}>
-          {errors.password?.message &&
-            t(errors.password.message, { ns: ['firebaseMessages', 'validationMessages'] })}
+          {errors.password?.message && t(errors.password.message)}
         </p>
         <div className={styles['auth__textbox-container']}>
           <input
             type="submit"
             className={styles.form__button}
-            value={t('signUpButton', { ns: ['translation'] }).toString()}
+            value={t('signUpButton').toString()}
           />
           <ThreeDots
             height="30"

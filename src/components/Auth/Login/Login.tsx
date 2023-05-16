@@ -1,18 +1,20 @@
 import { logInWithEmailAndPassword } from '@/services/authService';
 import Link from 'next/link';
 import { useForm } from 'react-hook-form';
-import { LoginFormsFields, LoginProps } from './types';
+import { LoginFormsFields } from './types';
 import styles from './../Auth.module.scss';
 import clsx from 'clsx';
 import usePasswordVisibilityState from '@/hooks/usePasswordVisibilityState';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'next-i18next';
 import getNotificationType, { sendNotification } from '@/services/firebaseNotificationService';
 import { ThreeDots } from 'react-loader-spinner';
 import { useState } from 'react';
+import { useRouter } from 'next/router';
 
-const Login = ({ activeRegisterOption }: LoginProps) => {
+const Login = () => {
+  const { locale } = useRouter();
   const [isLoginRequestSent, setIsLoginRequestSent] = useState<boolean>(false);
-  const { t } = useTranslation(['translation', 'firebaseMessages']);
+  const { t } = useTranslation();
   const {
     register,
     handleSubmit,
@@ -29,7 +31,7 @@ const Login = ({ activeRegisterOption }: LoginProps) => {
     const response = await logInWithEmailAndPassword(email, password);
     setIsLoginRequestSent(false);
     const { type, message } = await getNotificationType(response.message);
-    sendNotification(type, t(message, { ns: 'firebaseMessages' }).toString(), setError);
+    sendNotification(type, t(message).toString(), setError);
   };
 
   return (
@@ -38,11 +40,7 @@ const Login = ({ activeRegisterOption }: LoginProps) => {
         <h2 className={styles.auth__title}>{t('signInTitle')}</h2>
         <span className={styles['auth__link-container']}>
           {t('registerSuggestion')}{' '}
-          <Link
-            href="/auth?register=true"
-            className={styles['auth__link']}
-            onClick={activeRegisterOption.bind(this, true)}
-          >
+          <Link href="/auth?register=true" locale={locale} className={styles['auth__link']}>
             {t('signUpLink')}
           </Link>
         </span>
@@ -56,9 +54,7 @@ const Login = ({ activeRegisterOption }: LoginProps) => {
           {...(true && { ...register('email') })}
           placeholder={t('emailPlaceholder').toString()}
         />
-        <p className={styles.form__error}>
-          {errors.email?.message && t(errors.email.message, { ns: ['firebaseMessages'] })}
-        </p>
+        <p className={styles.form__error}>{errors.email?.message && t(errors.email.message)}</p>
         <div className={styles['form__textbox-container']}>
           <input
             type={passwordType}
@@ -74,7 +70,7 @@ const Login = ({ activeRegisterOption }: LoginProps) => {
           ></span>
         </div>
         <p className={styles.form__error}>
-          {errors.password?.message && t(errors.password.message, { ns: ['firebaseMessages'] })}
+          {errors.password?.message && t(errors.password.message)}
         </p>
         <div className={styles['form__textbox-container']}>
           <input type="submit" className={styles.form__button} value={t('signIn').toString()} />
