@@ -4,18 +4,20 @@ import Editor from '../Editor/Editor';
 import styles from './Request.module.scss';
 import runIcon from '../../assets/images/icons/run.svg';
 import Image from 'next/image';
+import { clsx } from 'clsx';
 
 interface Request {
   value?: string;
   setValue: Dispatch<SetStateAction<string | undefined>>;
   onSubmit: () => void;
+  isVariablesOpen: boolean;
 }
 
-const Request = ({ value, setValue, onSubmit }: Request) => {
+const Request = ({ value, setValue, onSubmit, isVariablesOpen }: Request) => {
   const { t } = useTranslation();
 
   return (
-    <div className={styles.request}>
+    <div className={clsx(styles.request, isVariablesOpen && styles.request__variablesOpen)}>
       <div className={styles.request__header}>
         <p className={styles.request__heading}>{t('operation')}</p>
         <button onClick={onSubmit} className={styles.runBtn}>

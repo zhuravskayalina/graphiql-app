@@ -1,10 +1,17 @@
 @use '@/styles/variables/colors';
+@use '@/styles/mixins/elements-style';
 
 .variables {
   flex: 1 1 auto;
+  @include elements-style.flex-column;
   margin-top: 20px;
   border-top: 1px solid colors.$half-light-gray;
   padding: 10px 20px;
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+  }
 
   &__heading {
     font-size: 16px;
@@ -12,9 +19,27 @@
 }
 
 .input {
-  height: 200px;
+  flex-grow: 1;
 
   @media screen and (max-width: 800px) {
-    height: 100px;
+    @media screen and (max-width: 800px) {
+      min-height: 200px;
+    }
+  }
+}
+
+.openButton {
+  @include elements-style.button-style-reset;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.openIcon {
+  transition: 0.7s;
+
+  &_hide {
+    transform: rotate(180deg);
   }
 }

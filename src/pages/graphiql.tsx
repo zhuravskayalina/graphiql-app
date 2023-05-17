@@ -37,10 +37,15 @@ const Graphiql = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [user, loading] = useAuthState(auth);
   const [tabletScreen] = useTablet();
+  const [isVariablesOpen, setIsVariablesOpen] = useState(false);
 
   useEffect(() => {
     if (!user && !loading) router.push(paths.welcome);
   });
+
+  const handleToggleOpenVariables = () => {
+    setIsVariablesOpen((prevState) => !prevState);
+  };
 
   const onSubmit = () => {
     setData(null);
@@ -77,8 +82,18 @@ const Graphiql = () => {
         <DocumentationLazy isOpen={openDoc} isTablet={tabletScreen} setOpenDoc={setOpenDoc} />
       </div>
       <div className={clsx(styles.main__request, styles.section)}>
-        <Request value={requestValue} setValue={setRequestValue} onSubmit={onSubmit} />
-        <Variables value={variablesValue} setValue={setVariablesValue} />
+        <Request
+          value={requestValue}
+          setValue={setRequestValue}
+          onSubmit={onSubmit}
+          isVariablesOpen={isVariablesOpen}
+        />
+        <Variables
+          value={variablesValue}
+          setValue={setVariablesValue}
+          isOpen={isVariablesOpen}
+          handleToggleOpen={handleToggleOpenVariables}
+        />
       </div>
       <div className={clsx(styles.main__response, styles.section)}>
         <Response data={data} errors={errors} isLoading={isLoading} />
