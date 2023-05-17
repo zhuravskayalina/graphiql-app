@@ -1,0 +1,42 @@
+@use '@/styles/variables/colors';
+@use '@/styles/mixins/elements-style';
+
+.error {
+  padding: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__title {
+    margin-bottom: 20px;
+  }
+
+  &__message {
+    margin-bottom: 20px;
+    color: colors.$red;
+  }
+
+  &__list {
+    padding: 10px 0 20px 10px;
+    list-style-type: none;
+  }
+
+  &__contacts {
+    color: colors.$orange;
+  }
+
+  &__button {
+    @include elements-style.button-style-reset;
+    background: colors.$shadow-blue;
+    color: colors.$white;
+    border-radius: 6px;
+    padding: 7px 10px;
+    font-size: 14px;
+    transition: 0.3s;
+    cursor: pointer;
+
+      &:hover {
+        outline: 4px solid colors.$light-shadow-blue;
+      }
+  }
+}
