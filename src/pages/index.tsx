@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { useTranslation } from 'next-i18next';
 import { clsx } from 'clsx';
 import styles from '@/styles/Home.module.scss';
-import graphiQlImg from '@/assets/images/graphiQl.svg';
+import graphiQlImg from '@/assets/images/graphiQl.png';
 import arrowIcon from '@/assets/images/icons/arrow.svg';
 import rssLogo from '@/assets/images/rss-logo.svg';
 import { authorsLinks } from '@/utils/authors';
@@ -12,6 +12,7 @@ import { auth } from '@/services/authService';
 import { paths } from '@/enums/routerPaths';
 import { getServerSideProps } from '@/utils/serverSidePropsUtil';
 import { useRouter } from 'next/router';
+import { useTablet } from '@/hooks/useTablet';
 
 export { getServerSideProps };
 
@@ -19,6 +20,7 @@ const Home = () => {
   const { locale } = useRouter();
   const { t } = useTranslation();
   const [user] = useAuthState(auth);
+  const [isTablet] = useTablet();
 
   return (
     <>
@@ -30,7 +32,9 @@ const Home = () => {
                 src={graphiQlImg}
                 alt="apollo"
                 className={styles.main__picture_image}
-                priority
+                width={700}
+                height={210}
+                priority={true}
               />
             </div>
             <p className={styles.main__description}>
@@ -55,7 +59,7 @@ const Home = () => {
             <div className={styles.authors}>
               {authorsLinks.map((link) => (
                 <Link href={link.url} key={link.url} className={styles.authors__item}>
-                  {link.fullName}
+                  {isTablet ? link.shortName : link.fullName}
                 </Link>
               ))}
             </div>

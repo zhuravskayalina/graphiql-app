@@ -1,10 +1,7 @@
 import { Schema } from '../../types';
 import styles from './Schema.module.scss';
-import { useTranslation } from 'react-i18next';
 
 const Schema = ({ schema, changeType }: Schema) => {
-  const { t } = useTranslation();
-
   return (
     <>
       <h4 className={styles.heading}>Root Types</h4>
