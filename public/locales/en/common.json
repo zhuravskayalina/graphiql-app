@@ -23,5 +23,9 @@
   "404error": "Error 404",
   "hey": "Hey",
   "404text": "We can’t seem to find the page you are looking for.",
-  "apiDescription": "Portal Adventures: Exploring the Multiverse with the Rick and Morty API."
+  "apiDescription": "Portal Adventures: Exploring the Multiverse with the Rick and Morty API.",
+  "wrong": "Sorry, something went wrong",
+  "error:": "Error",
+  "reload": "Reload the page",
+  "contact": "Contact us"
 }

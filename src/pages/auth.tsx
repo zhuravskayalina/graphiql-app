@@ -3,7 +3,7 @@ import Login from '@/components/Auth/Login/Login';
 import Register from '@/components/Auth/Register/Register';
 import styles from '@/styles/Auth.module.scss';
 import Image from 'next/image';
-import graphiQlImg from '@/assets/images/graphiQl.svg';
+import graphiQlImg from '@/assets/images/graphiQl.png';
 import { paths } from '@/enums/routerPaths';
 import { AuthContext } from '@/contexts/authContext';
 import { getAuthPageServerSideProps as getServerSideProps } from '@/utils/serverSidePropsUtil';
