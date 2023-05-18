@@ -14,7 +14,7 @@ import { useRouter } from 'next/router';
 const Login = () => {
   const { locale } = useRouter();
   const [isLoginRequestSent, setIsLoginRequestSent] = useState<boolean>(false);
-  const { t } = useTranslation();
+  const { t } = useTranslation(['common', 'firebaseMessages', 'validationMessages']);
   const {
     register,
     handleSubmit,
@@ -31,7 +31,7 @@ const Login = () => {
     const response = await logInWithEmailAndPassword(email, password);
     setIsLoginRequestSent(false);
     const { type, message } = await getNotificationType(response.message);
-    sendNotification(type, t(message).toString(), setError);
+    sendNotification(type, t(message, { ns: 'firebaseMessages' }).toString(), setError);
   };
 
   return (
@@ -54,7 +54,9 @@ const Login = () => {
           {...(true && { ...register('email') })}
           placeholder={t('emailPlaceholder').toString()}
         />
-        <p className={styles.form__error}>{errors.email?.message && t(errors.email.message)}</p>
+        <p className={styles.form__error}>
+          {errors.email?.message && t(errors.email.message, { ns: 'validationMessages' })}
+        </p>
         <div className={styles['form__textbox-container']}>
           <input
             type={passwordType}
@@ -70,7 +72,7 @@ const Login = () => {
           ></span>
         </div>
         <p className={styles.form__error}>
-          {errors.password?.message && t(errors.password.message)}
+          {errors.password?.message && t(errors.password.message, { ns: 'validationMessages' })}
         </p>
         <div className={styles['form__textbox-container']}>
           <input type="submit" className={styles.form__button} value={t('signIn').toString()} />

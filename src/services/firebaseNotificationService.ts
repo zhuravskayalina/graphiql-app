@@ -21,27 +21,27 @@ const getNotificationType = async (message: string) => {
       };
     case 'auth/invalid-email':
       return {
-        type: 'error',
+        type: 'error-email',
         message: 'invalidEmail',
       };
     case 'auth/missing-password':
       return {
-        type: 'error',
+        type: 'error-password',
         message: 'missingPassword',
       };
     case 'auth/user-not-found':
       return {
-        type: 'error',
+        type: 'error-email',
         message: 'userNotFound',
       };
     case 'auth/wrong-password':
       return {
-        type: 'error',
+        type: 'error-password',
         message: 'wrongPassword',
       };
     case 'auth/email-already-in-use':
       return {
-        type: 'error',
+        type: 'error-email',
         message: 'usedEmail',
       };
     default:
@@ -58,8 +58,11 @@ export const sendNotification = (
   setError?: UseFormSetError<FormsFields>
 ) => {
   switch (type) {
-    case 'error':
+    case 'error-email':
       if (setError) setError('email', { type: 'custom', message });
+      break;
+    case 'error-password':
+      if (setError) setError('password', { type: 'custom', message });
       break;
     case 'toast-success':
       showToast('success', message);

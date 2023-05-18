@@ -55,7 +55,9 @@ const Register = () => {
           {...register('name', validationScheme.name)}
           placeholder={t('namePlaceholder').toString()}
         />
-        <p className={styles.form__error}>{errors.name?.message && t(errors.name.message)}</p>
+        <p className={styles.form__error}>
+          {errors.name?.message && t(errors.name.message, { ns: 'validationMessages' })}
+        </p>
         <input
           type="text"
           className={clsx(styles.form__textBox, styles['form__textbox-email'], {
@@ -64,7 +66,9 @@ const Register = () => {
           {...register('email', validationScheme.email)}
           placeholder={t('emailPlaceholder').toString()}
         />
-        <p className={styles.form__error}>{errors.email?.message && t(errors.email.message)}</p>
+        <p className={styles.form__error}>
+          {errors.email?.message && t(errors.email.message, { ns: 'validationMessages' })}
+        </p>
         <div className={styles['form__textbox-container']}>
           <input
             type={passwordType}
@@ -85,7 +89,7 @@ const Register = () => {
           ></span>
         </div>
         <p className={styles.form__error}>
-          {errors.password?.message && t(errors.password.message)}
+          {errors.password?.message && t(errors.password.message, { ns: 'validationMessages' })}
         </p>
         <div className={styles['auth__textbox-container']}>
           <input

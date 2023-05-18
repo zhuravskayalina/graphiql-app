@@ -45,7 +45,7 @@ const Header = () => {
   const handleOnClick = async () => {
     const response = await logout();
     const { type, message } = await getNotificationType(response.message);
-    sendNotification(type, t(message).toString());
+    sendNotification(type, t(message, { ns: 'firebaseMessages' }).toString());
   };
 
   return (
