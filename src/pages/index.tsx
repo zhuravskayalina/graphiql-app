@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { useTranslation } from 'next-i18next';
 import { clsx } from 'clsx';
 import styles from '@/styles/Home.module.scss';
-import graphiQlImg from '@/assets/images/graphiQl.png';
+import graphiQlImg from '@/assets/images/graphiql.png';
 import arrowIcon from '@/assets/images/icons/arrow.svg';
 import rssLogo from '@/assets/images/rss-logo.svg';
 import { authorsLinks } from '@/utils/authors';

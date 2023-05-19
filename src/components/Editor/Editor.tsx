@@ -14,7 +14,13 @@ const Editor = ({ value, setValue, language, readOnly = false }: Editor) => {
     <section className={styles.editor}>
       <MonacoEditor
         language={language}
+        width="99%"
+        height="100%"
         options={{
+          scrollBeyondLastLine: false,
+          scrollbar: {
+            alwaysConsumeMouseWheel: false,
+          },
           cursorBlinking: 'phase',
           formatOnPaste: true,
           formatOnType: true,
