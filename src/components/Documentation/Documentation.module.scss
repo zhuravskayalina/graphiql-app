@@ -2,18 +2,45 @@
 @use '@/styles/mixins/elements-style';
 @use '@/styles/variables/colors';
 
-.title {
-  margin-bottom: 8px;
+.documentation {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  &__title {
+    margin-bottom: 8px;
+  }
+
+  &__subtitle {
+    color: colors.$black;
+    margin-bottom: 20px;
+  }
 }
 
-.subtitle {
-  color: colors.$black;
-  margin-bottom: 20px;
-}
+.types {
+  flex-grow: 1;
+  overflow-y: scroll;
 
-.typeDescription {
-  color: colors.$black;
-  padding: 10px 0;
+  &::-webkit-scrollbar {
+    width: 14px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: colors.$scroll-back;
+
+    &:hover {
+      background-color: colors.$scroll-back-hover;
+    }
+  }
+
+  &__description {
+    color: colors.$black;
+    padding: 10px 0;
+  }
 }
 
 .box {
