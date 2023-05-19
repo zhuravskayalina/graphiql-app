@@ -32,20 +32,20 @@
   display: flex;
   gap: 8px;
   transition: 0.2s;
-}
 
-.btnActive {
-  background-color: colors.$blue;
-  border: 2px solid colors.$dark-blue;
+  &_active {
+    background-color: colors.$blue;
+    border: 2px solid colors.$dark-blue;
 
-  &:hover {
-    cursor: pointer;
-    transform: scale(1.05);
-    background-color: colors.$dark-blue;
+    &:hover {
+      cursor: pointer;
+      transform: scale(1.05);
+      background-color: colors.$dark-blue;
+    }
   }
-}
 
-.btnDisabled {
-  background-color: colors.$light-gray;
-  border: 2px solid colors.$blue-gray;
+  &_disable {
+    background-color: colors.$light-gray;
+    border: 2px solid colors.$blue-gray;
+  }
 }

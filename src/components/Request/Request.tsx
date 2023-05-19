@@ -16,7 +16,7 @@ const Request = ({ value, setValue, onSubmit, isVariablesOpen }: RequestProps) =
         <button
           onClick={onSubmit}
           disabled={!value}
-          className={clsx(styles.runBtn, !value ? styles.btnDisabled : styles.btnActive)}
+          className={clsx(styles.runBtn, value ? styles.runBtn_active : styles.runBtn_disable)}
         >
           <Image src={runIcon} alt="run" />
         </button>

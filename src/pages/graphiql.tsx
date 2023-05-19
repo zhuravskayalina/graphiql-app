@@ -4,11 +4,12 @@ import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import { clsx } from 'clsx';
 import Image from 'next/image';
+import docIcon from '@/assets/images/icons/book.svg';
+import closeIcon from '@/assets/images/icons/close.svg';
 import Request from '@/components/Request/Request';
 import Response from '@/components/Response/Response';
 import Options from '@/components/Options/Options';
 import Loader from '@/components/Loader/Loader';
-import docIcon from '@/assets/images/icons/book.svg';
 import useGraphQuery from '@/hooks/useGraphQuery';
 import { useTablet } from '@/hooks/useTablet';
 import { auth } from '@/services/authService';
@@ -51,6 +52,10 @@ const Graphiql = () => {
     setIsVariablesOpen((prevState) => !prevState);
   };
 
+  const handleCloseDoc = () => {
+    if (openDoc) setOpenDoc(false);
+  };
+
   return (
     <div className={styles.main}>
       <div className={clsx(styles.main__documentation, styles.section)}>
@@ -59,7 +64,21 @@ const Graphiql = () => {
             <Image src={docIcon} alt="open documentation" />
           </button>
         )}
-        <DocumentationLazy isOpen={openDoc} isTablet={tabletScreen} setOpenDoc={setOpenDoc} />
+        <div
+          className={clsx(
+            styles.documentation,
+            tabletScreen && styles.documentation_tablet,
+            openDoc && styles.documentation_tabletOpen
+          )}
+        >
+          {tabletScreen && (
+            <button className={styles.close} onClick={handleCloseDoc}>
+              <Image src={closeIcon} alt="close docs" />
+            </button>
+          )}
+          <DocumentationLazy />
+        </div>
+        {openDoc && <div className={clsx(styles.background)} onClick={handleCloseDoc}></div>}
       </div>
       <div className={clsx(styles.main__request, styles.section)}>
         <Request
