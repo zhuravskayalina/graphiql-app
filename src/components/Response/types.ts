@@ -1,8 +1,6 @@
-import { IntrospectionQuery } from '@/generatedTypes/IntrospectionQuery';
-import { Error } from '@/pages/api/query';
+import { Response } from '@/pages/api/types';
 
 export interface ResponseProps {
-  data: IntrospectionQuery | null;
-  errors: Error[] | null;
+  responseValue: Response | null;
   isLoading: boolean;
 }

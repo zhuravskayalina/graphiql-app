@@ -32,9 +32,8 @@ const Graphiql = () => {
   const [isVariablesOpen, setIsVariablesOpen] = useState(false);
 
   const {
-    data,
     isLoading,
-    errors,
+    responseValue,
     headersValue,
     setHeadersValue,
     variablesValue,
@@ -97,7 +96,7 @@ const Graphiql = () => {
         />
       </div>
       <div className={clsx(styles.main__response, styles.section)}>
-        <Response data={data} errors={errors} isLoading={isLoading} />
+        <Response responseValue={responseValue} isLoading={isLoading} />
       </div>
     </div>
   );

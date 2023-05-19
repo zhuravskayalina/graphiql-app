@@ -4,8 +4,8 @@ const url = 'https://rickandmortyapi.com/graphql';
 
 export const getQuery = async (
   value: string,
-  variables: Record<string, unknown>,
-  headers: Record<string, unknown>
+  variables: Record<string, unknown> = {},
+  headers: Record<string, unknown> = {}
 ) => {
   const response = await fetch(url, {
     method: 'POST',

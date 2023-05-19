@@ -1,20 +1,21 @@
 import { useState, MouseEvent, useEffect } from 'react';
 import { useTranslation } from 'next-i18next';
 import { clsx } from 'clsx';
-import { IntrospectionQuery } from '@/generatedTypes/IntrospectionQuery';
-import { introspectionQuery } from '@/pages/api/introspection';
 import TypePath from './components/TypePath/TypePath';
 import Schema from './components/Schema/Schema';
 import Type from './components/Type/Type';
 import Arguments from './components/Arguments/Arguments';
 import { showToast } from '@/utils/toastUtil';
+import { introspectionRequest } from './introspectionRequest';
+import { getQuery } from '@/pages/api/query';
+import { Response } from '@/pages/api/types';
 import styles from './Documentation.module.scss';
 
 const Documentation = () => {
   const { t } = useTranslation('common');
   const [typePath, setTypePath] = useState<string[]>(['Schema']);
   const [currentType, setCurrentType] = useState<string>(typePath[0]);
-  const [data, setData] = useState<IntrospectionQuery | null>(null);
+  const [response, setResponse] = useState<Response | null>(null);
   const [isError, setIsError] = useState(false);
 
   const changeType = (event: MouseEvent<HTMLElement>) => {
@@ -30,28 +31,30 @@ const Documentation = () => {
   };
 
   useEffect(() => {
-    introspectionQuery()
-      .then((res) => {
-        setData(res);
+    const fetchQuery = async () => {
+      try {
+        const res = await getQuery(introspectionRequest);
+        setResponse(res);
         setIsError(false);
-      })
-      .catch((error: Error) => {
+      } catch (error) {
         setIsError(true);
-        showToast('error', error.message);
-      });
+        showToast('error', (error as Error).message);
+      }
+    };
+    fetchQuery();
   }, []);
 
-  const typeObject = data?.__schema.types.find((type) => type.name === currentType);
+  const typeObject = response?.data?.__schema.types.find((type) => type.name === currentType);
 
   return (
     <div className={styles.documentation}>
       <h3 className={styles.documentation__title}>{t('documentationTitle')}</h3>
       <p className={styles.documentation__subtitle}>{t('apiDescription')}</p>
       {isError && <p>{t('failed')}</p>}
-      {data && currentType === typePath[0] ? (
-        <Schema schema={data.__schema} changeType={changeType} />
+      {response?.data && currentType === typePath[0] ? (
+        <Schema schema={response?.data.__schema} changeType={changeType} />
       ) : (
-        data && (
+        response?.data && (
           <>
             <TypePath path={typePath} changeType={changeType} />
             <div className={styles.types}>
