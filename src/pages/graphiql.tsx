@@ -1,18 +1,16 @@
 import { useEffect, useState } from 'react';
-import { useTranslation } from 'next-i18next';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import dynamic from 'next/dynamic';
+import { useRouter } from 'next/router';
 import { clsx } from 'clsx';
 import Image from 'next/image';
+import docIcon from '@/assets/images/icons/book.svg';
+import closeIcon from '@/assets/images/icons/close.svg';
 import Request from '@/components/Request/Request';
 import Response from '@/components/Response/Response';
-import Variables from '@/components/Variables/Variables';
+import Options from '@/components/Options/Options';
 import Loader from '@/components/Loader/Loader';
-import { showToast } from '@/utils/toastUtil';
-import docIcon from '@/assets/images/icons/book.svg';
-import { getQuery, Error } from './api/query';
-import { IntrospectionQuery } from '@/generatedTypes/IntrospectionQuery';
-import { useRouter } from 'next/router';
+import useGraphQuery from '@/hooks/useGraphQuery';
 import { useTablet } from '@/hooks/useTablet';
 import { auth } from '@/services/authService';
 import { paths } from '@/enums/routerPaths';
@@ -28,16 +26,22 @@ const DocumentationLazy = dynamic(() => import('@/components/Documentation/Docum
 
 const Graphiql = () => {
   const router = useRouter();
-  const { t } = useTranslation('common');
   const [openDoc, setOpenDoc] = useState<boolean>(false);
-  const [requestValue, setRequestValue] = useState<string | undefined>();
-  const [variablesValue, setVariablesValue] = useState<string | undefined>();
-  const [data, setData] = useState<IntrospectionQuery | null>(null);
-  const [errors, setErrors] = useState<Error[] | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
   const [user, loading] = useAuthState(auth);
   const [tabletScreen] = useTablet();
   const [isVariablesOpen, setIsVariablesOpen] = useState(false);
+
+  const {
+    isLoading,
+    responseValue,
+    headersValue,
+    setHeadersValue,
+    variablesValue,
+    setVariablesValue,
+    requestValue,
+    setRequestValue,
+    onSubmit,
+  } = useGraphQuery();
 
   useEffect(() => {
     if (!user && !loading) router.push(paths.welcome);
@@ -47,28 +51,8 @@ const Graphiql = () => {
     setIsVariablesOpen((prevState) => !prevState);
   };
 
-  const onSubmit = () => {
-    setData(null);
-    const query = requestValue ? requestValue : '';
-    let variables;
-    try {
-      variables = variablesValue ? JSON.parse(variablesValue) : {};
-    } catch {
-      showToast('error', t('invalidJson'));
-    }
-    setIsLoading(true);
-    getQuery(query, variables)
-      .then((res) => {
-        setData(res.data);
-        setErrors(res.errors);
-        setIsLoading(false);
-      })
-      .catch((error: Error) => {
-        showToast('error', error.message);
-        setIsLoading(false);
-        setData(null);
-        setErrors(null);
-      });
+  const handleCloseDoc = () => {
+    if (openDoc) setOpenDoc(false);
   };
 
   return (
@@ -79,7 +63,21 @@ const Graphiql = () => {
             <Image src={docIcon} alt="open documentation" />
           </button>
         )}
-        <DocumentationLazy isOpen={openDoc} isTablet={tabletScreen} setOpenDoc={setOpenDoc} />
+        <div
+          className={clsx(
+            styles.documentation,
+            tabletScreen && styles.documentation_tablet,
+            openDoc && styles.documentation_tabletOpen
+          )}
+        >
+          {tabletScreen && (
+            <button className={styles.close} onClick={handleCloseDoc}>
+              <Image src={closeIcon} alt="close docs" />
+            </button>
+          )}
+          <DocumentationLazy />
+        </div>
+        {openDoc && <div className={clsx(styles.background)} onClick={handleCloseDoc}></div>}
       </div>
       <div className={clsx(styles.main__request, styles.section)}>
         <Request
@@ -88,15 +86,17 @@ const Graphiql = () => {
           onSubmit={onSubmit}
           isVariablesOpen={isVariablesOpen}
         />
-        <Variables
-          value={variablesValue}
-          setValue={setVariablesValue}
+        <Options
+          variablesValue={variablesValue}
+          setVariablesValue={setVariablesValue}
+          headersValue={headersValue}
+          setHeadersValue={setHeadersValue}
           isOpen={isVariablesOpen}
           handleToggleOpen={handleToggleOpenVariables}
         />
       </div>
       <div className={clsx(styles.main__response, styles.section)}>
-        <Response data={data} errors={errors} isLoading={isLoading} />
+        <Response responseValue={responseValue} isLoading={isLoading} />
       </div>
     </div>
   );

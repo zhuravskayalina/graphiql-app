@@ -1,7 +1,7 @@
 @use '@/styles/variables/colors';
 @use '@/styles/mixins/elements-style';
 
-.variables {
+.options {
   flex: 1 1 auto;
   @include elements-style.flex-column;
   margin-top: 20px;
@@ -13,18 +13,37 @@
     justify-content: space-between;
   }
 
+  &__title {
+    display: flex;
+  }
+
   &__heading {
+    margin-right: 20px;
     font-size: 16px;
+    cursor: pointer;
+  }
+
+  &__input {
+    min-height: 200px;
+    flex-grow: 1;
+
+    @media screen and (max-width: 800px) {
+      @media screen and (max-width: 800px) {
+        min-height: 200px;
+      }
+    }
   }
 }
 
-.input {
-  flex-grow: 1;
+.notActive {
+  color: colors.$blue-gray;
+}
 
-  @media screen and (max-width: 800px) {
-    @media screen and (max-width: 800px) {
-      min-height: 200px;
-    }
+.editor {
+  height: 100%;
+
+  &__hidden {
+    display: none;
   }
 }
 
