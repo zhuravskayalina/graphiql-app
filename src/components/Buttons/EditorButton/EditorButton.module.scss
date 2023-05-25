@@ -1,34 +1,6 @@
 @use '@/styles/variables/colors';
-@use '@/styles/mixins/elements-style';
 
-.request {
-  @include elements-style.flex-column;
-  flex-grow: 1;
-  padding: 15px 20px;
-
-  &__header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px;
-  }
-
-  &__heading {
-    font-weight: 600;
-    font-size: 16px;
-  }
-
-  &__variablesOpen {
-    max-height: 600px;
-  }
-
-  &__button-container {
-    display: flex;
-    gap: 10px;
-  }
-}
-
-.runBtn {
+.editorBtn {
   padding: 4px 8px;
   color: colors.$white;
   font-weight: 500;
