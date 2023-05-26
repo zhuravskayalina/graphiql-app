@@ -4,14 +4,18 @@ import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import { clsx } from 'clsx';
 import Image from 'next/image';
-import docIcon from '@/assets/images/icons/book.svg';
-import closeIcon from '@/assets/images/icons/close.svg';
+import docIconActive from '@/assets/images/icons/book.svg';
+import docIcon from '@/assets/images/icons/book-disable.svg';
+import closeIcon from '@/assets/images/icons/left-arrow.svg';
 import Request from '@/components/Request/Request';
 import Response from '@/components/Response/Response';
 import Options from '@/components/Options/Options';
-import Loader from '@/components/Loader/Loader';
 import useGraphQuery from '@/hooks/useGraphQuery';
 import { useTablet } from '@/hooks/useTablet';
+import { getQuery } from './api/query';
+import { introspectionRequest } from '@/pages/api/introspectionRequest';
+import { Response as ResponseType } from './api/types';
+import { showToast } from '@/utils/toastUtil';
 import { auth } from '@/services/authService';
 import { paths } from '@/enums/routerPaths';
 import { getMainPageServerSideProps as getServerSideProps } from '@/utils/serverSidePropsUtil';
@@ -19,17 +23,15 @@ import styles from '../styles/Graphiql.module.scss';
 
 export { getServerSideProps };
 
-const DocumentationLazy = dynamic(() => import('@/components/Documentation/Documentation'), {
-  loading: () => <Loader />,
-  ssr: false,
-});
+const DocumentationLazy = dynamic(() => import('@/components/Documentation/Documentation'));
 
 const Graphiql = () => {
   const router = useRouter();
-  const [openDoc, setOpenDoc] = useState<boolean>(false);
+  const [isOpenDoc, setIsOpenDoc] = useState(false);
   const [user, loading] = useAuthState(auth);
   const [tabletScreen] = useTablet();
   const [isVariablesOpen, setIsVariablesOpen] = useState(false);
+  const [responseDoc, setResponseDoc] = useState<ResponseType | null>(null);
 
   const {
     isLoading,
@@ -47,37 +49,58 @@ const Graphiql = () => {
     if (!user && !loading) router.push(paths.welcome);
   });
 
+  useEffect(() => {
+    const fetchQuery = async () => {
+      try {
+        const res = await getQuery(introspectionRequest);
+        setResponseDoc(res);
+      } catch (error) {
+        showToast('error', `Documentation: ${(error as Error).message}`);
+      }
+    };
+    fetchQuery();
+  }, []);
+
   const handleToggleOpenVariables = () => {
     setIsVariablesOpen((prevState) => !prevState);
   };
 
   const handleCloseDoc = () => {
-    if (openDoc) setOpenDoc(false);
+    if (isOpenDoc) setIsOpenDoc(false);
   };
 
   return (
-    <div className={styles.main}>
+    <div className={clsx(styles.main, isOpenDoc && styles.main__activeDoc)}>
       <div className={clsx(styles.main__documentation, styles.section)}>
-        {tabletScreen && (
-          <button className={styles.main__openButton} onClick={() => setOpenDoc(true)}>
-            <Image src={docIcon} alt="open documentation" />
-          </button>
-        )}
+        <button
+          disabled={!responseDoc}
+          className={clsx(
+            styles.main__openDocBtn,
+            responseDoc && styles.main__openDocBtn_active,
+            isOpenDoc && styles.main__openDocBtn_hidden
+          )}
+          onClick={() => setIsOpenDoc(true)}
+        >
+          <Image src={responseDoc ? docIconActive : docIcon} alt="open documentation" />
+        </button>
         <div
           className={clsx(
             styles.documentation,
+            !isOpenDoc && styles.documentation_close,
             tabletScreen && styles.documentation_tablet,
-            openDoc && styles.documentation_tabletOpen
+            isOpenDoc && styles.documentation_tabletOpen
           )}
         >
-          {tabletScreen && (
+          {isOpenDoc && (
             <button className={styles.close} onClick={handleCloseDoc}>
               <Image src={closeIcon} alt="close docs" />
             </button>
           )}
-          <DocumentationLazy />
+          {isOpenDoc || tabletScreen ? <DocumentationLazy response={responseDoc} /> : null}
         </div>
-        {openDoc && <div className={clsx(styles.background)} onClick={handleCloseDoc}></div>}
+        {isOpenDoc && tabletScreen && (
+          <div className={clsx(styles.background)} onClick={handleCloseDoc}></div>
+        )}
       </div>
       <div className={clsx(styles.main__request, styles.section)}>
         <Request

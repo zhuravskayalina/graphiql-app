@@ -6,13 +6,17 @@
   display: grid;
   gap: 20px;
   grid-template-areas: 'doc request response';
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: auto 1fr 1fr;
   justify-content: space-between;
   color: colors.$gray-blue;
   background-color: colors.$super-light-gray;
   position: relative;
   height: 100%;
   padding: 50px 10px 0;
+
+    &__activeDoc {
+      grid-template-columns: repeat(3, 1fr);
+    }
 
   @media screen and (max-width: 800px) {
     padding-right: 15px;
@@ -22,6 +26,7 @@
     grid-area: doc;
     position: relative;
     margin-bottom: 40px;
+    min-width: 30px;
   }
 
   &__request {
@@ -49,13 +54,20 @@
     }
   }
 
-  &__openButton {
+  &__openDocBtn {
     @include elements-style.button-style-reset;
+    padding: 10px 0 0 10px;
     transition: 0.3s;
 
-    &:hover {
-      cursor: pointer;
-      transform: scale(1.1);
+    &_hidden {
+      display: none;
+    }
+
+    &_active {
+      &:hover {
+        cursor: pointer;
+        transform: scale(1.1);
+      }
     }
   }
 }
@@ -90,12 +102,16 @@
 }
 
 .documentation {
-  padding: 15px;
+  padding: 10px;
   height: 100%;
   background-color: colors.$white;
   position: absolute;
   border-radius: 10px;
   width: 100%;
+
+  &_close {
+    background-color: transparent;
+  }
 
   &_tablet {
     padding: 15px;
