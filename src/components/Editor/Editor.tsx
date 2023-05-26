@@ -15,7 +15,7 @@ const Editor = ({ value, setValue, language, readOnly = false }: Editor) => {
       <MonacoEditor
         language={language}
         width="99%"
-        height="100%"
+        height="99%"
         options={{
           scrollBeyondLastLine: false,
           scrollbar: {

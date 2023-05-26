@@ -89,7 +89,8 @@ const setLocaleRedirect = async (
   lang: string,
   registerProp?: string
 ) => {
-  const path = lang ? `/${lang}${ctx.resolvedUrl}` : `${ctx.resolvedUrl}`;
+  const path = `/${lang}${ctx.resolvedUrl}`;
+  console.log(ctx.resolvedUrl);
   return {
     redirect: {
       permanent: false,

@@ -28,5 +28,7 @@
   "wrong": "Sorry, something went wrong",
   "error:": "Error",
   "reload": "Reload the page",
-  "contact": "Contact us"
+  "contact": "Contact us",
+  "copy": "Copy",
+  "copied": "Copied!"
 }
