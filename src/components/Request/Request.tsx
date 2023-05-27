@@ -12,6 +12,7 @@ import Tooltip from '../Tooltip/Tooltip';
 import { useHotkeys } from 'react-hotkeys-hook';
 import { HotKeys } from '@/enums/hotKeys';
 import LinkButton from '../Buttons/LinkButton/LinkButton';
+import CmEditor from '../Editor/CM-Editor';
 
 const Request = ({ value, setValue, onSubmit, isVariablesOpen }: RequestProps) => {
   const { t } = useTranslation();
@@ -56,7 +57,8 @@ const Request = ({ value, setValue, onSubmit, isVariablesOpen }: RequestProps) =
           </Tooltip>
         </div>
       </div>
-      <Editor value={value} setValue={setValue} language={'graphql'} />
+      <CmEditor value={value} setValue={setValue}></CmEditor>
+      {/* <Editor value={value} setValue={setValue} language={'graphql'} /> */}
       <div className={styles.request__copy}>
         {value && (
           <LinkButton

@@ -11,7 +11,9 @@
   },
   "dependencies": {
     "@monaco-editor/react": "^4.5.1",
+    "@uiw/react-codemirror": "^4.20.2",
     "clsx": "^1.2.1",
+    "cm6-graphql": "^0.0.7",
     "firebase": "^9.21.0",
     "i18next": "^22.4.15",
     "monaco-editor": "^0.38.0",
