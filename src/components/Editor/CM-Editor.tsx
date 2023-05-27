@@ -6,27 +6,22 @@ import { IntrospectionQuery, buildClientSchema } from 'graphql';
 // import 'codemirror-graphql/hint';
 // import 'codemirror-graphql/lint';
 // import 'codemirror-graphql/mode';
-import { buildSchema } from 'graphql';
+import { buildSchema, GraphQLSchema } from 'graphql';
 import { graphql } from 'cm6-graphql';
 import { updateSchema } from 'cm6-graphql';
 import styles from './Editor.module.scss';
 
 type props = {
-  schema?: IntrospectionQuery;
+  schema?: GraphQLSchema;
   setValue: Dispatch<SetStateAction<string | undefined>>;
   value: string | undefined;
 };
-
-const s = buildSchema(`
-type Query {
-  id: ID!
-}`);
 
 export default function CmEditor({ schema, setValue, value: value1 }: props) {
   const editor = useRef<HTMLDivElement>(null);
   const { setContainer, view } = useCodeMirror({
     container: editor.current,
-    extensions: [graphql(s)],
+    extensions: [graphql(schema)],
     value: value1 || '',
     height: '100%',
     onChange(value) {
@@ -36,7 +31,7 @@ export default function CmEditor({ schema, setValue, value: value1 }: props) {
 
   useEffect(() => {
     if (!view || !schema) return;
-    updateSchema(view, buildClientSchema(schema));
+    updateSchema(view, schema);
   }, [schema, view]);
 
   useEffect(() => {

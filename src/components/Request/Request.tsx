@@ -1,25 +1,32 @@
 import { useTranslation } from 'next-i18next';
 import { clsx } from 'clsx';
-import Editor from '../Editor/Editor';
+// import Editor from '../Editor/Editor';
 import { CopyState, RequestProps } from './types';
 import runIcon from '../../assets/images/icons/run.svg';
 import prettifyIcon from '../../assets/images/icons/prettify.svg';
 import prettify from '@/services/prettifyService';
 import EditorButton from '../Buttons/EditorButton/EditorButton';
 import styles from './Request.module.scss';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Tooltip from '../Tooltip/Tooltip';
 import { useHotkeys } from 'react-hotkeys-hook';
 import { HotKeys } from '@/enums/hotKeys';
 import LinkButton from '../Buttons/LinkButton/LinkButton';
 import CmEditor from '../Editor/CM-Editor';
+import { buildSchema, buildClientSchema } from 'graphql';
 
-const Request = ({ value, setValue, onSubmit, isVariablesOpen }: RequestProps) => {
+const Request = ({ value, setValue, onSubmit, isVariablesOpen, responseDoc }: RequestProps) => {
   const { t } = useTranslation();
+  const [schema, setSchema] = useState(buildSchema('type Query { id: ID! }'));
   const [copyState, setCopyState] = useState<CopyState>({
     text: 'copy',
     hotKey: true,
   });
+
+  useEffect(() => {
+    if (!responseDoc) return;
+    setSchema(buildClientSchema(responseDoc));
+  }, [responseDoc]);
 
   const handlePrettify = () => {
     if (!value) return;
@@ -57,7 +64,7 @@ const Request = ({ value, setValue, onSubmit, isVariablesOpen }: RequestProps) =
           </Tooltip>
         </div>
       </div>
-      <CmEditor value={value} setValue={setValue}></CmEditor>
+      <CmEditor value={value} setValue={setValue} schema={schema}></CmEditor>
       {/* <Editor value={value} setValue={setValue} language={'graphql'} /> */}
       <div className={styles.request__copy}>
         {value && (

@@ -118,6 +118,7 @@ const Graphiql = () => {
           setValue={setRequestValue}
           onSubmit={onSubmit}
           isVariablesOpen={isVariablesOpen}
+          responseDoc={responseDoc?.data}
         />
         <Options
           variablesValue={variablesValue}
