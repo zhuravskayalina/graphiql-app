@@ -57,13 +57,17 @@ const Request = ({ value, setValue, onSubmit, isVariablesOpen }: RequestProps) =
         </div>
       </div>
       <Editor value={value} setValue={setValue} language={'graphql'} />
-      {value && (
-        <LinkButton
-          onClick={handleCopy}
-          text={`${t(copyState.text)} ${copyState.hotKey ? '(' + HotKeys.copyResponse + ')' : ''}`}
-          color={copyState.color}
-        />
-      )}
+      <div className={styles.request__copy}>
+        {value && (
+          <LinkButton
+            onClick={handleCopy}
+            text={`${t(copyState.text)} ${
+              copyState.hotKey ? '(' + HotKeys.copyResponse + ')' : ''
+            }`}
+            color={copyState.color}
+          />
+        )}
+      </div>
     </div>
   );
 };

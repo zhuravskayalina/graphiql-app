@@ -4,7 +4,7 @@
 .request {
   @include elements-style.flex-column;
   flex-grow: 1;
-  padding: 15px 20px;
+  padding: 15px 20px 0;
 
   &__header {
     display: flex;
@@ -25,5 +25,9 @@
   &__button-container {
     display: flex;
     gap: 10px;
+  }
+
+  &__copy {
+    height: 25px;
   }
 }
