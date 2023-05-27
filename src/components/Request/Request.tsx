@@ -14,6 +14,7 @@ import { HotKeys } from '@/enums/hotKeys';
 import LinkButton from '../Buttons/LinkButton/LinkButton';
 import CmEditor from '../Editor/CM-Editor';
 import { buildSchema, buildClientSchema } from 'graphql';
+import { graphql } from 'cm6-graphql';
 
 const Request = ({ value, setValue, onSubmit, isVariablesOpen, responseDoc }: RequestProps) => {
   const { t } = useTranslation();
@@ -64,7 +65,12 @@ const Request = ({ value, setValue, onSubmit, isVariablesOpen, responseDoc }: Re
           </Tooltip>
         </div>
       </div>
-      <CmEditor value={value} setValue={setValue} schema={schema}></CmEditor>
+      <CmEditor
+        value={value}
+        setValue={setValue}
+        schema={schema}
+        extenstions={graphql(schema)}
+      ></CmEditor>
       {/* <Editor value={value} setValue={setValue} language={'graphql'} /> */}
       <div className={styles.request__copy}>
         {value && (

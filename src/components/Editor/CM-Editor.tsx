@@ -1,21 +1,22 @@
 import { Dispatch, SetStateAction, useEffect, useRef } from 'react';
-import { useCodeMirror, Extension } from '@uiw/react-codemirror';
+import { useCodeMirror, basicSetup } from '@uiw/react-codemirror';
 import { GraphQLSchema } from 'graphql';
 import { graphql, updateSchema } from 'cm6-graphql';
 import styles from './Editor.module.scss';
+import { json } from '@codemirror/lang-json';
 
 type props = {
   schema?: GraphQLSchema;
   setValue: Dispatch<SetStateAction<string | undefined>>;
   value: string | undefined;
-  extenstions: Extension;
+  type: 'graphql' | 'json';
 };
 
-export default function CmEditor({ schema, setValue, value: value1 }: props) {
+export default function CmEditor({ schema, setValue, value: value1, type }: props) {
   const editor = useRef<HTMLDivElement>(null);
   const { setContainer, view } = useCodeMirror({
     container: editor.current,
-    extensions: [graphql(schema)],
+    extensions: [basicSetup(), type === 'graphql' ? graphql(schema) : json()],
     value: value1 || '',
     height: '100%',
     width: '100%',

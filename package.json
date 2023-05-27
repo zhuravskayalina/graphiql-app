@@ -10,6 +10,7 @@
     "lint:fix": "next lint --fix"
   },
   "dependencies": {
+    "@codemirror/lang-json": "^6.0.1",
     "@monaco-editor/react": "^4.5.1",
     "@uiw/react-codemirror": "^4.20.2",
     "clsx": "^1.2.1",
