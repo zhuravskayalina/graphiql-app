@@ -7,13 +7,14 @@ import { json, jsonParseLinter } from '@codemirror/lang-json';
 import { linter } from '@codemirror/lint';
 
 type props = {
-  schema?: GraphQLSchema;
-  setValue: Dispatch<SetStateAction<string | undefined>>;
+  setValue?: Dispatch<SetStateAction<string | undefined>>;
   value: string | undefined;
   type: 'graphql' | 'json';
+  readonly?: boolean;
+  schema?: GraphQLSchema;
 };
 
-export default function CmEditor({ schema, setValue, value: value1, type }: props) {
+export default function CmEditor({ schema, setValue, value: value1, type, readonly }: props) {
   const extensions = type === 'graphql' ? [graphql(schema)] : [json(), linter(jsonParseLinter())];
   const editor = useRef<HTMLDivElement>(null);
   const { setContainer, view } = useCodeMirror({
@@ -22,8 +23,9 @@ export default function CmEditor({ schema, setValue, value: value1, type }: prop
     value: value1 || '',
     height: '100%',
     width: '100%',
+    readOnly: readonly,
     onChange(value) {
-      setValue(value);
+      if (setValue) setValue(value);
     },
   });
 

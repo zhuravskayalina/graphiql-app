@@ -68,9 +68,7 @@ const Request = ({ value, setValue, onSubmit, isVariablesOpen, responseDoc }: Re
         {value && (
           <LinkButton
             onClick={handleCopy}
-            text={`${t(copyState.text)} ${
-              copyState.hotKey ? '(' + HotKeys.copyResponse + ')' : ''
-            }`}
+            text={`${t(copyState.text)} ${copyState.hotKey ? '(' + HotKeys.copyRequest + ')' : ''}`}
             color={copyState.color}
           />
         )}

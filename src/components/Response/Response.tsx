@@ -1,5 +1,4 @@
 import { useTranslation } from 'next-i18next';
-import Editor from '../Editor/Editor';
 import styles from './Response.module.scss';
 import Loader from '@/components/Loader/Loader';
 import { CopyState, ResponseProps } from '@/components/Response/types';
@@ -7,6 +6,7 @@ import { useState } from 'react';
 import { useHotkeys } from 'react-hotkeys-hook';
 import { HotKeys } from '@/enums/hotKeys';
 import LinkButton from '../Buttons/LinkButton/LinkButton';
+import CmEditor from '../Editor/CM-Editor';
 
 const Response = ({ responseValue, isLoading, statusCode }: ResponseProps) => {
   const { t } = useTranslation();
@@ -36,7 +36,11 @@ const Response = ({ responseValue, isLoading, statusCode }: ResponseProps) => {
       </div>
       {isLoading && <Loader />}
       {responseValue && (
-        <Editor value={JSON.stringify(responseValue, null, 2)} language={'json'} readOnly={true} />
+        <CmEditor
+          value={JSON.stringify(responseValue, null, 2)}
+          type="json"
+          readonly={true}
+        ></CmEditor>
       )}
       {responseValue && (
         <LinkButton

@@ -1,7 +1,6 @@
 import { useState, MouseEvent } from 'react';
 import { useTranslation } from 'next-i18next';
 import { OptionProps } from './types';
-import Editor from '../Editor/Editor';
 import arrowDownIcon from '@/assets/images/icons/arrow-down.svg';
 import Image from 'next/image';
 import { clsx } from 'clsx';
@@ -57,11 +56,9 @@ const Options = ({
         <div className={styles.options__input}>
           <div className={clsx(styles.editor, title === 'headers' && styles.editor__hidden)}>
             <CmEditor value={variablesValue} setValue={setVariablesValue} type="json"></CmEditor>
-            {/* <Editor value={variablesValue} setValue={setVariablesValue} language={'json'} /> */}
           </div>
           <div className={clsx(styles.editor, title === 'variables' && styles.editor__hidden)}>
             <CmEditor value={headersValue} setValue={setHeadersValue} type="json"></CmEditor>
-            {/* <Editor value={headersValue} setValue={setHeadersValue} language={'json'} /> */}
           </div>
         </div>
       )}

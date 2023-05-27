@@ -9,7 +9,9 @@ const useGraphQuery = () => {
   const [requestValue, setRequestValue] = useState<string | undefined>();
   const [variablesValue, setVariablesValue] = useState<string | undefined>();
   const [headersValue, setHeadersValue] = useState<string | undefined>();
-  const [responseValue, setResponseValue] = useState<Response | null>(null);
+  const [responseValue, setResponseValue] = useState<Pick<Response, 'data' | 'errors'> | null>(
+    null
+  );
   const [isLoading, setIsLoading] = useState(false);
   const [statusCode, setStatusCode] = useState<number | null>(null);
 
@@ -32,7 +34,7 @@ const useGraphQuery = () => {
     setIsLoading(true);
     try {
       const res = await getQuery(query, variables, headers);
-      setResponseValue(res);
+      setResponseValue({ data: res.data, errors: res.errors });
       setStatusCode(res.statusCode);
     } catch (error) {
       showToast('error', (error as Error).message);
