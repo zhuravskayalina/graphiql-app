@@ -5,6 +5,7 @@
   @include elements-style.flex-column;
   flex-grow: 1;
   padding: 15px 20px 0;
+  max-width: 100vh;
 
   &__header {
     display: flex;
@@ -19,7 +20,7 @@
   }
 
   &__variablesOpen {
-    height: 600px;
+    height: 500px;
   }
 
   &__button-container {

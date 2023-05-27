@@ -1,20 +1,14 @@
 import { Dispatch, SetStateAction, useEffect, useRef } from 'react';
-import { useCodeMirror } from '@uiw/react-codemirror';
-import { IntrospectionQuery, buildClientSchema } from 'graphql';
-// import 'codemirror/addon/hint/show-hint';
-// import 'codemirror/addon/lint/lint';
-// import 'codemirror-graphql/hint';
-// import 'codemirror-graphql/lint';
-// import 'codemirror-graphql/mode';
-import { buildSchema, GraphQLSchema } from 'graphql';
-import { graphql } from 'cm6-graphql';
-import { updateSchema } from 'cm6-graphql';
+import { useCodeMirror, Extension } from '@uiw/react-codemirror';
+import { GraphQLSchema } from 'graphql';
+import { graphql, updateSchema } from 'cm6-graphql';
 import styles from './Editor.module.scss';
 
 type props = {
   schema?: GraphQLSchema;
   setValue: Dispatch<SetStateAction<string | undefined>>;
   value: string | undefined;
+  extenstions: Extension;
 };
 
 export default function CmEditor({ schema, setValue, value: value1 }: props) {
@@ -24,6 +18,7 @@ export default function CmEditor({ schema, setValue, value: value1 }: props) {
     extensions: [graphql(schema)],
     value: value1 || '',
     height: '100%',
+    width: '100%',
     onChange(value) {
       setValue(value);
     },

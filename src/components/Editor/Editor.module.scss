@@ -6,6 +6,9 @@
   height: 100%;
   background-color: colors.$white;
   border-radius: 10px;
+  display: flex;
+  height: 650px;
+  overflow: auto;
 }
 .monaco-editor .parameter-hints-widget {
   border: 0px;
@@ -22,3 +25,19 @@
 .monaco-editor .rename-box {
   top: 0;
 }
+.cm-editor {
+  border: none;
+  overflow-y: scroll;
+}
+
+.ͼ1.cm-focused {
+  outline: none;
+}
+
+.cm-gutterElement {
+  background-color: white;
+}
+
+.cm-scroller {
+  overflow: auto;
+ }
