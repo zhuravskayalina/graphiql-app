@@ -9,6 +9,7 @@ export interface Error {
 export interface Response {
   data: IntrospectionQuery;
   errors: Array<Error>;
+  statusCode: number | null;
 }
 
 export interface QueryProps {

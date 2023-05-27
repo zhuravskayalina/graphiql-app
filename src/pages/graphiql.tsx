@@ -48,6 +48,7 @@ const Graphiql = () => {
     requestValue,
     setRequestValue,
     onSubmit,
+    statusCode,
   } = useGraphQuery();
 
   useEffect(() => {
@@ -128,7 +129,7 @@ const Graphiql = () => {
         />
       </div>
       <div className={clsx(styles.main__response, styles.section)}>
-        <Response responseValue={responseValue} isLoading={isLoading} />
+        <Response responseValue={responseValue} isLoading={isLoading} statusCode={statusCode} />
       </div>
     </div>
   );

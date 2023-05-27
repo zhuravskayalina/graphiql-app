@@ -8,7 +8,7 @@ import { useHotkeys } from 'react-hotkeys-hook';
 import { HotKeys } from '@/enums/hotKeys';
 import LinkButton from '../Buttons/LinkButton/LinkButton';
 
-const Response = ({ responseValue, isLoading }: ResponseProps) => {
+const Response = ({ responseValue, isLoading, statusCode }: ResponseProps) => {
   const { t } = useTranslation();
   const [copyState, setCopyState] = useState<CopyState>({
     text: 'copy',
@@ -30,6 +30,9 @@ const Response = ({ responseValue, isLoading }: ResponseProps) => {
     <div className={styles.response}>
       <div className={styles.response__header}>
         <p className={styles.response__heading}>{t('response')}</p>
+        {statusCode && responseValue && (
+          <p className={styles.response__status}>{`${t('status')} ${statusCode}`}</p>
+        )}
       </div>
       {isLoading && <Loader />}
       {responseValue && (
