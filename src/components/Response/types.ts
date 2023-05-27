@@ -8,4 +8,5 @@ export interface ResponseProps {
 export type CopyState = {
   text: string;
   color?: string;
+  hotKey: boolean;
 };

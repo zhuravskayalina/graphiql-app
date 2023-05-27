@@ -7,14 +7,18 @@ import prettifyIcon from '../../assets/images/icons/prettify.svg';
 import prettify from '@/services/prettifyService';
 import EditorButton from '../Buttons/EditorButton/EditorButton';
 import styles from './Request.module.scss';
-import { useCallback, useEffect, useState } from 'react';
+import { useState } from 'react';
 import Tooltip from '../Tooltip/Tooltip';
 import { useHotkeys } from 'react-hotkeys-hook';
 import { HotKeys } from '@/enums/hotKeys';
+import LinkButton from '../Buttons/LinkButton/LinkButton';
 
 const Request = ({ value, setValue, onSubmit, isVariablesOpen }: RequestProps) => {
   const { t } = useTranslation();
-  const [copyState, setCopyState] = useState<CopyState>({ text: t('copy') });
+  const [copyState, setCopyState] = useState<CopyState>({
+    text: 'copy',
+    hotKey: true,
+  });
 
   const handlePrettify = () => {
     if (!value) return;
@@ -24,21 +28,22 @@ const Request = ({ value, setValue, onSubmit, isVariablesOpen }: RequestProps) =
   const handleCopy = async () => {
     if (!value) return;
     await navigator.clipboard.writeText(value);
-    setCopyState({ text: t('copied'), color: 'grey' });
+    setCopyState({ text: 'copied', color: 'grey', hotKey: false });
     setTimeout(() => {
-      setCopyState({ text: t('copy') });
+      setCopyState({ text: 'copy', hotKey: true });
     }, 1000);
   };
 
   useHotkeys(HotKeys.prettify, handlePrettify);
   useHotkeys(HotKeys.copyRequest, handleCopy);
+  useHotkeys(HotKeys.runQuery, onSubmit);
 
   return (
     <div className={clsx(styles.request, isVariablesOpen && styles.request__variablesOpen)}>
       <div className={styles.request__header}>
         <p className={styles.request__heading}>{t('operation')}</p>
         <div className={styles['request__button-container']}>
-          <Tooltip content={t('prettify')}>
+          <Tooltip content={`${t('prettify')} (${HotKeys.prettify})`}>
             <EditorButton
               onClick={handlePrettify}
               disabled={!value}
@@ -46,16 +51,18 @@ const Request = ({ value, setValue, onSubmit, isVariablesOpen }: RequestProps) =
               alt="prettify"
             />
           </Tooltip>
-          <Tooltip content={t('run')}>
+          <Tooltip content={`${t('run')} (${HotKeys.runQuery})`}>
             <EditorButton onClick={onSubmit} disabled={!value} src={runIcon} alt="run" />
           </Tooltip>
         </div>
       </div>
       <Editor value={value} setValue={setValue} language={'graphql'} />
       {value && (
-        <p onClick={handleCopy} className={styles.request__copy} style={{ color: copyState.color }}>
-          {copyState.text}
-        </p>
+        <LinkButton
+          onClick={handleCopy}
+          text={`${t(copyState.text)} ${copyState.hotKey ? '(' + HotKeys.copyResponse + ')' : ''}`}
+          color={copyState.color}
+        />
       )}
     </div>
   );

@@ -1,6 +1,7 @@
 export enum HotKeys {
-  copyRequest = 'alt+c',
-  copyResponse = 'alt+r',
-  prettify = 'alt+p',
-  openDoc = 'alt+d',
+  copyRequest = 'Ctrl+Alt+C',
+  copyResponse = 'Ctrl+Alt+R',
+  prettify = 'Ctrl+Alt+P',
+  openDoc = 'Ctrl+Alt+D',
+  runQuery = 'Ctrl+Enter',
 }

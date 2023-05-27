@@ -10,4 +10,5 @@ export interface RequestProps {
 export type CopyState = {
   text: string;
   color?: string;
+  hotKey: boolean;
 };

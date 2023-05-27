@@ -6,17 +6,21 @@ import { CopyState, ResponseProps } from '@/components/Response/types';
 import { useState } from 'react';
 import { useHotkeys } from 'react-hotkeys-hook';
 import { HotKeys } from '@/enums/hotKeys';
+import LinkButton from '../Buttons/LinkButton/LinkButton';
 
 const Response = ({ responseValue, isLoading }: ResponseProps) => {
   const { t } = useTranslation();
-  const [copyState, setCopyState] = useState<CopyState>({ text: t('copy') });
+  const [copyState, setCopyState] = useState<CopyState>({
+    text: 'copy',
+    hotKey: true,
+  });
 
   const handleCopy = async () => {
     if (!responseValue) return;
     await navigator.clipboard.writeText(JSON.stringify(responseValue));
-    setCopyState({ text: t('copied'), color: 'grey' });
+    setCopyState({ text: 'copied', color: 'grey', hotKey: false });
     setTimeout(() => {
-      setCopyState({ text: t('copy') });
+      setCopyState({ text: 'copy', hotKey: true });
     }, 1000);
   };
 
@@ -32,13 +36,11 @@ const Response = ({ responseValue, isLoading }: ResponseProps) => {
         <Editor value={JSON.stringify(responseValue, null, 2)} language={'json'} readOnly={true} />
       )}
       {responseValue && (
-        <p
+        <LinkButton
           onClick={handleCopy}
-          className={styles.response__copy}
-          style={{ color: copyState.color }}
-        >
-          {copyState.text}
-        </p>
+          text={`${t(copyState.text)} ${copyState.hotKey ? '(' + HotKeys.copyResponse + ')' : ''}`}
+          color={copyState.color}
+        />
       )}
     </div>
   );
