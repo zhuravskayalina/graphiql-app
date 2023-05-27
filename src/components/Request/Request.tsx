@@ -7,8 +7,10 @@ import prettifyIcon from '../../assets/images/icons/prettify.svg';
 import prettify from '@/services/prettifyService';
 import EditorButton from '../Buttons/EditorButton/EditorButton';
 import styles from './Request.module.scss';
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import Tooltip from '../Tooltip/Tooltip';
+import { useHotkeys } from 'react-hotkeys-hook';
+import { HotKeys } from '@/enums/hotKeys';
 
 const Request = ({ value, setValue, onSubmit, isVariablesOpen }: RequestProps) => {
   const { t } = useTranslation();
@@ -28,12 +30,15 @@ const Request = ({ value, setValue, onSubmit, isVariablesOpen }: RequestProps) =
     }, 1000);
   };
 
+  useHotkeys(HotKeys.prettify, handlePrettify);
+  useHotkeys(HotKeys.copyRequest, handleCopy);
+
   return (
     <div className={clsx(styles.request, isVariablesOpen && styles.request__variablesOpen)}>
       <div className={styles.request__header}>
         <p className={styles.request__heading}>{t('operation')}</p>
         <div className={styles['request__button-container']}>
-          <Tooltip content={t('run')}>
+          <Tooltip content={t('prettify')}>
             <EditorButton
               onClick={handlePrettify}
               disabled={!value}
@@ -41,7 +46,7 @@ const Request = ({ value, setValue, onSubmit, isVariablesOpen }: RequestProps) =
               alt="prettify"
             />
           </Tooltip>
-          <Tooltip content={t('prettify')}>
+          <Tooltip content={t('run')}>
             <EditorButton onClick={onSubmit} disabled={!value} src={runIcon} alt="run" />
           </Tooltip>
         </div>

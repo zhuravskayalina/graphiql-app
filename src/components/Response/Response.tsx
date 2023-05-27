@@ -4,6 +4,8 @@ import styles from './Response.module.scss';
 import Loader from '@/components/Loader/Loader';
 import { CopyState, ResponseProps } from '@/components/Response/types';
 import { useState } from 'react';
+import { useHotkeys } from 'react-hotkeys-hook';
+import { HotKeys } from '@/enums/hotKeys';
 
 const Response = ({ responseValue, isLoading }: ResponseProps) => {
   const { t } = useTranslation();
@@ -17,6 +19,8 @@ const Response = ({ responseValue, isLoading }: ResponseProps) => {
       setCopyState({ text: t('copy') });
     }, 1000);
   };
+
+  useHotkeys(HotKeys.copyResponse, handleCopy);
 
   return (
     <div className={styles.response}>
