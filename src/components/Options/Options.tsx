@@ -6,6 +6,7 @@ import arrowDownIcon from '@/assets/images/icons/arrow-down.svg';
 import Image from 'next/image';
 import { clsx } from 'clsx';
 import styles from './Options.module.scss';
+import CmEditor from '../Editor/CM-Editor';
 
 const Options = ({
   variablesValue,
@@ -55,10 +56,12 @@ const Options = ({
       {isOpen && (
         <div className={styles.options__input}>
           <div className={clsx(styles.editor, title === 'headers' && styles.editor__hidden)}>
-            <Editor value={variablesValue} setValue={setVariablesValue} language={'json'} />
+            <CmEditor value={variablesValue} setValue={setVariablesValue} type="json"></CmEditor>
+            {/* <Editor value={variablesValue} setValue={setVariablesValue} language={'json'} /> */}
           </div>
           <div className={clsx(styles.editor, title === 'variables' && styles.editor__hidden)}>
-            <Editor value={headersValue} setValue={setHeadersValue} language={'json'} />
+            <CmEditor value={headersValue} setValue={setHeadersValue} type="json"></CmEditor>
+            {/* <Editor value={headersValue} setValue={setHeadersValue} language={'json'} /> */}
           </div>
         </div>
       )}

@@ -1,4 +1,3 @@
-// import { IntrospectionQuery } from '@/generatedTypes/IntrospectionQuery';
 import { Dispatch, SetStateAction } from 'react';
 import { IntrospectionQuery } from 'graphql';
 

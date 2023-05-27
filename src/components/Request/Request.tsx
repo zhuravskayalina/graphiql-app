@@ -1,6 +1,5 @@
 import { useTranslation } from 'next-i18next';
 import { clsx } from 'clsx';
-// import Editor from '../Editor/Editor';
 import { CopyState, RequestProps } from './types';
 import runIcon from '../../assets/images/icons/run.svg';
 import prettifyIcon from '../../assets/images/icons/prettify.svg';
@@ -14,7 +13,6 @@ import { HotKeys } from '@/enums/hotKeys';
 import LinkButton from '../Buttons/LinkButton/LinkButton';
 import CmEditor from '../Editor/CM-Editor';
 import { buildSchema, buildClientSchema } from 'graphql';
-import { graphql } from 'cm6-graphql';
 
 const Request = ({ value, setValue, onSubmit, isVariablesOpen, responseDoc }: RequestProps) => {
   const { t } = useTranslation();
@@ -65,13 +63,7 @@ const Request = ({ value, setValue, onSubmit, isVariablesOpen, responseDoc }: Re
           </Tooltip>
         </div>
       </div>
-      <CmEditor
-        value={value}
-        setValue={setValue}
-        schema={schema}
-        extenstions={graphql(schema)}
-      ></CmEditor>
-      {/* <Editor value={value} setValue={setValue} language={'graphql'} /> */}
+      <CmEditor value={value} setValue={setValue} schema={schema} type="graphql"></CmEditor>
       <div className={styles.request__copy}>
         {value && (
           <LinkButton
