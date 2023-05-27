@@ -42,7 +42,8 @@ const Header = () => {
     nookies.set(undefined, 'lang', language, { path: '/' });
   };
 
-  const handleOnClick = async () => {
+  const handleOnClick = async (e: Event) => {
+    e.preventDefault();
     const response = await logout();
     const { type, message } = await getNotificationType(response.message);
     sendNotification(type, t(message, { ns: 'firebaseMessages' }).toString());

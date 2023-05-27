@@ -30,5 +30,8 @@
   "reload": "Reload the page",
   "contact": "Contact us",
   "copy": "Copy",
-  "copied": "Copied!"
+  "copied": "Copied!",
+  "run": "Execute query",
+  "prettify": "Prettify query",
+  "docs": "Open documentation"
 }

@@ -8,6 +8,7 @@ import prettify from '@/services/prettifyService';
 import EditorButton from '../Buttons/EditorButton/EditorButton';
 import styles from './Request.module.scss';
 import { useState } from 'react';
+import Tooltip from '../Tooltip/Tooltip';
 
 const Request = ({ value, setValue, onSubmit, isVariablesOpen }: RequestProps) => {
   const { t } = useTranslation();
@@ -32,13 +33,17 @@ const Request = ({ value, setValue, onSubmit, isVariablesOpen }: RequestProps) =
       <div className={styles.request__header}>
         <p className={styles.request__heading}>{t('operation')}</p>
         <div className={styles['request__button-container']}>
-          <EditorButton
-            onClick={handlePrettify}
-            disabled={!value}
-            src={prettifyIcon}
-            alt="prettify"
-          />
-          <EditorButton onClick={onSubmit} disabled={!value} src={runIcon} alt="run" />
+          <Tooltip content={t('run')}>
+            <EditorButton
+              onClick={handlePrettify}
+              disabled={!value}
+              src={prettifyIcon}
+              alt="prettify"
+            />
+          </Tooltip>
+          <Tooltip content={t('prettify')}>
+            <EditorButton onClick={onSubmit} disabled={!value} src={runIcon} alt="run" />
+          </Tooltip>
         </div>
       </div>
       <Editor value={value} setValue={setValue} language={'graphql'} />
