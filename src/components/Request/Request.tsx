@@ -50,7 +50,7 @@ const Request = ({ value, setValue, onSubmit, isVariablesOpen, responseDoc }: Re
       <div className={styles.request__header}>
         <p className={styles.request__heading}>{t('operation')}</p>
         <div className={styles['request__button-container']}>
-          <Tooltip content={`${t('prettify')} (${HotKeys.prettify})`}>
+          <Tooltip content={`${t('prettify')} (${HotKeys.prettify})`} leftPosition="-90%">
             <EditorButton
               onClick={handlePrettify}
               disabled={!value}
@@ -58,12 +58,17 @@ const Request = ({ value, setValue, onSubmit, isVariablesOpen, responseDoc }: Re
               alt="prettify"
             />
           </Tooltip>
-          <Tooltip content={`${t('run')} (${HotKeys.runQuery})`}>
+          <Tooltip content={`${t('run')} (${HotKeys.runQuery})`} leftPosition="-90%">
             <EditorButton onClick={onSubmit} disabled={!value} src={runIcon} alt="run" />
           </Tooltip>
         </div>
       </div>
-      <CmEditor value={value} setValue={setValue} schema={schema} type="graphql"></CmEditor>
+      <CmEditor
+        editorValue={value}
+        setEditorValue={setValue}
+        schema={schema}
+        type="graphql"
+      ></CmEditor>
       <div className={styles.request__copy}>
         {value && (
           <LinkButton

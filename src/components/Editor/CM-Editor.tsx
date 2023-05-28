@@ -1,23 +1,14 @@
-import { Dispatch, SetStateAction, useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { useCodeMirror } from '@uiw/react-codemirror';
-import { GraphQLSchema } from 'graphql';
 import { graphql, updateSchema } from 'cm6-graphql';
 import styles from './Editor.module.scss';
 import './Editor.module.scss';
 import { json, jsonParseLinter } from '@codemirror/lang-json';
 import { linter } from '@codemirror/lint';
-
-type props = {
-  setValue?: Dispatch<SetStateAction<string | undefined>>;
-  value: string | undefined;
-  type: 'graphql' | 'json';
-  readonly?: boolean;
-  schema?: GraphQLSchema;
-};
-
 import { EditorView } from '@codemirror/view';
+import { EditorProps } from './types';
 
-const myTheme = EditorView.theme(
+const editorTheme = EditorView.theme(
   {
     '.cm-gutters': {
       backgroundColor: 'white',
@@ -29,20 +20,26 @@ const myTheme = EditorView.theme(
   { dark: false }
 );
 
-export default function CmEditor({ schema, setValue, value: value1, type, readonly }: props) {
+export default function CmEditor({
+  schema,
+  setEditorValue,
+  editorValue,
+  type,
+  readonly,
+}: EditorProps) {
   const extensions = type === 'graphql' ? [graphql(schema)] : [json(), linter(jsonParseLinter())];
   const editor = useRef<HTMLDivElement>(null);
 
   const { setContainer, view } = useCodeMirror({
     container: editor.current,
     extensions,
-    theme: myTheme,
-    value: value1 || '',
+    theme: editorTheme,
+    value: editorValue || '',
     height: '100%',
     width: '100%',
     readOnly: readonly,
     onChange(value) {
-      if (setValue) setValue(value);
+      if (setEditorValue) setEditorValue(value);
     },
   });
 

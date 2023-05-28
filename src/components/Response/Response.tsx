@@ -37,7 +37,7 @@ const Response = ({ responseValue, isLoading, statusCode }: ResponseProps) => {
       {isLoading && <Loader />}
       {responseValue && (
         <CmEditor
-          value={JSON.stringify(responseValue, null, 2)}
+          editorValue={JSON.stringify(responseValue, null, 2)}
           type="json"
           readonly={true}
         ></CmEditor>

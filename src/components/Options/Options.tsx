@@ -55,10 +55,18 @@ const Options = ({
       {isOpen && (
         <div className={styles.options__input}>
           <div className={clsx(styles.editor, title === 'headers' && styles.editor__hidden)}>
-            <CmEditor value={variablesValue} setValue={setVariablesValue} type="json"></CmEditor>
+            <CmEditor
+              editorValue={variablesValue}
+              setEditorValue={setVariablesValue}
+              type="json"
+            ></CmEditor>
           </div>
           <div className={clsx(styles.editor, title === 'variables' && styles.editor__hidden)}>
-            <CmEditor value={headersValue} setValue={setHeadersValue} type="json"></CmEditor>
+            <CmEditor
+              editorValue={headersValue}
+              setEditorValue={setHeadersValue}
+              type="json"
+            ></CmEditor>
           </div>
         </div>
       )}
