@@ -16,6 +16,18 @@ const editorTheme = EditorView.theme(
       fontSize: '15px',
       border: 'none',
     },
+    '.cm-scroller::-webkit-scrollbar': {
+      width: '14px',
+    },
+    '.cm-scroller::-webkit-scrollbar-track': {
+      backgroundColor: 'transparent',
+    },
+    '.cm-scroller::-webkit-scrollbar-thumb': {
+      backgroundColor: '#64646466',
+    },
+    '.cm-scroller::-webkit-scrollbar-thumb:hover': {
+      backgroundColor: '#646464b3',
+    },
   },
   { dark: false }
 );
