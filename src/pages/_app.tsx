@@ -22,11 +22,11 @@ const App = ({ Component, pageProps }: AppProps) => {
 
 App.getInitialProps = async (appContext: AppContext) => {
   console.log(appContext);
-  // const Location = '/_error';
-  // if (appContext.ctx.res?.statusCode === 404) {
-  //   appContext.ctx.res.writeHead(302, { Location });
-  //   appContext.ctx.res.end();
-  // }
+  const Location = '/not-found';
+  if (appContext.ctx.res?.statusCode === 404) {
+    appContext.ctx.res.writeHead(302, { Location });
+    appContext.ctx.res.end();
+  }
   return {};
 };
 

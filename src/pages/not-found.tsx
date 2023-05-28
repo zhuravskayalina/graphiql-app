@@ -2,9 +2,9 @@ import styles from '@/styles/NotFound.module.scss';
 import { useTranslation } from 'next-i18next';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-// import { getServerSideProps } from '@/utils/serverSidePropsUtil';
+import { getServerSideProps } from '@/utils/serverSidePropsUtil';
 
-// export { getServerSideProps };
+export { getServerSideProps };
 
 const Custom404 = () => {
   const { t } = useTranslation();
