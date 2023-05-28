@@ -4,7 +4,7 @@ import styles from './Tooltip.module.scss';
 import { useTablet } from '@/hooks/useTablet';
 
 const Tooltip = ({ content, children, leftPosition }: PropsWithChildren<TooltipProps>) => {
-  const [isTablet] = useTablet();
+  const [isTablet] = useTablet(1100);
 
   return (
     <div className={styles.tooltip}>

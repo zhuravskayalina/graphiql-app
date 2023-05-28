@@ -3,6 +3,7 @@ import { useCodeMirror } from '@uiw/react-codemirror';
 import { GraphQLSchema } from 'graphql';
 import { graphql, updateSchema } from 'cm6-graphql';
 import styles from './Editor.module.scss';
+import './Editor.module.scss';
 import { json, jsonParseLinter } from '@codemirror/lang-json';
 import { linter } from '@codemirror/lint';
 
@@ -14,12 +15,28 @@ type props = {
   schema?: GraphQLSchema;
 };
 
+import { EditorView } from '@codemirror/view';
+
+const myTheme = EditorView.theme(
+  {
+    '.cm-gutters': {
+      backgroundColor: 'white',
+      color: 'black',
+      fontSize: '15px',
+      border: 'none',
+    },
+  },
+  { dark: false }
+);
+
 export default function CmEditor({ schema, setValue, value: value1, type, readonly }: props) {
   const extensions = type === 'graphql' ? [graphql(schema)] : [json(), linter(jsonParseLinter())];
   const editor = useRef<HTMLDivElement>(null);
+
   const { setContainer, view } = useCodeMirror({
     container: editor.current,
     extensions,
+    theme: myTheme,
     value: value1 || '',
     height: '100%',
     width: '100%',

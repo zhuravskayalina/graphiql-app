@@ -8,6 +8,7 @@
   border-radius: 10px;
   display: flex;
   overflow: auto;
+  max-width: 850px;
 }
 .monaco-editor .parameter-hints-widget {
   border: 0px;
@@ -28,15 +29,3 @@
   border: none;
   overflow-y: scroll;
 }
-
-.ͼ1.cm-focused {
-  outline: none;
-}
-
-.cm-gutterElement {
-  background-color: white;
-}
-
-.cm-scroller {
-  overflow: auto;
- }

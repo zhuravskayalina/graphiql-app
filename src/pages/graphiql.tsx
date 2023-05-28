@@ -33,7 +33,7 @@ const Graphiql = () => {
   const router = useRouter();
   const [isOpenDoc, setIsOpenDoc] = useState(false);
   const [user, loading] = useAuthState(auth);
-  const [tabletScreen] = useTablet();
+  const [tabletScreen] = useTablet(1100);
   const [isVariablesOpen, setIsVariablesOpen] = useState(false);
   const [responseDoc, setResponseDoc] = useState<ResponseType | null>(null);
   const { t } = useTranslation();
