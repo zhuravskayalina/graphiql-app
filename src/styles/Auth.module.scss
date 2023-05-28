@@ -13,6 +13,7 @@
     flex: 1 1 auto;
     @include elements-style.flex-column;
     text-align: center;
+    margin: 20px;
   }
 
   &__logo {

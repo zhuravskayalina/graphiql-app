@@ -13,5 +13,6 @@ export const getQuery = async (
     body: JSON.stringify({ query: value, variables }),
   });
   const { data, errors }: Response = await response.json();
-  return { data, errors };
+  const statusCode = response.status;
+  return { data, errors, statusCode };
 };

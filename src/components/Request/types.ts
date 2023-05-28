@@ -6,3 +6,9 @@ export interface RequestProps {
   onSubmit: () => void;
   isVariablesOpen: boolean;
 }
+
+export type CopyState = {
+  text: string;
+  color?: string;
+  hotKey: boolean;
+};
