@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
 
-export function useTablet() {
-  const isTablet = useMediaQuery({ maxWidth: 1100 });
+export function useTablet(width: number) {
+  const isTablet = useMediaQuery({ maxWidth: width });
   const [tabletScreen, setTabletScreen] = useState(false);
 
   useEffect(() => {

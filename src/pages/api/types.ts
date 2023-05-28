@@ -1,5 +1,4 @@
 import { IntrospectionQuery } from '@/generatedTypes/IntrospectionQuery';
-
 export interface Error {
   extensions: Record<string, string>;
   locations: Array<{ line: string; column: string }>;
@@ -9,7 +8,6 @@ export interface Error {
 export interface Response {
   data: IntrospectionQuery;
   errors: Array<Error>;
-  statusCode: number | null;
 }
 
 export interface QueryProps {

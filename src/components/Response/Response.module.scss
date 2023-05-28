@@ -5,6 +5,8 @@
   @include elements-style.flex-column;
   flex-grow: 1;
   padding: 15px 20px;
+  height: 750px;
+  overflow: auto;
 
   &__header {
     display: flex;

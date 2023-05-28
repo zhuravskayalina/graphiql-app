@@ -6,7 +6,7 @@ import nookies from 'nookies';
 import HeaderButton from '@/components/Header/HeaderButton/HeaderButton';
 import { paths } from '@/enums/routerPaths';
 import { auth, logout } from '@/services/authService';
-import { ChangeEvent, useEffect, useState } from 'react';
+import { ChangeEvent, MouseEventHandler, useEffect, useState } from 'react';
 import { useTranslation } from 'next-i18next';
 import getNotificationType, { sendNotification } from '@/services/firebaseNotificationService';
 import LanguageToggle from './LanguageToggle/LanguageToggle';
@@ -42,8 +42,8 @@ const Header = () => {
     nookies.set(undefined, 'lang', language, { path: '/' });
   };
 
-  const handleOnClick = async (e: Event) => {
-    e.preventDefault();
+  const handleOnClick: MouseEventHandler = async (e) => {
+    if (e) e.preventDefault();
     const response = await logout();
     const { type, message } = await getNotificationType(response.message);
     sendNotification(type, t(message, { ns: 'firebaseMessages' }).toString());

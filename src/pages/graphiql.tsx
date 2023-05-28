@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 import { clsx } from 'clsx';
 import { useTranslation } from 'next-i18next';
 import Image from 'next/image';
+import { IntrospectionQuery } from 'graphql';
 import docIconActive from '@/assets/images/icons/book.svg';
 import docIcon from '@/assets/images/icons/book-disable.svg';
 import closeIcon from '@/assets/images/icons/left-arrow.svg';
@@ -33,7 +34,7 @@ const Graphiql = () => {
   const router = useRouter();
   const [isOpenDoc, setIsOpenDoc] = useState(false);
   const [user, loading] = useAuthState(auth);
-  const [tabletScreen] = useTablet();
+  const [tabletScreen] = useTablet(1100);
   const [isVariablesOpen, setIsVariablesOpen] = useState(false);
   const [responseDoc, setResponseDoc] = useState<ResponseType | null>(null);
   const { t } = useTranslation();
@@ -118,6 +119,7 @@ const Graphiql = () => {
           setValue={setRequestValue}
           onSubmit={onSubmit}
           isVariablesOpen={isVariablesOpen}
+          responseDoc={responseDoc?.data as unknown as IntrospectionQuery}
         />
         <Options
           variablesValue={variablesValue}

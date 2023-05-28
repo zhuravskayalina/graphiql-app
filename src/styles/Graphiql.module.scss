@@ -35,6 +35,7 @@
     margin-top: 30px;
     margin-bottom: 40px;
     grid-area: request;
+    overflow: auto;
 
     @media screen and (max-width: 800px) {
       margin-bottom: 0;
@@ -48,6 +49,7 @@
     grid-area: response;
     background-color: colors.$white;
     min-height: 300px;
+    overflow: auto;
 
     @media screen and (max-width: 800px) {
       margin-top: 0;
