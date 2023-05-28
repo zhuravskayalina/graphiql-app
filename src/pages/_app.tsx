@@ -1,4 +1,4 @@
-import type { AppContext, AppProps } from 'next/app';
+import type { AppProps } from 'next/app';
 import { ErrorBoundary } from 'react-error-boundary';
 import { ToastContainer } from 'react-toastify';
 import { appWithTranslation } from 'next-i18next';
@@ -18,16 +18,6 @@ const App = ({ Component, pageProps }: AppProps) => {
       </AuthProvider>
     </ErrorBoundary>
   );
-};
-
-App.getInitialProps = async (appContext: AppContext) => {
-  console.log(appContext);
-  const Location = '/not-found';
-  if (appContext.ctx.res?.statusCode === 404) {
-    appContext.ctx.res.writeHead(302, { Location });
-    appContext.ctx.res.end();
-  }
-  return {};
 };
 
 export default appWithTranslation(App);
