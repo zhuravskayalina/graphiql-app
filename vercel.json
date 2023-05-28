@@ -1,3 +1,8 @@
 {
-  "rewrites": [{ "source": "/(.*)", "destination": "/api/not-found.js" }]
+  "redirects": [
+    { "source": "/", "destination": "/" },
+    { "source": "/graphiql", "destination": "/graphiql" },
+    { "source": "/auth", "destination": "/auth" },
+    { "source": "/*", "destination": "/not-found" }
+  ]
 }
