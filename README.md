@@ -5,7 +5,7 @@
 - NextJS
 - React
 - Firebase
-- Monaco Editor
+- Codemirror-graphql
 - Typescript
 - Sass
 - Eslint, Prettier
