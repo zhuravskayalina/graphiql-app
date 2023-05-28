@@ -20,7 +20,7 @@ const Home = () => {
   const { locale } = useRouter();
   const { t } = useTranslation();
   const [user] = useAuthState(auth);
-  const [isTablet] = useTablet();
+  const [isTablet] = useTablet(1100);
 
   return (
     <>

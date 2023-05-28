@@ -1,5 +1,4 @@
-import { IntrospectionQuery } from 'graphql';
-
+import { IntrospectionQuery } from '@/generatedTypes/IntrospectionQuery';
 export interface Error {
   extensions: Record<string, string>;
   locations: Array<{ line: string; column: string }>;

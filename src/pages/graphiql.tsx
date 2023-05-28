@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 import { clsx } from 'clsx';
 import { useTranslation } from 'next-i18next';
 import Image from 'next/image';
+import { IntrospectionQuery } from 'graphql';
 import docIconActive from '@/assets/images/icons/book.svg';
 import docIcon from '@/assets/images/icons/book-disable.svg';
 import closeIcon from '@/assets/images/icons/left-arrow.svg';
@@ -118,7 +119,7 @@ const Graphiql = () => {
           setValue={setRequestValue}
           onSubmit={onSubmit}
           isVariablesOpen={isVariablesOpen}
-          responseDoc={responseDoc?.data}
+          responseDoc={responseDoc?.data as unknown as IntrospectionQuery}
         />
         <Options
           variablesValue={variablesValue}
