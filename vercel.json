@@ -1,8 +1,14 @@
 {
   "redirects": [
     { "source": "/", "destination": "/" },
+    { "source": "/ru", "destination": "/ru" },
+    { "source": "/en", "destination": "/en" },
+    { "source": "/en/graphiql", "destination": "/en/graphiql" },
+    { "source": "/ru/graphiql", "destination": "/ru/graphiql" },
     { "source": "/graphiql", "destination": "/graphiql" },
     { "source": "/auth", "destination": "/auth" },
+    { "source": "/ru/auth", "destination": "/ru/auth" },
+    { "source": "/en/auth", "destination": "/en/auth" },
     { "source": "/*", "destination": "/not-found" }
   ]
 }
