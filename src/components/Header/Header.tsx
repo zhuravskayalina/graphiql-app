@@ -42,8 +42,15 @@ const Header = () => {
     nookies.set(undefined, 'lang', language, { path: '/' });
   };
 
-  const handleOnClick = async (e: MouseEvent) => {
-    if (e) e.preventDefault();
+  // const handleOnClick = async (e: MouseEvent) => {
+  //   if (e) e.preventDefault();
+  //   const response = await logout();
+  //   const { type, message } = await getNotificationType(response.message);
+  //   sendNotification(type, t(message, { ns: 'firebaseMessages' }).toString());
+  // };
+
+  const handleOnClick = async () => {
+    // if (e) e.preventDefault();
     const response = await logout();
     const { type, message } = await getNotificationType(response.message);
     sendNotification(type, t(message, { ns: 'firebaseMessages' }).toString());
