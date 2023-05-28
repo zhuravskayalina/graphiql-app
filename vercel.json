@@ -9,6 +9,6 @@
     { "source": "/auth", "destination": "/auth" },
     { "source": "/ru/auth", "destination": "/ru/auth" },
     { "source": "/en/auth", "destination": "/en/auth" },
-    { "source": "/*", "destination": "/not-found" }
+    { "source": "/:path", "destination": "/not-found" }
   ]
 }
