@@ -14,11 +14,11 @@ deeper insights into the 'Rick and Morty' universe and build robust applications
 ### Features:
 
 * authorization
-* localozation
+* localization
 * semantic layout
 * private routes
 * error boundary
-* cistom 404 page
+* custom 404 page
 * IDE integration
 
 ## Technologies
