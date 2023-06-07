@@ -1,5 +1,7 @@
 # GraphiQL Playground <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/graphql/graphql-plain.svg" alt="graphql"  width="25" height="25"/>
 
+[CLICK TO VISIT DEPLOY](https://github.com/zhuravskayalina/graphiql-app/pull/29#:~:text=Deploy%3A-,GraphiQl,-Link%20for%20cross)
+
 The 'Rick and Morty' GraphQL Playground is a development tool that provides a streamlined environment for exploring and
 interacting with the 'Rick and Morty' API using GraphQL.
 
