@@ -4,10 +4,25 @@
 .response {
   @include elements-style.flex-column;
   flex-grow: 1;
+  padding: 15px 20px;
+  height: 750px;
+  overflow: auto;
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
 
   &__heading {
+    font-weight: 600;
     font-size: 16px;
-    padding: 15px 20px 0;
+  }
+
+  &__status {
+    font-size: 14px;
+    padding-right: 15px;
   }
 
   @media screen and (max-width: 700px) {

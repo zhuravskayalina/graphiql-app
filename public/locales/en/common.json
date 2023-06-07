@@ -28,5 +28,11 @@
   "wrong": "Sorry, something went wrong",
   "error:": "Error",
   "reload": "Reload the page",
-  "contact": "Contact us"
+  "contact": "Contact us",
+  "copy": "Copy",
+  "copied": "Copied!",
+  "run": "Execute query",
+  "prettify": "Prettify query",
+  "docs": "Open documentation",
+  "status": "STATUS"
 }
