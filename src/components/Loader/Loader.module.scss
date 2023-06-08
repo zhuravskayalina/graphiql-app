@@ -1,0 +1,7 @@
+@use '@/styles/mixins/elements-style.scss';
+
+.loader {
+  @include elements-style.center-content;
+  width: 100%;
+  height: 100%;
+}

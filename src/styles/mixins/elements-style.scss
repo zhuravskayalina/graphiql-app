@@ -1,0 +1,49 @@
+@mixin center-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+@mixin link-style-reset {
+  text-decoration: none;
+  color: black;
+  display: block;
+}
+
+@mixin button-style-reset {
+  border: 0;
+  padding: 0;
+  background: none repeat scroll 0 0 transparent;
+}
+
+@mixin input-icon($url) {
+  background-image: url($url);
+  background-repeat: no-repeat;
+  background-position: left 10px center;
+  background-size: 30px;
+}
+
+@mixin password-visibility($url) {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  background-image: url($url);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+@mixin auth-input {
+  width: 100%;
+  padding: 10px;
+  font-size: 18px;
+  border-radius: 4px;
+}

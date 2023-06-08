@@ -1,0 +1,27 @@
+@use '@/styles/variables/colors';
+
+.tooltip {
+  position: relative;
+}
+
+.tooltip__text {
+  display: none;
+}
+
+button:hover + .tooltip__text {
+  display: block;
+  position: absolute;
+  border-radius: 5px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 10px;
+  color: colors.$black;
+  background: colors.$white;
+  font-size: 14px;
+  font-family: sans-serif;
+  line-height: 1;
+  z-index: 100;
+  white-space: nowrap;
+  bottom: -38px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}

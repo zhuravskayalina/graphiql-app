@@ -1,0 +1,65 @@
+@use '@/styles/variables/colors';
+@use '@/styles/mixins/elements-style';
+
+.options {
+  flex: 1 1 auto;
+  @include elements-style.flex-column;
+  margin-top: 20px;
+  border-top: 1px solid colors.$half-light-gray;
+  padding: 10px 20px;
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__title {
+    display: flex;
+  }
+
+  &__heading {
+    margin-right: 20px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+
+  &__input {
+    height: 200px;
+    overflow: auto;
+    flex-grow: 1;
+
+    @media screen and (max-width: 800px) {
+      @media screen and (max-width: 800px) {
+        min-height: 200px;
+      }
+    }
+  }
+}
+
+.notActive {
+  color: colors.$blue-gray;
+}
+
+.editor {
+  height: 100%;
+
+  &__hidden {
+    display: none;
+  }
+}
+
+.openButton {
+  @include elements-style.button-style-reset;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.openIcon {
+  transition: 0.7s;
+
+  &_hide {
+    transform: rotate(180deg);
+  }
+}

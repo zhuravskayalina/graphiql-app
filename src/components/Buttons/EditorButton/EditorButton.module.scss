@@ -1,0 +1,28 @@
+@use '@/styles/variables/colors';
+
+.editorBtn {
+  padding: 4px 8px;
+  color: colors.$white;
+  font-weight: 500;
+  font-size: 14px;
+  border-radius: 4px;
+  display: flex;
+  gap: 8px;
+  transition: 0.2s;
+
+  &_active {
+    background-color: colors.$blue;
+    border: 2px solid colors.$dark-blue;
+
+    &:hover {
+      cursor: pointer;
+      transform: scale(1.05);
+      background-color: colors.$dark-blue;
+    }
+  }
+
+  &_disable {
+    background-color: colors.$light-gray;
+    border: 2px solid colors.$blue-gray;
+  }
+}

@@ -1,0 +1,166 @@
+@use '@/styles/variables/colors';
+@use '@/styles/mixins/elements-style.scss';
+@use '@/styles/variables/z-index';
+
+.main {
+  display: grid;
+  gap: 20px;
+  grid-template-areas: 'doc request response';
+  grid-template-columns: auto 1fr 1fr;
+  justify-content: space-between;
+  color: colors.$gray-blue;
+  background-color: colors.$super-light-gray;
+  position: relative;
+  height: 100%;
+  padding: 50px 10px 0;
+
+    &__activeDoc {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+  @media screen and (max-width: 800px) {
+    padding-right: 15px;
+  }
+
+  &__documentation {
+    grid-area: doc;
+    position: relative;
+    margin-bottom: 40px;
+    min-width: 30px;
+  }
+
+  &__request {
+    @include elements-style.flex-column;
+    background-color: colors.$white;
+    margin-top: 30px;
+    margin-bottom: 40px;
+    grid-area: request;
+    overflow: auto;
+
+    @media screen and (max-width: 800px) {
+      margin-bottom: 0;
+    }
+  }
+
+  &__response {
+    @include elements-style.flex-column;
+    margin-top: 30px;
+    margin-bottom: 40px;
+    grid-area: response;
+    background-color: colors.$white;
+    min-height: 300px;
+    overflow: auto;
+
+    @media screen and (max-width: 800px) {
+      margin-top: 0;
+    }
+  }
+
+  &__openDocBtn {
+    @include elements-style.button-style-reset;
+    padding: 10px 0 0 10px;
+    transition: 0.3s;
+
+    &_hidden {
+      display: none;
+    }
+
+    &_active {
+      &:hover {
+        cursor: pointer;
+        transform: scale(1.1);
+      }
+    }
+  }
+}
+
+.section:not(.main__request) {
+  margin-top: 30px;
+}
+
+.section {
+  border-radius: 10px;
+
+  &.main__response {
+    @media screen and (max-width: 800px) {
+      margin-top: 0;
+    }
+  }
+}
+
+@media screen and (max-width: 1100px) {
+  .main {
+    grid-template-columns: auto 1fr 1fr;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .main {
+    grid-template-columns: auto 1fr;
+    grid-template-areas:
+      'doc request'
+      'doc response';
+  }
+}
+
+.documentation {
+  padding: 10px;
+  height: 100%;
+  background-color: colors.$white;
+  position: absolute;
+  border-radius: 10px;
+  width: 100%;
+
+  &_close {
+    background-color: transparent;
+  }
+
+  &_tablet {
+    padding: 15px;
+    transition: 0.5s;
+    width: 60vw;
+    height: 100%;
+    top: 0;
+    left: -65vw;
+    z-index: z-index.$moving-documentation;
+    border-top-right-radius: 20px;
+    overflow: scroll;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    @media screen and (max-width: 700px) {
+      width: 96vw;
+      left: -105vw;
+    }
+  }
+
+  &_tabletOpen {
+    left: 0;
+  }
+}
+
+.close {
+  position: absolute;
+  top: 13px;
+  right: 13px;
+  @include elements-style.button-style-reset;
+  transition: 0.5s;
+
+  &:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+  }
+}
+
+.background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.17);
+  backdrop-filter: blur(5px);
+  z-index: z-index.$doc-background;
+}

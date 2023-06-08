@@ -1,0 +1,13 @@
+@use '@/styles/variables/colors';
+
+.type {
+  color: colors.$dark-blue;
+  cursor: pointer;
+  transition: 0.3s;
+  border-bottom: 1.5px solid transparent;
+  font-weight: 500;
+
+  &:hover {
+    border-bottom: 1.5px solid colors.$purple;
+  }
+}

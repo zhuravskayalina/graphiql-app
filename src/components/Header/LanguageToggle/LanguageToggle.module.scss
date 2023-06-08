@@ -1,0 +1,76 @@
+@use '@/styles/variables/colors';
+
+.switcher {
+  cursor: pointer;
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 30px;
+  transition: transform 0.17s cubic-bezier(0.26, 0.48, 0.08, 0.9);
+
+  input {
+    display: none;
+  }
+
+  &__background {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: colors.$white;
+    border-radius: 30px;
+    transition: all 0.17s cubic-bezier(0.26, 0.48, 0.08, 0.9);
+
+    &:before {
+      position: absolute;
+      content: "";
+      height: 30px;
+      width: 30px;
+      left: 0px;
+      bottom: 0px;
+      background-color: colors.$shadow-blue;
+      border-radius: 50%;
+      transition: 0.4s;
+    }
+
+    &:hover {
+      outline: 4px solid colors.$light-shadow-blue;
+    }
+  }
+
+  .switcher__option1,
+  .switcher__option2 {
+    position: absolute;
+    font-size: 12px;
+    top: 25%;
+    user-select: none;
+  }
+
+  .switcher__option1 {
+    left: 10%;
+    color: white;
+  }
+
+  .switcher__option2 {
+    right: 10%;
+    color: colors.$dark-blue;
+  }
+}
+
+input:checked + .switcher__background {
+  background-color: white;
+
+    .switcher__option1 {
+    color: colors.$dark-blue;
+  }
+
+    .switcher__option2 {
+    color: white;
+  }
+}
+
+input:checked + .switcher__background:before {
+  transform: translateX(30px);
+}

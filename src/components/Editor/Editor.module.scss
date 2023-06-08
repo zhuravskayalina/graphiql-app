@@ -1,0 +1,31 @@
+@use '@/styles/variables/colors';
+
+.editor {
+  flex-grow: 1;
+  padding: 15px 0;
+  height: 100%;
+  background-color: colors.$white;
+  border-radius: 10px;
+  display: flex;
+  overflow: auto;
+  max-width: 850px;
+}
+.monaco-editor .parameter-hints-widget {
+  border: 0px;
+}
+.monaco-editor .parameter-hints-widget .signature {
+  padding: 0px;
+}
+.monaco-editor .suggest-widget {
+  border: 0px;
+}
+.monaco-editor.vs-dark .suggest-widget {
+  border: 0px;
+}
+.monaco-editor .rename-box {
+  top: 0;
+}
+.cm-editor {
+  border: none;
+  overflow-y: scroll;
+}
